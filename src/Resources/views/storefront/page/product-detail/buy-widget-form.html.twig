@@ -1,6 +1,73 @@
 {% sw_extends '@Storefront/storefront/page/product-detail/buy-widget-form.html.twig' %}
 
 {% block page_product_detail_buy_container %}
+
+    {% set services = getServices() %}
+    {% set maxAdults = 0 %}
+    {% for property in product.properties.elements %}
+        {% if property.groupId == "38e8d480b24d4bd88a4aed3bb9ed6242" %}
+            {% set maxAdults = property.name %}
+        {% endif %}
+    {% endfor %}
+
+    <div>
+        <span>Start Date</span>
+        <input type="date"
+                class="form-control"  
+                name="lineItems[{{ product.id }}][startDate]" 
+                value="{{ 'now'|date('Y-m-d') }}"/>
+
+        <br/>
+
+        <span>End Date</span>
+        <input type="date"
+                class="form-control"
+                name="lineItems[{{ product.id }}][endDate]"
+                value="{{ 'now'|date_modify('+1 day')|date('Y-m-d') }}"/>
+
+        <br/>
+
+        <div style="display: flex; flex-direction: row;">
+            <div style="margin-right: 10px; width: 50%;">
+                <span>Adults</span>
+                <select class="form-control"
+                        name="lineItems[{{ product.id }}][adults]"
+                        value="1">
+                    {% for i in range(1, maxAdults) %}
+                        <option value="{{ i }}">{{ i }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div style="width: 50%;">
+                <span>Childrens</span>
+                <input type="number"
+                        class="form-control"
+                        name="lineItems[{{ product.id }}][childrens]"
+                        value="0"/>
+            </div>
+        </div>
+
+        <br/>
+
+        <h3>Services</h3>
+
+        <div style="width: calc(100% - 10px); display: grid; grid-template-columns: 50% 50%; grid-gap: 10px;">
+            {% for service in services %}
+                <div style="width: 100%; display: flex; flex-direction: row; 
+                            align-items: center; justify-content: space-between; 
+                            padding: 10px; border: 1px solid #e6e6e6;">
+                    {% set price = service.price.elements|first %}
+                    <div>
+                        <span>{{ service.name }}</span>
+                        <span style="font-weight: bold; color: #d64405;"> +{{ price.gross|currency }}</span>
+                    </div>
+                    <input type="checkbox"
+                            name="lineItems[{{ product.id }}][{{ service.id }}]"/>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
     {% if buyable %}
         <div class="form-row buy-widget-container">
             {% block page_product_detail_buy_quantity_container %}
@@ -36,17 +103,9 @@
                 </div>
                 <div class="col-4 product-detail-quantity-select-box">
                     {% block page_product_detail_buy_quantity %}
-                        {% set quantityOptions = {
-                            min: product.minPurchase,
-                            max: product.calculatedMaxPurchase,
-                            step: product.purchaseSteps,
-                            name: 'lineItems[' ~ product.id ~ '][quantity]'
-                        } %}
-
-                        <div class="quantity"
-                            data-quantity-input="true"
-                            data-quantity-input-options="{{ quantityOptions|json_encode }}">
-                        </div>
+                        <input name="lineItems[{{ product.id }}][quantity]"
+                                type="hidden"
+                                class="custom-select product-detail-quantity-select" value="1"/>
                     {% endblock %}
                 </div>
             {% endblock %}
@@ -69,7 +128,7 @@
             {% block page_product_detail_buy_product_buy_info %}
                 <input type="hidden"
                         name="lineItems[{{ product.id }}][id]"
-                        value="{{ product.id }}">
+                        value="{{ product.id }}{{ random() }}">
                 <input type="hidden"
                         name="lineItems[{{ product.id }}][type]"
                         value="product">
@@ -104,77 +163,4 @@
             {% endblock %}
         </div>
     {% endif %}
-
-    {% if buyable and page.extensions.SwagAmazonPayButton is not null %}
-        {% block page_product_detail_buy_container_swag_amazon_pay_button %}
-            <div id="swag-amazon-pay-product-detail-wrapper"
-                 class="form-row mt-2 justify-content-end"
-                 data-amazon-pay-button-product-detail="true"
-                 data-amazon-pay-button-product-detail-options='{
-                    "addLineItemUrl": "{{ page.extensions.SwagAmazonPayButton.addLineItemUrl }}",
-                    "addLineItemToken": "{{ sw_csrf('frontend.checkout.line-item.add', {"mode": "token"}) }}",
-                    "clearCartToken": "{{ sw_csrf('frontend.swag.amazon.pay.clear.cart', {"mode": "token"}) }}",
-                    "clearCartUrl": "{{ page.extensions.SwagAmazonPayButton.clearCartUrl }}"
-                 }'>
-
-                <div class="col-12">
-                    {% sw_include '@Storefront/storefront/component/swag-amazon-pay/amazon-pay-button.html.twig' with {
-                        'identifier': 'product-detail'
-                    } %}
-                </div>
-            </div>
-        {% endblock %}
-    {% endif %}
-
-    {% block page_product_detail_buy_container_apple_direct %}
-        {# this is for Shopware < 6.4 #}
-        {% set buyableLegacy = (not page.product.isCloseout or (page.product.availableStock >= page.product.minPurchase)) and page.product.childCount <= 0 %}
-        {# this is for Shopware >= 6.4 #}
-        {% set buyable = product.available and product.childCount <= 0 and product.calculatedMaxPurchase > 0 %}
-
-        {% set productPrice = 0 %}
-
-        {% if product.calculatedPrices|length == 1 %}
-            {% set productPrice = product.calculatedPrices.first.unitPrice %}
-        {% else %}
-            {% set productPrice = product.calculatedPrice.unitPrice %}
-
-            {% if listPrice.percentage > 0 %}
-                {% set productPrice = listPrice.price %}
-            {% endif %}
-        {% endif %}
-
-        {% if mollie_applepaydirect_enabled and ('pdp' not in mollie_applepaydirect_restrictions) and  ((buyableLegacy) or (buyable and productPrice) > 0) %}
-            {% block page_product_detail_buy_container_apple_direct_component %}
-                <div class="form-row mt-3 justify-content-end js-apple-pay-container">
-                    {% include '@MolliePayments/mollie/component/apple-pay-direct-button.twig' with {cols: 'col-12'} %}
-                </div>
-            {% endblock %}
-        {% endif %}
-    {% endblock %}
-
-    {% block page_product_detail_buy_container_paypal %}
-        {% if buyable and product.calculatedCheapestPrice.totalPrice > 0 %}
-            {% set expressSettings = page.extensions[constant('Swag\\PayPal\\Checkout\\ExpressCheckout\\ExpressCheckoutSubscriber::PAYPAL_EXPRESS_CHECKOUT_BUTTON_DATA_EXTENSION_ID')] %}
-
-            {% if expressSettings.productDetailEnabled %}
-                <div class="form-row mt-2">
-                    <div class="col-12">
-                        {% sw_include '@SwagPayPal/storefront/component/ecs-spb-checkout/ecs-button.html.twig' %}
-                    </div>
-                </div>
-            {% endif %}
-        {% endif %}
-
-        {% set installmentBanner = page.extensions[constant('Swag\\PayPal\\Installment\\Banner\\InstallmentBannerSubscriber::PAYPAL_INSTALLMENT_BANNER_DATA_EXTENSION_ID')] %}
-
-        {% if installmentBanner is not null %}
-            <div class="form-row mt-2">
-                <div class="{{ buyable ? 'col-12' }}"
-                     data-swag-paypal-installment-banner="true"
-                     data-swag-pay-pal-installment-banner-options="{{ installmentBanner|json_encode }}">
-                </div>
-            </div>
-        {% endif %}
-    {% endblock %}
 {% endblock %}
