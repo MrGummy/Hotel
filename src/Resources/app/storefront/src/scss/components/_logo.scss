@@ -1,0 +1,11 @@
+.logo {
+  max-height: 30px;
+
+  margin: $spacer-3 0;
+
+  @include media-breakpoint-up(md) {
+    max-height: 40px;
+
+    margin: ($spacer-4 * 2) 0;
+  }
+}

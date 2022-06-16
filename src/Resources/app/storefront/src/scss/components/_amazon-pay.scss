@@ -1,0 +1,15 @@
+.amazon-pay {
+  .swag-amazon-pay-button-tooltip-overlay.not-logged-in {
+    background-color: rgba($body-bg, 0.4);
+    backdrop-filter: grayscale(1);
+  }
+
+  .comment-warning {
+    margin: 10px;
+    line-height: 1.2;
+    text-align: center;
+    color: $color-theme-900;
+    font-size: $font-size-base;
+    font-weight: $font-weight-bold;
+  }
+}

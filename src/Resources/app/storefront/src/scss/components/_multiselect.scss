@@ -1,0 +1,110 @@
+.multiselect {
+  @include sys-md;
+
+  --ms-bg: $white;
+  --ms-radius: 0;
+  --ms-ring-width: 0;
+  --ms-placeholder-color: $black;
+  --ms-bg-disabled: $color-theme-900;
+  --ms-caret-color: $black;
+  --ms-clear-color: $black;
+  --ms-clear-color-hover: $black;
+  --ms-spinner-color: $color-theme-500;
+  --ms-border-color: $input-border-color;
+
+  --ms-group-label-color: $black;
+  --ms-group-label-bg: $white;
+
+  --ms-dropdown-radius: 0;
+  --ms-dropdown-border-color: $black;
+
+  --ms-max-height: 35rem;
+
+  --ms-option-bg-pointed: $color-theme-950;
+  --ms-option-color-pointed: $black;
+  --ms-option-bg-selected: $black;
+  --ms-option-color-selected: $white;
+  --ms-option-bg-disabled: $white;
+  --ms-option-color-disabled: $color-theme-400;
+  --ms-option-bg-selected-pointed: $color-theme-200;
+  --ms-option-color-selected-pointed: $white;
+  --ms-option-bg-selected-disabled: $white;
+  --ms-option-color-selected-disabled: $color-theme-200;
+
+  transition: border 0.2s;
+
+  margin: 0;
+
+  &.is-active {
+    --ms-border-color: $black;
+    --ms-placeholder-color: $color-theme-700;
+  }
+
+  .multiselect-single-label {
+    width: 100%;
+
+    & > span {
+      min-width: 0;
+
+      width: calc(100% - 25px);
+
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  .multiselect-option {
+    width: 100%;
+
+    & > span {
+      @include sys-sm;
+
+      width: 100%;
+      min-width: 0;
+
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  .multiselect-placeholder {
+    user-select: none;
+  }
+
+  .multiselect-caret {
+    --ms-px: $spacer-2;
+
+    width: 25px;
+    height: 25px;
+    mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='currentColor' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z'%3E%3C/path%3E%3C/svg%3E");
+  }
+
+  .multiselect-group {
+    .multiselect-group-label {
+      @include ui-md;
+    }
+
+    .multiselect-option {
+      --ms-option-px: $spacer-4;
+    }
+  }
+
+  .multiselect-dropdown {
+    z-index: $car-search-zindex + 1;
+
+    &::-webkit-scrollbar-track {
+      background-color: $color-theme-900;
+    }
+
+    &::-webkit-scrollbar {
+      width: $spacer-1;
+      height: $spacer-1;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: $black;
+    }
+  }
+}

@@ -1,0 +1,45 @@
+.navigation-offcanvas {
+  .navigation-offcanvas-container {
+    margin-top: -$spacer-3;
+  }
+
+  .navigation-offcanvas-list-item {
+    border-top: 1px solid $color-theme-950;
+  }
+
+  .offcanvas-close {
+    position: absolute;
+    width: auto;
+    // top: $spacer-3;
+    right: 0;
+  }
+
+  .navigation-offcanvas-headline {
+    @include ui-base;
+    padding: $spacer-3 0;
+    font-weight: $font-weight-bold;
+
+    color: $accent;
+  }
+
+  .navigation-offcanvas-login-action {
+    @include ui-base;
+
+    color: $accent;
+    padding: $spacer-3 0;
+    font-weight: $font-weight-bold;
+    display: block;
+
+    border-top: 1px solid $color-theme-950;
+  }
+
+  .navigation-offcanvas-link {
+    @include ui-base;
+
+    padding: $spacer-3 0;
+    border-top: 1px solid $color-theme-950;
+    font-weight: $font-weight-bold;
+
+    border-top: none;
+  }
+}

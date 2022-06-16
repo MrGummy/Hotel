@@ -1,0 +1,88 @@
+@mixin header1 {
+  font-family: $font-family-base;
+  font-size: $h1-font-size;
+  font-weight: $font-weight-bold;
+  letter-spacing: 0.03em;
+  line-height: 160%;
+  text-transform: uppercase;
+}
+
+@mixin header2 {
+  font-family: $font-family-base;
+  font-size: $h2-font-size;
+  font-weight: $font-weight-bold;
+  letter-spacing: -0.01em;
+  line-height: 150%;
+  text-transform: uppercase;
+}
+
+@mixin header3 {
+  font-family: $font-family-base;
+  font-size: $h3-font-size;
+  font-weight: $font-weight-bold;
+  line-height: 33px;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+
+@mixin ui-md {
+  font-family: $font-family-base;
+  font-size: $font-size-md;
+  letter-spacing: 0.01em;
+  line-height: normal;
+  text-transform: uppercase;
+  font-weight: $font-weight-bold;
+}
+
+@mixin sys-md {
+  font-family: $font-family-system;
+  font-size: $font-size-md;
+  letter-spacing: normal;
+  line-height: normal;
+  text-transform: none;
+  font-weight: $font-weight-normal;
+}
+
+@mixin ui-base {
+  font-family: $font-family-base;
+  font-size: $font-size-base;
+  letter-spacing: 0.01em;
+  line-height: normal;
+  text-transform: uppercase;
+  font-weight: $font-weight-normal;
+}
+
+@mixin ui-sm {
+  font-family: $font-family-base;
+  font-size: $font-size-sm;
+  letter-spacing: 0.01em;
+  line-height: normal;
+  text-transform: uppercase;
+  font-weight: $font-weight-normal;
+}
+
+@mixin sys-sm {
+  font-family: $font-family-system;
+  font-size: $font-size-sm;
+  letter-spacing: 0;
+  line-height: normal;
+  font-weight: $font-weight-normal;
+}
+
+@mixin sys-xs {
+  font-family: $font-family-system;
+  font-size: $font-size-xs;
+  letter-spacing: 0;
+  line-height: normal;
+  font-weight: $font-weight-normal;
+}
+
+//
+
+@mixin skeleton {
+  border-radius: $border-radius;
+  color: transparent;
+  animation: skeletonShimmer 1.5s linear 0s infinite normal forwards running;
+  background: linear-gradient(to right, $color-theme-900 8%, $color-theme-700 18%, $color-theme-900 28%);
+  background-size: 800px 100px;
+}

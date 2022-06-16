@@ -1,0 +1,178 @@
+.car-widget {
+  align-self: stretch;
+  align-items: center;
+
+  display: flex;
+  position: relative;
+
+  max-width: 300px;
+  width: 100%;
+
+  .loader {
+    display: none;
+
+    @include media-breakpoint-up(md) {
+      display: flex;
+    }
+  }
+
+  &__box {
+    display: none;
+
+    @include media-breakpoint-up(md) {
+      display: flex;
+    }
+
+    align-items: center;
+    align-self: stretch;
+
+    cursor: pointer;
+    user-select: none;
+
+    margin-bottom: 0;
+    padding-left: $spacer-4;
+    padding-right: $spacer-4;
+    margin-left: -$spacer-4;
+
+    &--active {
+      padding: $spacer-2 $spacer-4;
+      margin: 0;
+
+      @include media-breakpoint-up(md) {
+        padding: 0;
+        display: flex;
+        margin-left: inherit;
+      }
+
+      display: flex;
+    }
+  }
+
+  &__icon {
+    display: none;
+
+    flex-shrink: 0;
+
+    @include media-breakpoint-up(md) {
+      display: flex;
+    }
+  }
+
+  &__dropdown {
+    display: flex;
+    position: absolute;
+
+    background: $white;
+    width: 100vw;
+
+    left: 0;
+    top: 0;
+
+    flex-direction: column;
+
+    @include media-breakpoint-up(md) {
+      box-shadow: $base-shadow;
+      left: -$spacer-2;
+      top: 95%;
+
+      width: 500px;
+      max-width: 90vw;
+    }
+  }
+
+  &__title {
+    @include ui-base;
+    font-weight: $font-weight-bold;
+  }
+
+  &__details {
+    @include ui-sm;
+    color: $color-theme-500;
+    text-transform: unset;
+    line-height: 1.2;
+  }
+
+  &__list {
+    max-height: 435px;
+    overflow-x: hidden;
+
+    &::-webkit-scrollbar-track {
+      background-color: $color-theme-900;
+    }
+
+    &::-webkit-scrollbar {
+      width: $spacer-1;
+      height: $spacer-1;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: $black;
+    }
+  }
+
+  &__car {
+    display: flex;
+    align-items: center;
+    padding: $spacer-4;
+
+    position: relative;
+
+    &::after {
+      display: block;
+      width: calc(100% - var(--spacer-4) - var(--spacer-4));
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      height: 1px;
+      content: '';
+      background-color: $color-theme-700;
+
+      transform: translateX(-50%);
+    }
+  }
+
+  &__car-remove {
+    cursor: pointer;
+  }
+
+  &__actions {
+    padding: $spacer-4;
+    display: flex;
+    align-items: stretch;
+  }
+
+  &__action {
+    @include ui-md;
+    color: $color-theme-500;
+
+    text-transform: none;
+    cursor: pointer;
+    user-select: none;
+
+    padding: $spacer-1 $spacer-3;
+    margin: 0;
+
+    &--primary {
+      color: $black;
+      margin-right: auto;
+      padding-left: $spacer-0;
+    }
+  }
+
+  &__info {
+    color: $black;
+  }
+}
+
+.car-widget-flash {
+  &-enter-from {
+    background-color: $color-theme-800;
+  }
+
+  &-enter-to {
+  }
+
+  &-enter-active {
+    transition: background-color 0.7s;
+  }
+}

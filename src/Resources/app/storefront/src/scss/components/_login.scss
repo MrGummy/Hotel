@@ -1,0 +1,11 @@
+.login-card {
+  .login-password-recover {
+    @include ui-sm;
+    text-align: right;
+    font-weight: $font-weight-bold;
+
+    a {
+      color: $accent;
+    }
+  }
+}

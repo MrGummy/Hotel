@@ -1,0 +1,16 @@
+.currency {
+  &__icon {
+    width: 22px;
+    height: 22px;
+
+    fill: $icon-base-color;
+  }
+
+  &__text {
+    position: relative;
+    top: 1px;
+    margin-left: 5px;
+    text-transform: uppercase;
+    font-weight: $font-weight-bold;
+  }
+}

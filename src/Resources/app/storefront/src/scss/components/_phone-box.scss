@@ -1,0 +1,38 @@
+.phone-box {
+  display: flex;
+
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+
+  a {
+    display: flex;
+    align-items: center;
+
+    transition: color 0.2s;
+
+    &:hover {
+      color: $accent;
+    }
+  }
+
+  &__phone {
+    @include header2;
+
+    margin-bottom: $spacer-0;
+    display: flex;
+    white-space: nowrap;
+
+    &--sm {
+      @include sys-md;
+
+      font-weight: $font-weight-bold;
+    }
+  }
+
+  &__comment {
+    @include sys-sm;
+
+    color: $color-theme-500;
+  }
+}

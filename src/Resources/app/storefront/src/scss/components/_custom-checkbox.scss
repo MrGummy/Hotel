@@ -1,0 +1,12 @@
+.custom-checkbox {
+  &.custom-control {
+    .custom-control-label {
+      @include ui-sm;
+      font-weight: $font-weight-bold;
+
+      a {
+        color: $accent;
+      }
+    }
+  }
+}

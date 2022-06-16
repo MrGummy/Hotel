@@ -1,0 +1,387 @@
+.car-search {
+  &-panel {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    z-index: $car-search-zindex;
+
+    &::before {
+      position: absolute;
+      left: 0;
+      top: 0;
+      content: '';
+      background-color: $transparent-400;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    .car-search-box {
+      background-color: $white;
+    }
+  }
+
+  &-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+
+    padding: $spacer-4 0;
+    margin: 0;
+
+    @include media-breakpoint-up(sm) {
+      min-height: 340px;
+      padding: $spacer-6 $spacer-6 ($spacer-3 * 2);
+
+      background-color: $color-theme-950;
+    }
+
+    &--full {
+      @include media-breakpoint-up(sm) {
+        margin-top: $spacer-4;
+      }
+    }
+
+    &--minimal {
+      display: none;
+
+      @include media-breakpoint-up(sm) {
+        display: flex;
+      }
+
+      min-height: unset;
+      padding: $spacer-2;
+      background-color: transparent;
+
+      border-bottom: 1px dotted $color-theme-700;
+
+      .car-selector {
+        margin: 0;
+      }
+
+      .car-param-select.multiselect,
+      .car-number__input {
+        height: 50px;
+      }
+
+      .car-search__title--number {
+        margin: 0 $spacer-2 0 $spacer-6;
+      }
+
+      .car-number {
+        min-width: 150px;
+        max-width: 200px;
+      }
+    }
+  }
+
+  &__tabs {
+    display: flex;
+    width: 100%;
+  }
+
+  &__tab {
+    flex: 1;
+
+    text-align: center;
+
+    @include ui-md;
+    color: $color-theme-700;
+    padding: $spacer-2;
+    cursor: pointer;
+
+    &--active {
+      color: $accent;
+    }
+  }
+
+  &__title {
+    text-transform: none;
+    text-align: center;
+    margin-bottom: $spacer-2;
+
+    @include ui-md;
+
+    @include media-breakpoint-up(sm) {
+      margin: $spacer-2 0;
+
+      font-size: $h2-font-size;
+      font-weight: $font-weight-bold;
+      letter-spacing: -0.01em;
+      line-height: 150%;
+    }
+
+    &--number {
+      @include header3;
+
+      text-transform: none;
+      margin-bottom: $spacer-4;
+
+      display: none;
+
+      @include media-breakpoint-up(sm) {
+        display: flex;
+      }
+    }
+  }
+
+  &__comment {
+    @include sys-sm;
+
+    color: $color-theme-500;
+    text-align: center;
+
+    margin-bottom: $spacer-2;
+
+    @include media-breakpoint-up(sm) {
+      font-size: $font-size-base;
+    }
+  }
+
+  &__clear {
+    position: absolute;
+    right: $spacer-4;
+    top: $spacer-4;
+
+    cursor: pointer;
+
+    z-index: +1;
+  }
+
+  &__overlay {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    backdrop-filter: blur(3px);
+    background-color: $transparent-050;
+
+    z-index: 11;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.car-selector {
+  display: flex;
+  margin: $spacer-3 0;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+
+  flex-wrap: wrap;
+
+  &__box {
+    display: flex;
+    align-items: center;
+    flex: 1 0 100%;
+
+    @include media-breakpoint-up(sm) {
+      flex: unset;
+    }
+
+    & > * {
+      margin: 0 0 -1px;
+
+      @include media-breakpoint-up(sm) {
+        margin: $spacer-1;
+      }
+    }
+  }
+
+  &__brand {
+    width: 100%;
+
+    @include media-breakpoint-up(sm) {
+      width: 150px;
+    }
+  }
+
+  &__year {
+    width: 100%;
+
+    @include media-breakpoint-up(sm) {
+      width: 100px;
+    }
+  }
+
+  &__model {
+    width: 100%;
+
+    @include media-breakpoint-up(sm) {
+      width: 200px;
+    }
+  }
+
+  &__body {
+    width: 100%;
+
+    @include media-breakpoint-up(sm) {
+      width: 150px;
+    }
+  }
+
+  &__engine {
+    width: 100%;
+
+    @include media-breakpoint-up(sm) {
+      width: 300px;
+    }
+  }
+
+  .sliding-enter-active,
+  .sliding-leave-active {
+    width: auto;
+    transition: width 0.2s ease, opacity 0.2s ease;
+  }
+
+  .sliding-enter-from,
+  .sliding-leave-to {
+    width: 0;
+    opacity: 0;
+  }
+}
+
+.car-number {
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
+  margin: $spacer-3 0;
+
+  @include media-breakpoint-up(sm) {
+    min-width: 250px;
+    max-width: 300px;
+    margin: auto;
+  }
+
+  &__input {
+    @include sys-md;
+    padding: $spacer-4 $spacer-2;
+    height: 60px;
+
+    @include media-breakpoint-up(sm) {
+      height: unset;
+      padding: $spacer-2;
+      font-size: $font-size-base;
+    }
+
+    &--active {
+      border-color: $black;
+    }
+  }
+
+  &__button {
+    margin-left: $spacer-2;
+    width: 120px;
+  }
+
+  &__dropdown-box {
+    position: relative;
+  }
+
+  &__dropdown-list {
+    position: absolute;
+    width: 100%;
+    height: auto;
+
+    left: 0;
+    top: -1px;
+
+    border: 1px solid $black;
+
+    z-index: $dropdown-zindex;
+  }
+
+  &__dropdown-not-found {
+    padding: $spacer-2;
+    background-color: $white;
+
+    @include sys-sm;
+    color: $color-theme-500;
+  }
+
+  &__dropdown-list-item {
+    padding: $spacer-2;
+    background-color: $white;
+
+    &:hover,
+    &:focus,
+    &--focused {
+      background-color: $color-theme-950;
+    }
+
+    &:active {
+      background-color: $color-theme-200;
+      color: white;
+    }
+  }
+}
+
+.car-param-select {
+  &.multiselect {
+    --ms-bg-disabled: $color-theme-950;
+
+    &.is-active {
+      --ms-bg: $accent;
+      --ms-border-color: $accent;
+      --ms-placeholder-color: $white;
+      --ms-caret-color: $white;
+
+      @include media-breakpoint-up(sm) {
+        --ms-bg: $white;
+        --ms-border-color: $black;
+        --ms-placeholder-color: $color-theme-500;
+        --ms-caret-color: $black;
+      }
+
+      .multiselect-search {
+        color: $white;
+
+        @include media-breakpoint-up(sm) {
+          color: $black;
+        }
+      }
+    }
+
+    height: 60px;
+
+    @include media-breakpoint-up(sm) {
+      --ms-bg-disabled: $color-theme-900;
+
+      height: 70px;
+    }
+
+    .multiselect-search {
+      cursor: pointer;
+    }
+  }
+}
+
+.car-search-select {
+  &.multiselect {
+    // --ms-option-bg-selected: $white;
+    // --ms-option-color-selected: $color-theme-200;
+    // --ms-option-bg-selected-pointed: $white;
+    // --ms-option-color-selected-pointed: $color-theme-200;
+
+    &.is-active {
+      --ms-placeholder-color: transparent;
+    }
+  }
+}

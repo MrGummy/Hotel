@@ -1,0 +1,27 @@
+.cms-listing {
+  &__no-result {
+    display: flex;
+    min-height: 44px;
+
+    margin-bottom: $spacer-4;
+
+    justify-content: center;
+    align-items: center;
+
+    @include ui-md;
+
+    border: 1px dotted $danger;
+    background-color: $danger-light;
+
+    padding: $spacer-2;
+
+    .text-box {
+    }
+  }
+}
+
+.cms-element-product-listing-actions {
+  .sorting {
+    margin-top: 0;
+  }
+}

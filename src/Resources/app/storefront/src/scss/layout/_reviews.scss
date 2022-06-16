@@ -1,0 +1,192 @@
+/* REVIEWS */
+
+.cms-block-mm-reviews-slider,
+.cms-block-mm-product-reviews-slider {
+  display: block;
+  overflow: inherit;
+}
+
+.reviews__slider-wrapper {
+  position: relative;
+  width: 100%;
+
+  margin: 20px 0;
+}
+
+.reviews__slider {
+  margin: 0;
+}
+
+@media screen and (min-width: 990px) {
+  .reviews__slider {
+    margin: 0 15px;
+  }
+}
+
+.reviews__slider a:hover,
+.reviews__slider a:focus {
+  text-decoration: none;
+}
+
+.reviews__slider {
+  display: flex;
+  margin: 0;
+}
+
+.reviews__slide {
+  border: 1px solid $color-theme-500;
+
+  padding: $padding;
+  font-size: 13px;
+  line-height: 1.4;
+  transition: background-color 0.2s;
+  height: 100%;
+  color: white;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.reviews__slide:hover {
+  background-color: #32363d;
+}
+
+.reviews__rating {
+  display: flex;
+  align-items: center;
+}
+
+.reviews__rating--stars {
+  display: flex;
+}
+
+.reviews__rating--value {
+  font-size: 18px;
+  font-weight: $font-weight-bold;
+  color: white;
+  margin-right: 10px;
+}
+
+.reviews__star {
+  width: 18px;
+  height: 18px;
+  padding: 3px;
+  fill: white;
+  display: inline-block;
+  margin-right: 3px;
+
+  background-color: #00b67a;
+}
+
+.reviews__header {
+  margin: 10px 0 5px;
+  font-weight: $font-weight-bold;
+  font-size: 14px;
+}
+
+.reviews__body {
+  flex: 1;
+  line-height: 1.3;
+}
+
+.reviews__name {
+  margin-top: 10px;
+  font-weight: var(--font-normal);
+  color: #7f848b;
+}
+
+/* REVIEWS PAGE */
+
+.reviews-page {
+  display: grid;
+
+  grid-template-columns: 1fr;
+  gap: $card-columns-gap;
+
+  margin-bottom: 20px;
+
+  @include media-breakpoint-up(md) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include media-breakpoint-up(lg) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.reviews-page .reviews-page__item {
+  padding: 15px;
+  background-color: $color-theme-400;
+}
+
+.reviews-page__item {
+  color: white;
+
+  display: flex;
+  flex-flow: row nowrap;
+
+  font-size: 14px;
+}
+
+.reviews-page--slider {
+}
+
+.reviews-page--slider .reviews-page__item {
+  margin: 0;
+}
+
+.reviews-page__image {
+  margin-right: 15px;
+  flex: 0 0 40%;
+  padding: 0;
+}
+
+.reviews-page__image img {
+  width: 100%;
+  height: auto;
+}
+
+.reviews-page__box {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.reviews-page__header {
+  margin: 10px 0 5px;
+  font-weight: $font-weight-bold;
+  font-size: 14px;
+
+  padding-right: 20px;
+}
+
+.reviews-page__stars {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.reviews-page__body {
+  flex: 1;
+  line-height: 1.4;
+  font-size: 12px;
+
+  padding-right: 20px;
+}
+
+.reviews-page__name {
+  margin-top: 10px;
+  font-weight: var(--font-normal);
+  color: #7f848b;
+}
+
+.reviews-page--slider {
+  .reviews-page__item {
+    flex: initial;
+
+    display: flex;
+    flex-direction: row;
+  }
+}
+
+a.tns-item {
+  text-decoration: none;
+}

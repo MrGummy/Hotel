@@ -1,0 +1,99 @@
+:root {
+  --font-regular: 400;
+  --font-bold: 700;
+
+  --color-white: $white;
+  --color-black: $black;
+  --color-primary: $primary;
+  --color-secondary: $secondary;
+  --color-accent: $accent;
+  --color-theme-100: $color-theme-100;
+  --color-theme-150: $color-theme-150;
+  --color-theme-200: $color-theme-200;
+  --color-theme-300: $color-theme-300;
+  --color-theme-400: $color-theme-400;
+  --color-theme-500: $color-theme-500;
+  --color-theme-600: $color-theme-600;
+  --color-theme-700: $color-theme-700;
+  --color-theme-800: $color-theme-800;
+  --color-theme-900: $color-theme-900;
+  --color-theme-950: $color-theme-950;
+  --color-success: $success;
+  --color-success-light: $success-light;
+  --color-warning: $warning;
+  --color-warning-light: $warning-light;
+  --color-danger: $danger;
+  --color-danger-light: $danger-light;
+
+  --gap-size: 20px;
+  --grid-slider-gap-size: 14px;
+  --shadow-size: var(--gap-size);
+
+  --focus: 0 0 var(--shadow-size / 2) $color-theme-600;
+  --shadow: 0 0 var(--shadow-size) $transparent-400;
+
+  --spacer-0: $spacer-0;
+  --spacer-1: $spacer-1;
+  --spacer-2: $spacer-2;
+  --spacer-3: $spacer-3;
+  --spacer-4: $spacer-4;
+  --spacer-5: $spacer-5;
+  --spacer-6: $spacer-6;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+
+  *:focus {
+    outline: none;
+    border-radius: 0;
+  }
+
+  @keyframes input_background_autofill {
+    100% {
+      -webkit-text-fill-color: $input-color;
+      -webkit-box-shadow: 0 0 0 30px $input-bg inset;
+    }
+  }
+
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active,
+  textarea:-webkit-autofill,
+  textarea:-webkit-autofill:hover,
+  textarea:-webkit-autofill:focus,
+  textarea:-webkit-autofill:active,
+  select:-webkit-autofill,
+  select:-webkit-autofill:hover,
+  select:-webkit-autofill:focus,
+  select:-webkit-autofill:active {
+    animation: input_background_autofill 0s forwards;
+
+    -webkit-text-fill-color: $input-color;
+    -webkit-box-shadow: 0 0 0 30px $input-bg inset;
+
+    background-color: inherit;
+  }
+
+  @include sys-md;
+}
+
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+@media print {
+  .hide-on-print {
+    display: none;
+    opacity: 0;
+  }
+
+  .show-on-print {
+    display: block;
+    opacity: 1;
+  }
+}

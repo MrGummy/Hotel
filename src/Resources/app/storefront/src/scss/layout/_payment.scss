@@ -1,0 +1,228 @@
+.payment {
+  &__methods {
+    flex: 1 0 100%;
+
+    @include media-breakpoint-up(md) {
+      flex: 0 0 33%;
+    }
+
+    .form-group {
+      margin: 0;
+    }
+
+    .payment-method-label {
+      cursor: pointer;
+    }
+  }
+
+  &__title {
+    @include header2;
+    margin-bottom: $spacer-4;
+  }
+
+  &__details {
+    flex: 1 0 100%;
+    padding: 5px 0;
+    position: relative;
+
+    @include media-breakpoint-up(md) {
+      flex: 0 0 62%;
+    }
+
+    .payment-method-description:not(.stripe-shopware-payment-payment-method-description) {
+      display: none;
+    }
+
+    .payment-method-description.stripe-shopware-payment-payment-method-description {
+      min-height: unset;
+
+      strong:first-of-type,
+      p:first-of-type,
+      .stripe-shopware-payment-provider-logos {
+        display: none;
+      }
+    }
+  }
+
+  &__details-header {
+    @include header2;
+
+    margin-bottom: $spacer-2;
+  }
+
+  &__details-description {
+    @include ui-sm;
+    color: $color-theme-500;
+
+    margin-bottom: $spacer-2;
+  }
+
+  &__details-tips {
+    border-top: 1px solid $color-theme-500;
+
+    padding-top: 15px;
+    margin: 15px 0;
+  }
+
+  &__details-overlay {
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+
+    margin: -2px;
+    backdrop-filter: blur(3px);
+    background-color: rgba($body-bg, 0.5);
+    z-index: $cookie-msg-zindex;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 25px;
+  }
+
+  &__details-overlay-wrapper {
+    width: 80%;
+  }
+
+  &__details-overlay-msg {
+    margin: 10px 0 5px;
+    line-height: 1.2;
+    text-align: center;
+    color: $color-theme-900;
+    font-size: $font-size-md;
+    font-weight: $font-weight-bold;
+  }
+
+  .payment-method:not(.--icons) {
+    margin: 0;
+    font-size: 16px;
+
+    .custom-control {
+      padding-left: 0;
+    }
+
+    .custom-control-label::after,
+    .custom-control-label::before {
+      top: 14px;
+      left: 5px;
+    }
+
+    .payment-method-input {
+      display: none;
+    }
+
+    .payment-method-label {
+      padding: 10px 15px 10px 30px;
+      display: flex;
+      width: 100%;
+      margin: 0;
+
+      align-items: flex-start;
+
+      @include ui-base;
+      text-transform: none;
+
+      &::before {
+        border-color: $black;
+        background: $white;
+      }
+
+      &--active {
+        &::after {
+          background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='black'/%3e%3c/svg%3e");
+        }
+      }
+    }
+
+    .payment-method-label__cards {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .payment-method-label__card-icon {
+      width: 20px;
+      height: 20px;
+      margin-right: 3px;
+    }
+
+    .payment-method-image {
+      margin-right: 10px;
+    }
+  }
+
+  .payment-method {
+    &--break {
+      margin-bottom: 25px !important;
+      border-bottom: none !important;
+    }
+  }
+
+  &__contacts-icon {
+    height: 20px;
+    width: 20px;
+  }
+
+  &__details-messengers {
+    .input-group-prepend {
+      .input-group-text {
+        background-color: transparent;
+        background-repeat: no-repeat;
+      }
+    }
+  }
+
+  .form-label {
+    @include ui-sm;
+    font-weight: $font-weight-bold;
+  }
+
+  .stripe-shopware-payment-card-selection__new-card-form,
+  .stripe-shopware-payment-sepa-bank-account-selection__new-sepa-bank-account-form {
+    .stripe-shopware-payment-card-selection__card-cvc-input {
+      margin-right: 0;
+    }
+
+    .stripe-shopware-payment-card-selection__card-cvc-info-button {
+      position: absolute;
+      cursor: pointer;
+      transform: scale(0.7);
+      right: 2px;
+      top: 0;
+    }
+
+    .custom-control.custom-checkbox {
+      .custom-control-input {
+        display: none;
+      }
+
+      .custom-control-label {
+        position: relative;
+        margin-left: 24px;
+        cursor: pointer;
+
+        &::before,
+        &::after {
+          position: absolute;
+          content: '';
+          border-radius: 0;
+
+          left: -24px;
+          top: 2px;
+        }
+      }
+
+      .custom-control-input:checked + .custom-control-label::before {
+        border-color: $black;
+      }
+
+      .custom-control-input:checked + .custom-control-label::after {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='black' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3e%3c/svg%3e");
+      }
+    }
+  }
+}

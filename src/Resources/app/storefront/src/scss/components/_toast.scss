@@ -1,0 +1,21 @@
+.toast {
+  @include ui-sm;
+
+  background: $black;
+  padding: $spacer-2 $spacer-2 $spacer-2 $spacer-3;
+  border-radius: 0;
+  border: none;
+  // cursor: auto;
+
+  .toast-close {
+    transform: rotate(45deg);
+    color: $white;
+    margin-left: $spacer-2;
+    opacity: 1;
+    // cursor: pointer;
+  }
+
+  &:not(:last-child) {
+    margin-bottom: $spacer-1;
+  }
+}

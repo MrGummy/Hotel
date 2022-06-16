@@ -1,0 +1,28 @@
+/*
+Container
+==============================================
+Additional styling for bootstrap container layout.
+
+https://getbootstrap.com/docs/4.3/layout/overview/
+*/
+
+.container {
+  max-width: 1600px;
+}
+
+.container-main {
+  min-height: 200px;
+}
+
+.content-main {
+  .container {
+    padding-left: $spacer-4;
+    padding-right: $spacer-4;
+  }
+}
+
+@include media-breakpoint-up(xl) {
+  .container-main {
+    min-height: 700px;
+  }
+}

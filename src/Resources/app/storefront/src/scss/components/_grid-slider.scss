@@ -1,0 +1,57 @@
+/* GRID SLIDER */
+
+.cms-block-mm-grid-slider {
+  display: block;
+  overflow: inherit;
+
+  //   padding: 0 20px;
+}
+
+.grid-slider {
+  --color-theme-100: $color-theme-100;
+  --color-theme-200: $color-theme-200;
+  --color-theme-300: $color-theme-300;
+  --color-theme-400: $color-theme-400;
+  --color-theme-500: $color-theme-500;
+  --color-theme-600: $color-theme-600;
+  --color-theme-700: $color-theme-700;
+  --color-theme-800: $color-theme-800;
+  --color-theme-900: $color-theme-900;
+
+  --color-text: $black;
+
+  --gap-size: $spacer-4;
+  --shadow-size: var(--gap-size);
+  --transparent-050: $transparent-050;
+  --transparent-200: $transparent-200;
+  --transparent-400: $transparent-400;
+  --transparent-500: $transparent-500;
+
+  .grid-slide {
+    .grid-item {
+      box-shadow: none;
+
+      .grid-item__background {
+        background-color: $color-theme-950;
+      }
+    }
+
+    .grid-item__content {
+      &.grid-item__content--text {
+        background-image: none;
+      }
+    }
+  }
+
+  .grid-slider__controls {
+    width: calc(100% - var(--gap-size) / 2);
+
+    .slider__button {
+      box-shadow: none;
+
+      &:hover {
+        box-shadow: none;
+      }
+    }
+  }
+}

@@ -1,0 +1,112 @@
+.car-catalog {
+  &__skeleton {
+    @include skeleton;
+
+    width: $spacer-2 * 4;
+  }
+
+  &__title {
+    @include header1;
+
+    font-weight: normal;
+
+    & > *:first-child {
+      margin-right: $spacer-2;
+    }
+  }
+
+  &__subtitle {
+    @include sys-md;
+
+    display: inline-flex;
+
+    & > *:not(:last-child) {
+      margin-right: $spacer-1;
+    }
+  }
+
+  &__categories {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: $spacer-4 * 2;
+    margin-top: $spacer-4 * 2;
+
+    @include media-breakpoint-up(md) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include media-breakpoint-up(lg) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @include media-breakpoint-up(xl) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  &__category {
+  }
+
+  &__loader {
+    display: flex;
+
+    justify-content: center;
+    align-self: center;
+  }
+
+  &__category-header {
+    @include header2;
+  }
+
+  &__name {
+    display: flex;
+    justify-content: space-between;
+    text-transform: none;
+  }
+
+  &__category-list {
+  }
+
+  &__list-item {
+    &:not(:last-child) {
+      margin: $spacer-3 0;
+    }
+
+    @include sys-md;
+  }
+
+  &__link {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__more {
+    font-weight: $font-weight-bold;
+
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__app {
+    &--front-page {
+      margin-top: $spacer-4;
+
+      .car-catalog__categories {
+        gap: $spacer-2;
+
+        @include media-breakpoint-up(xl) {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+
+      .car-catalog__category {
+        border: 1px solid $color-theme-900;
+        padding: $spacer-4;
+
+        &:hover {
+          box-shadow: $base-shadow;
+        }
+      }
+    }
+  }
+}

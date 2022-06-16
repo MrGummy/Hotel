@@ -1,0 +1,37 @@
+.quantity {
+  min-width: 110px;
+  max-width: 115px;
+
+  .vue-number-input {
+    &__input {
+      @include ui-md;
+      font-weight: 700 !important;
+      font-size: 14px !important;
+      min-height: unset !important;
+      line-height: unset !important;
+
+      padding: $spacer-1 !important;
+
+      border-radius: 0 !important;
+      &:focus {
+        border-color: $black !important;
+      }
+    }
+
+    &__button {
+      width: 36px !important;
+
+      &:hover:after,
+      &:hover:before {
+        background-color: $black !important;
+      }
+
+      &:after {
+        height: 30% !important;
+      }
+      &:before {
+        width: 30% !important;
+      }
+    }
+  }
+}

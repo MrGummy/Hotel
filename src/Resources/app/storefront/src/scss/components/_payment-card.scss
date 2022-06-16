@@ -1,0 +1,34 @@
+.payment-card {
+  display: flex;
+  justify-content: flex-start;
+
+  &__brand {
+    width: 45px;
+    height: 45px;
+    margin-right: 10px;
+  }
+
+  &__details {
+    display: block;
+  }
+
+  &__cardholder {
+    font-size: 16px;
+  }
+
+  &__numbers {
+    display: flex;
+    align-items: baseline;
+  }
+
+  &__expiration {
+    font-size: 12px;
+    font-weight: $font-weight-normal;
+    margin-right: 20px;
+  }
+
+  &__number {
+    font-size: 12px;
+    font-weight: $font-weight-normal;
+  }
+}

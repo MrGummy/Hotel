@@ -1,0 +1,75 @@
+.product-detail-compatibility {
+  &__header {
+    @include header2;
+
+    margin-left: $spacer-2;
+    margin-right: $spacer-2;
+
+    padding: $spacer-1 0;
+  }
+
+  &__header-box {
+    border-bottom: 1px solid $color-theme-900;
+  }
+
+  &__body {
+    padding: $spacer-2 $spacer-1;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    min-height: 50px;
+  }
+
+  .product-detail-compatibility-table th,
+  .product-detail-compatibility-table td {
+    border: 0;
+    padding: 0;
+  }
+}
+
+.compatibility {
+  &__brand,
+  &__model {
+    padding: $spacer-2;
+    cursor: pointer;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__chevron {
+    width: 12px;
+    height: 8px;
+
+    transition: transform 0.2s ease-out;
+
+    &--open {
+      transform: rotate(180deg);
+    }
+  }
+
+  &__models,
+  &__variants {
+    margin: 0 0 0 $spacer-2;
+    border-top: 1px solid $color-theme-900;
+
+    overflow: hidden;
+  }
+
+  &__model {
+    @include sys-sm;
+    font-weight: $font-weight-bold;
+  }
+
+  &__variant {
+    @include sys-sm;
+    padding: $spacer-1 $spacer-2;
+  }
+}
+
+[data-height-collapsible] {
+  transition: height 280ms cubic-bezier(0.4, 0, 0.2, 1);
+}

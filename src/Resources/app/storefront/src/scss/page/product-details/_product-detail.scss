@@ -1,0 +1,99 @@
+.product-detail-content {
+  margin-bottom: $spacer-4;
+}
+
+.product-detail-image {
+  max-width: 600px;
+  width: 100%;
+
+  position: relative;
+
+  &__box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: sticky;
+    top: 80px;
+
+    margin-bottom: 40px;
+  }
+}
+
+.product-detail-ordernumber-container {
+  @include ui-md;
+  text-transform: unset;
+
+  color: $color-theme-500;
+}
+
+.product-detail {
+  .breaker {
+    border-bottom: 1px solid $color-theme-900;
+    margin: $spacer-2 0;
+  }
+}
+
+.product-detail-tax {
+  font-weight: $font-weight-bold;
+}
+
+.product-detail-manufacturer-logo {
+  max-width: 200px;
+  max-height: 70px;
+}
+
+.product-detail-price {
+  @include header1;
+
+  font-weight: $font-weight-bold;
+  color: $price-color;
+  margin-bottom: 0;
+  vertical-align: middle;
+
+  &.with-list-price {
+    color: $accent;
+    display: inline-block;
+
+    margin-bottom: $spacer-1;
+  }
+}
+
+.list-price-badge {
+  display: inline-block;
+  background: $primary;
+  color: $white;
+  text-align: center;
+  border-radius: 3px;
+  line-height: 32px;
+  height: 32px;
+  width: 32px;
+  font-size: 18px;
+  font-weight: $font-weight-bold;
+  vertical-align: middle;
+  margin-bottom: 8px;
+  margin-left: 5px;
+  margin-right: 6px;
+}
+
+.product-detail-list-price-wrapper {
+  .list-price-price {
+    text-decoration: line-through;
+    @include header3;
+
+    margin-bottom: $spacer-1;
+  }
+
+  .list-price-percentage {
+    @include header3;
+  }
+}
+
+.product-detail-ordernumber-label {
+  font-weight: $font-weight-bold;
+}
+
+.product-detail-quantity-select-box {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: $spacer-2;
+}

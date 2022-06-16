@@ -1,0 +1,19 @@
+@include media-breakpoint-up(md) {
+  .register-submit {
+    text-align: right;
+  }
+}
+
+.register-address {
+  margin-bottom: $spacer-2;
+}
+
+.account-register {
+  .card-body {
+    padding: 0;
+  }
+}
+
+.register-different-shipping {
+  margin-bottom: $spacer-2;
+}

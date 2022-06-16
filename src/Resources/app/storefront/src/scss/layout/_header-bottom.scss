@@ -1,0 +1,159 @@
+.header-bottom {
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+
+  @include media-breakpoint-up(sm) {
+    flex-direction: row;
+    align-items: center;
+    padding: 0 $spacer-4;
+
+    &__box {
+      background-color: $color-theme-950;
+    }
+  }
+}
+
+.car-widget {
+  order: 1;
+
+  @include media-breakpoint-up(sm) {
+    order: 0;
+  }
+}
+
+.header-search-form {
+  display: flex;
+  flex: 1;
+
+  order: 0;
+
+  @include media-breakpoint-up(sm) {
+    order: 1;
+  }
+}
+
+.header-bottom__actions {
+  display: none;
+
+  @include media-breakpoint-up(md) {
+    display: flex;
+    align-items: center;
+
+    opacity: 0;
+    transition: opacity 0.2s;
+    order: 2;
+    margin-right: $spacer-2;
+
+    .header-middle-service__label {
+      display: none;
+    }
+
+    &--visible {
+      opacity: 1;
+    }
+  }
+}
+
+.header-search-crw {
+  flex: 1;
+  display: flex;
+
+  padding: $spacer-2 $spacer-4;
+  background-color: $color-theme-950;
+
+  @include media-breakpoint-up(sm) {
+    margin-left: $spacer-2 * 8;
+    margin-right: $spacer-2 * 8;
+    margin-top: $spacer-3;
+    margin-bottom: $spacer-3;
+
+    padding: unset;
+  }
+
+  &__box {
+    display: flex;
+    flex: 1;
+    position: relative;
+
+    height: 46px;
+    border: $border-width solid $border-color;
+    background-color: $white;
+
+    align-items: center;
+    padding: $spacer-1;
+    z-index: $search-bar-zindex;
+  }
+
+  &__bar {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+
+    background-color: $white;
+    z-index: -1;
+  }
+
+  &__tag {
+    height: 30px;
+    box-sizing: content-box;
+    border: $border-width solid $black;
+    background-color: $color-theme-900;
+
+    display: flex;
+    white-space: nowrap;
+    align-items: center;
+
+    @include ui-sm;
+    color: $black;
+    font-weight: $font-weight-bold;
+    text-transform: unset;
+    padding: 0 $spacer-2;
+
+    margin-right: $spacer-1;
+  }
+
+  &__tag-close {
+    margin-left: $spacer-2;
+    cursor: pointer;
+  }
+
+  &__input {
+    border: none;
+    background-color: $white;
+    flex: 1;
+    height: 30px;
+
+    @include sys-sm;
+  }
+
+  &__overlay {
+    background-color: transparent;
+    width: 100vw;
+    height: 100vh;
+    left: 0;
+    top: 0;
+    position: fixed;
+    content: '';
+    z-index: -2;
+    pointer-events: none;
+
+    transition: background-color 0.2s;
+  }
+
+  &__icon {
+    margin-left: $spacer-3;
+  }
+
+  &__input:focus + &__overlay {
+    background-color: $transparent-400;
+  }
+
+  &__help {
+    cursor: pointer;
+    margin-right: $spacer-2;
+  }
+}

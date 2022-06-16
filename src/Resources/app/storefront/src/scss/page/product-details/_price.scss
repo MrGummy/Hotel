@@ -1,0 +1,20 @@
+.price {
+  box-shadow: 0 15px 15px -10px $transparent-400;
+  background-color: $body-bg;
+  margin: 0 -15px 20px;
+
+  &__bonus {
+    background: $color-theme-400;
+  }
+
+  &--new {
+    color: $white;
+  }
+
+  &--old {
+    &:after {
+      background-color: currentColor;
+      border-bottom: 1px solid $color-theme-200;
+    }
+  }
+}

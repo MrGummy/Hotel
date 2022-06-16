@@ -1,0 +1,144 @@
+.cart-main-header {
+  @include header1;
+  margin-bottom: $spacer-2;
+}
+
+.cart-item {
+  margin: 0;
+  padding: $padding 0;
+  position: relative;
+
+  &:not(:last-of-type) {
+    border-bottom: 1px solid $border-color;
+  }
+
+  &.is-child {
+    background-color: $gray-100;
+  }
+}
+
+.cart-item-nested-icon {
+  background-color: $gray-600;
+}
+
+.cart-item-img {
+  padding: 0;
+  border: none;
+
+  border-radius: $border-radius-sm;
+}
+
+.cart-item-info-img {
+  margin-right: $spacer-2;
+}
+
+.cart-item-details {
+  .product-feature-list-list {
+    margin-bottom: $spacer-1;
+  }
+}
+
+.cart-item-ordernumber {
+  margin-bottom: $spacer-1;
+  font-size: $font-size-sm;
+}
+
+.cart-item-wishlist {
+  margin-top: $spacer-2;
+}
+
+.cart-item-delivery-date {
+  margin-bottom: $spacer-1;
+  font-size: $font-size-sm;
+}
+
+.cart-item-variants {
+  font-size: $font-size-sm;
+}
+
+.cart-item-variants-properties-name {
+  font-weight: $font-weight-bold;
+}
+
+.cart-item-label {
+  @include ui-md;
+
+  display: block;
+
+  &:hover {
+    color: $primary;
+    text-decoration: none;
+  }
+}
+
+.cart-item-quantity {
+  display: block;
+  margin-bottom: 0;
+}
+
+.cart-item-quantity-container {
+  max-width: 120px;
+  width: 100%;
+}
+
+.cart-item-unit-price,
+.cart-item-tax-price {
+  @include ui-md;
+  font-weight: $font-weight-bold;
+}
+
+.cart-item-total-price {
+  @include header2;
+  font-weight: $font-weight-bold;
+}
+
+@include media-breakpoint-up(md) {
+  .cart-item {
+    padding: 10px 0;
+  }
+
+  .cart-item-details {
+    padding: 0;
+  }
+
+  .cart-item-details-container {
+    padding-left: 0;
+  }
+}
+
+.cart-item-remove-button {
+  border: 0;
+  background-color: transparent;
+  color: $color-theme-600;
+
+  padding: 0;
+  line-height: unset;
+
+  &:hover {
+    color: $primary;
+    background-color: transparent;
+  }
+
+  &:active {
+    color: $color-theme-800 !important;
+    background-color: transparent !important;
+  }
+
+  .icon {
+    color: currentColor;
+  }
+}
+
+.cart-item-options-comment {
+  font-size: $font-size-xs;
+}
+
+.cart-item-price {
+  @include header3;
+  margin: 0;
+}
+
+.cart-item-characteristics {
+  @include sys-sm;
+  margin: 0;
+}

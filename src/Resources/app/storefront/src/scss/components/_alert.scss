@@ -1,0 +1,74 @@
+@mixin sw-skin-alert($color, $background) {
+  background-color: $color;
+
+  .alert-content-container {
+    background-color: $background;
+    color: $color;
+
+    @include ui-sm;
+  }
+
+  .icon {
+    color: $white;
+  }
+}
+
+.alert {
+  padding: $spacer-2;
+  border: 0;
+
+  .icon {
+    margin: $spacer-sm;
+    flex: 0 0 auto;
+    color: inherit !important;
+
+    svg {
+      top: 0;
+    }
+  }
+}
+
+.alert.icon-top {
+  .icon {
+    margin-top: 15px;
+    align-self: unset;
+  }
+}
+
+.alert-has-icon {
+  align-items: normal;
+}
+
+.alert-content-container {
+  padding: $spacer-sm;
+  flex-grow: 1;
+
+  @include ui-sm;
+  text-transform: unset;
+}
+
+@each $color, $value in $theme-colors {
+  .alert-#{$color} {
+    @include sw-skin-alert($value, theme-color-level($color, $alert-bg-level));
+  }
+}
+
+.alert {
+  justify-content: center;
+
+  background-color: $color-theme-950;
+  border-radius: $border-radius;
+
+  .alert-content-container {
+    flex-grow: 0;
+    padding-left: 5px;
+  }
+
+  .alert-content-container {
+    background-color: transparent;
+  }
+
+  &.alert-warning {
+    display: none !important;
+  }
+}

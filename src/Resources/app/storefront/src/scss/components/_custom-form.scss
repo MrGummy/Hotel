@@ -1,0 +1,39 @@
+.custom-form {
+  .form-label {
+    display: none;
+  }
+
+  label {
+    pointer-events: all;
+  }
+
+  .form-control,
+  .custom-select {
+    @include ui-base;
+    font-weight: $font-weight-bold;
+
+    &::-webkit-input-placeholder {
+      color: $color-theme-700;
+    }
+  }
+
+  input:focus {
+    background-color: $white;
+  }
+
+  .custom-select {
+    background-color: $input-bg;
+
+    @include ui-base;
+    font-weight: $font-weight-bold;
+
+    &:invalid {
+      color: $color-theme-700;
+    }
+
+    option {
+      @include ui-base;
+      font-weight: $font-weight-bold;
+    }
+  }
+}

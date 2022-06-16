@@ -1,0 +1,60 @@
+/****  tippy  ****/
+
+.tippy {
+  font-weight: $font-weight-bold;
+  cursor: pointer;
+}
+
+.tippy-details {
+  border-bottom: 1px dashed $color-theme-600;
+  cursor: pointer;
+}
+
+.tippy-box {
+  background-color: $color-theme-500;
+  padding: 5px;
+}
+
+.tippy-box[data-placement^='top'] > .tippy-arrow::before {
+  border-top-color: $color-theme-500;
+}
+.tippy-box[data-placement^='bottom'] > .tippy-arrow::before {
+  border-bottom-color: $color-theme-500;
+}
+.tippy-box[data-placement^='left'] > .tippy-arrow::before {
+  border-left-color: $color-theme-500;
+}
+.tippy-box[data-placement^='right'] > .tippy-arrow::before {
+  border-right-color: $color-theme-500;
+}
+
+.tippy-box[data-theme~='transparent'] {
+  background-color: transparent;
+  padding: unset;
+}
+
+.tippy-box[data-theme~='details'] {
+  background-color: $color-theme-500;
+  font-size: unset;
+  color: unset;
+  text-decoration: unset;
+
+  box-shadow: 0 0 25px $black;
+}
+
+.tippy-box[data-theme~='details'][data-placement^='top'] > .tippy-arrow::before {
+  border-top-color: $color-theme-500;
+}
+.tippy-box[data-theme~='details'][data-placement^='bottom'] > .tippy-arrow::before {
+  border-bottom-color: $color-theme-500;
+}
+.tippy-box[data-theme~='details'][data-placement^='left'] > .tippy-arrow::before {
+  border-left-color: $color-theme-500;
+}
+.tippy-box[data-theme~='details'][data-placement^='right'] > .tippy-arrow::before {
+  border-right-color: $color-theme-500;
+}
+
+.tippy-box[data-theme~='custom-options'] {
+  font-size: $font-size-base;
+}
