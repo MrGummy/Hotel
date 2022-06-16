@@ -31,13 +31,13 @@
     {% set lineItemsDisplayed = [] %}
     {% set deliveries = [] %}
 
-    {% for key, delivery in page.cart.deliveries %}
+    {# {% for key, delivery in page.cart.deliveries %}
         {% if delivery.extensions.AcrisPartialDeliveryDiscount or delivery.customFields.AcrisPartialDeliveryDiscount %}{% else %}
             {% set deliveries = deliveries|merge([delivery]) %}
         {% endif %}
-    {% endfor %}
+    {% endfor %} #}
 
-    {% for key, delivery in deliveries %}
+    {# {% for key, delivery in deliveries %}
         <div class="partial-delivery partial-delivery__box">
             <div class="partial-delivery__title">
                 {% block component_offcanvas_cart_item_delivery_heading %}
@@ -57,7 +57,7 @@
                 {% sw_include '@Storefront/storefront/component/checkout/offcanvas-item.html.twig' %}
             {% endfor %}
         </div>
-    {% endfor %}
+    {% endfor %} #}
 
     {% if page.cart.lineItems.count() != lineItemsDisplayed|length %}
         <div class="partial-delivery partial-delivery__box">

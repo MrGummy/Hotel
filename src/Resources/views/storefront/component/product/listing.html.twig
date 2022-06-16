@@ -1,13 +1,6 @@
 {% sw_extends '@Storefront/storefront/component/product/listing.html.twig' %}
 
 {% block element_product_listing_row %}
-    {# {{ dump(element.data.listing) }} #}
-
-    {{ element.data.listing.aggregations.get('products-count-by-properties').buckets[0].result.count }}
-
-    {# {{ dump(element.data.listing.aggregations.get('products-count-by-manufacturers')) }}
-    {{ dump(element.data.listing.aggregations.get('products-count-by-properties')) }} #}
-
     <div class="cms-listing-row js-listing-wrapper listing-grid-layout listing-grid-layout--grid {% if sidebar %}listing-grid-layout--with-sidebar{% endif %}">
         {% if searchResult.total > 0 %}
             {{ block('element_product_listing_col') }}
@@ -26,8 +19,6 @@
         </div>
     {% endif %}
 
-    {# {{ dump(searchResult.aggregations.elements['products-count-by-manufacturers']) }}
-    {{ dump(searchResult.aggregations.elements['products-count-by-properties']) }} #}
     <div class="cms-element-product-listing-actions row justify-content-between">
         <div class="col-md-auto">
             {% block element_product_listing_pagination_nav_top %}

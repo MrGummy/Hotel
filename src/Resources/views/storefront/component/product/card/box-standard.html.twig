@@ -21,11 +21,11 @@
                     {% block component_product_box_image %}
                         <div class="product-image-wrapper">
 
-                            {% block component_product_box_manufacturer %}
+                            {# {% block component_product_box_manufacturer %}
                                 {% if product.manufacturer.name != empty %}
                                     <div class="product-manufacturer">{{ product.manufacturer.name }}</div>
                                 {% endif %}
-                            {% endblock %}
+                            {% endblock %} #}
 
                             <a class="product-image-link"
                                 href="{{ seoUrl('frontend.detail.page', {'productId': id}) }}" title="{{ name }}">
@@ -88,11 +88,11 @@
                                 </a>
                             {% endblock %}
 
-                            {% block utility_info_box %}
+                            {# {% block utility_info_box %}
                                 {% sw_include '@Storefront/storefront/component/product/card/fit-info.html.twig' with {
                                     productId: id
                                 } %}
-                            {% endblock %}
+                            {% endblock %} #}
 
                             {% block numbers_box %}
                                 <div class="product-numbers-box">
@@ -190,13 +190,13 @@
                                 </div>
                             {% endblock %}
 
-                            {% block component_product_compare_box %}
+                            {# {% block component_product_compare_box %}
                                 {% if app.request.attributes.get('_route') != 'frontend.compare.content' %}
                                     {% block component_product_box_action_detail_add_to_compare_button %}
                                         {% sw_include '@Storefront/storefront/component/product/card/compare-button.html.twig' %}
                                     {% endblock %}
                                 {% endif %}
-                            {% endblock %}
+                            {% endblock %} #}
 
                             {% block component_product_delivery_box %}
                                 <div class="product-detail-delivery-information">

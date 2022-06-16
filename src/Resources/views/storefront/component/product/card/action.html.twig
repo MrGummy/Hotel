@@ -1,6 +1,6 @@
 {% sw_extends '@Storefront/storefront/component/product/card/action.html.twig' %}
 
-{% block page_product_detail_product_buy_button %}
+{# {% block page_product_detail_product_buy_button %}
     {% if type == 'icon' %}
         <button class="btn py-0 px-1"
             title="{{ "listing.boxAddProduct"|trans|striptags }}">
@@ -14,7 +14,7 @@
             {{ "listing.boxAddProduct"|trans|sw_sanitize }}
         </button>
     {% endif %}
-{% endblock %}
+{% endblock %} #}
 
 {% block component_product_box_action_detail %}
     {% if type == 'icon' %}
@@ -27,5 +27,5 @@
     {% endif %}
 {% endblock %}
 
-{% block component_product_box_action_add_to_compare_button %}{% endblock %}
-{% block component_product_box_action_detail_add_to_compare_button %}{% endblock %}
+{# {% block component_product_box_action_add_to_compare_button %}{% endblock %}
+{% block component_product_box_action_detail_add_to_compare_button %}{% endblock %} #}
