@@ -1,0 +1,22 @@
+{
+  "sw-cms": {
+    "blocks": {
+      "sidebar": {
+        "mmCarCatalog": {
+          "label": "MM Car Catalog"
+        },
+        "mmCarSearch": {
+          "label": "MM Car Search"
+        }
+      }
+    },
+    "elements": {
+      "mmCarCatalog": {
+        "label": "MM Car Catalog"
+      },
+      "mmCarSearch": {
+        "label": "MM Car Search"
+      }
+    }
+  }
+}
