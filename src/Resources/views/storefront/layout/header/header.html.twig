@@ -9,7 +9,7 @@
         {% block layout_header_top %}
             <div class="header-top__box">
                 <div class="container">
-                    <div class="header-top">
+                    <div class="header-top" style="justify-content:flex-end;">
                         {% block layout_header_top_nav %}
                         <div class="header-top-nav">
                             {% apply spaceless %}
@@ -25,9 +25,9 @@
                         </div>
                         {% endblock %}
 
-                        {% block layout_header_top_service %}
+                        {# {% block layout_header_top_service %}
                             {% sw_include '@Storefront/storefront/layout/header/service-menu.html.twig' %}
-                        {% endblock %}
+                        {% endblock %} #}
 
                         {% block layout_header_top_login %}
                         <div class="header-top-login">
@@ -49,14 +49,14 @@
                         </div>
                         {% endblock %}
                         <div class="header-middle__center">
-                            {% block layout_header_middle_phone %}
+                            {# {% block layout_header_middle_phone %}
                             <div class="phone-box">
                                 <div class="phone-box__phone">
                                     <a href="tel:+4934199150024"><svg class="crw-icon"><use xlink:href="#icon_phone"></use></svg><span>+49 341 991 500 24</span></a>
                                 </div>
                                 <div class="phone-box__comment">Kostenlos in Deutschland</div>
                             </div>
-                            {% endblock %}
+                            {% endblock %} #}
 
                             {% block layout_header_middle_contacts %}
                             {# <div class="contacts-box">
@@ -67,7 +67,7 @@
                         </div>
                         {% block layout_header_middle_service %}
                         <div class="header-middle-service">
-                            {% sw_include '@Storefront/storefront/layout/header/actions/contacts-widget.html.twig' %}
+                            {# {% sw_include '@Storefront/storefront/layout/header/actions/contacts-widget.html.twig' %}
 
                             {% block layout_header_middle_service_compare %}
                                 {% sw_include '@Storefront/storefront/layout/header/actions/compare-widget.html.twig' %}
@@ -77,7 +77,7 @@
                                 {% block layout_header_middle_service_favorites %}
                                     {% sw_include '@Storefront/storefront/layout/header/actions/wishlist-widget.html.twig' %}
                                 {% endblock %}
-                            {% endif %}
+                            {% endif %} #}
 
                             {% block layout_header_middle_service_cart %}
                                 <div class="header-middle-service-cart"

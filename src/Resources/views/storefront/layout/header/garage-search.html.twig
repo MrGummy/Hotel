@@ -2,20 +2,15 @@
     <div class="header-bottom__box">
         <div class="container">
             <div class="header-bottom">
-                {% block layout_garage %}
+                {# {% block layout_garage %}
                     {% sw_include '@Storefront/storefront/layout/header/actions/garage-widget.html.twig' %}
-                {% endblock %}
+                {% endblock %} #}
 
                 {% block layout_search %}
                     {% sw_include '@Storefront/storefront/layout/header/search.html.twig' %}
                 {% endblock %}
 
                 <div class="header-bottom__actions" data-sticky-header="true">
-                    {% block layout_header_middle_service_compare %}
-                        {% sw_include '@Storefront/storefront/layout/header/actions/compare-widget.html.twig' with {
-                            modalEnabled: true
-                        } %}
-                    {% endblock %}
 
                     {% if config('core.cart.wishlistEnabled') %}
                         {% block layout_header_middle_service_favorites %}
