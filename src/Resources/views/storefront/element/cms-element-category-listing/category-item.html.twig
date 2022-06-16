@@ -1,0 +1,51 @@
+{% block element_category_listing_item %}
+
+    {% set headingPosition = element.data.headingPosition|default('top') %}
+
+     <a href="{{ seoUrl('frontend.navigation.page', { navigationId: category.id }) }}" class="brand-grid__link">
+
+     <div class="brand-grid__item">
+    {% block element_category_listing_item_inner %}
+        {% block element_category_listing_item_heading %}
+            {% if(headingPosition == 'top' or headingPosition == 'overlay') %}
+                <div class="brand-grid__name"
+                    {% block element_category_listing_item_heading_inner %}
+                    class="stretched-link" title="{{ category.translated.name }}">
+                    {{ category.translated.name }}
+                    {% endblock %}
+                </div>
+            {% endif %}
+        {% endblock %}
+
+        {% block element_category_listing_item_image %}
+            <div class="brand-grid__image">
+                {% if category.media %}
+                    {% block element_category_listing_item_image_inner %}
+                        {% sw_thumbnails 'cms-element-category-listing-item-image' with {
+                            media: category.media,
+                            sizes: {
+                                'xs': '125px'
+                            },
+                            attributes: {
+                                'class': 'img-fluid',
+                                'alt': (category.media.translated.alt ?: ''),
+                                'title': (category.media.translated.title ?: ''),
+                            },
+                        } %}
+                    {% endblock %}
+                {% endif %}
+            </div>
+        {% endblock %}
+        {% block element_category_listing_item_heading_bottom %}
+            {% if(headingPosition == 'bottom') %}
+                <div class="brand-grid__name" title="{{ category.translated.name }}">
+                    {% block element_category_listing_item_heading_bottom_inner %}
+                        {{ category.translated.name }}
+                    {% endblock %}
+                </div>
+            {% endif %}
+        {% endblock %}
+    {% endblock %}
+    </div>
+    </a>
+{% endblock %}

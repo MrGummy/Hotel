@@ -1,0 +1,13 @@
+{% sw_extends '@Storefront/storefront/element/cms-element-mm-product-slider.html.twig' %}
+
+{% block element_mm_slider_title %}
+    {% if sliderConfig.title.value != '' %}
+    <div class="mm-slider-title header2">
+        {% if sliderConfig.titleLink.value != '' %}
+            <a href="{{sliderConfig.titleLink.value}}" title="{{ sliderConfig.title.value }}">{{ sliderConfig.title.value }}</a>
+        {% else %}
+            {{ sliderConfig.title.value }}
+        {% endif %}
+    </div>
+    {% endif %}
+{% endblock %}

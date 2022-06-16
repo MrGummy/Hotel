@@ -1,0 +1,40 @@
+{% sw_extends '@Storefront/storefront/element/cms-element-mm-product-slider.html.twig' %}
+
+{% block element_mm_slider_config %}
+    {% set slider = {
+        config: {
+            elementId: element.id,
+            numberOfSlides: element.data.products.elements|length,
+            customPluginConfig: pluginConfig.customPluginConfig ? pluginConfig.customPluginConfig : null,
+            navigation: sliderConfig.navigation.value ? true : false,
+            pagination: sliderConfig.pagination.value ? true : false,
+            autoplay: sliderConfig.rotate.value ? true : false,
+            loop: true,
+            freeMode: sliderConfig.freeMode.value ? true : false,
+            scrollbar: sliderConfig.scrollbar.value ? true : false,
+            slidesPerView: pluginConfig.slidesPerView0 ? pluginConfig.slidesPerView0 : 1,
+            slidesPerGroup: sliderConfig.group.value ? pluginConfig.slidesPerView0 : 1,
+            spaceBetween: pluginConfig.spaceBetween0,
+            breakpoints: breakpoints,
+            customConfig: sliderConfig.customConfig.value ? sliderConfig.customConfig.value : null,
+        }
+    } %}
+
+    {{ block('element_mm_slider_postconfig') }}
+{% endblock %}
+
+{% block element_mm_slider_controls %}
+    {% if slider.config.navigation %}
+        <button class="slider__button slider__button--prev swiper-button-prev-{{ element.id }}">
+            <svg class="chevron">
+                <use xlink:href="#mmo-chevron-left"></use>
+            </svg>
+        </button>
+
+        <button class="slider__button slider__button--next swiper-button-next-{{ element.id }}">
+            <svg class="chevron">
+                <use xlink:href="#mmo-chevron-right"></use>
+            </svg>
+        </button>
+    {% endif %}
+{% endblock %}

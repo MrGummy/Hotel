@@ -1,0 +1,23 @@
+{% block element_product_listing %}
+    {# @var result \Shopware\Core\Framework\DataAbstractionLayer\Search\EntitySearchResult #}
+    {% set slot = null %}
+
+    {% set filterUrl = null %}
+    {% set dataUrl = null %}
+
+    {% set params = { slots: slot.id, 'no-aggregations': 1 } %}
+    {% set sidebar = section.type == 'sidebar' %}
+
+    {% block element_product_listing_wrapper %}
+        {% sw_include '@Storefront/storefront/component/product/listing.html.twig' with {
+            searchResult: searchResult,
+            dataUrl: dataUrl,
+            filterUrl: filterUrl,
+            disableEmptyFilter: false,
+            params: params,
+            sidebar: sidebar,
+            boxLayout: element.translated.config.boxLayout.value,
+            displayMode: element.translated.config.displayMode.value,
+        } %}
+    {% endblock %}
+{% endblock %}
