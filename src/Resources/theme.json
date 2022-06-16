@@ -1,0 +1,82 @@
+{
+  "name": "MmTheme",
+  "author": "Gix",
+  "views": ["@Storefront", "@Plugins", "@MmTheme"],
+  "style": [
+    "app/storefront/src/scss/overrides.scss",
+    "@StorefrontBootstrap",
+    "@Plugins",
+    "app/storefront/src/scss/base.scss"
+  ],
+  "script": ["@Storefront", "app/storefront/dist/storefront/js/mm-theme.js"],
+  "config": {
+    "blocks": {
+      "media": {
+        "label": {
+          "en-GB": "Media"
+        }
+      }
+    },
+    "fields": {
+      "sw-logo-desktop": {
+        "label": {
+          "en-GB": "Desktop"
+        },
+        "helpText": {
+          "en-GB": "Displayed for viewports of above 991px"
+        },
+        "type": "media",
+        "value": "",
+        "editable": true,
+        "block": "media",
+        "order": 100
+      },
+      "sw-logo-tablet": {
+        "label": {
+          "en-GB": "Tablet"
+        },
+        "helpText": {
+          "en-GB": "Displayed between a viewport of 767px to 991px"
+        },
+        "type": "media",
+        "value": "",
+        "editable": true,
+        "block": "media",
+        "order": 200
+      },
+      "sw-logo-mobile": {
+        "label": {
+          "en-GB": "Mobile"
+        },
+        "helpText": {
+          "en-GB": "Displayed up to a viewport of 767px"
+        },
+        "type": "media",
+        "value": "",
+        "editable": true,
+        "block": "media",
+        "order": 300
+      },
+      "sw-logo-share": {
+        "label": {
+          "en-GB": "App & share icon"
+        },
+        "type": "media",
+        "value": "",
+        "editable": true,
+        "block": "media",
+        "order": 400
+      },
+      "sw-logo-favicon": {
+        "label": {
+          "en-GB": "Favicon"
+        },
+        "type": "media",
+        "value": "app/storefront/src/assets/logo/favicon.png",
+        "editable": true,
+        "block": "media",
+        "order": 500
+      }
+    }
+  }
+}
