@@ -1,0 +1,28 @@
+{% block component_filter_multi_select_list_item %}
+    <div class="custom-control custom-checkbox">
+        {% set id = element.id %}
+        {% set name = element.translated.name %}
+
+        {% block component_filter_multi_select_list_item_checkbox_input %}
+            <input type="checkbox"
+                   class="custom-control-input filter-multi-select-checkbox"
+                   data-label="{{ name }}"
+                   value="{{ id }}"
+                   id="{{ id }}">
+        {% endblock %}
+
+        {% block component_filter_multi_select_list_item_label_element %}
+            <label class="filter-multi-select-item-label custom-control-label" for="{{ id }}">
+                {% block component_multi_select_list_item_label %}
+                    <div>{{ name }}</div>
+                {% endblock %}
+
+                {% block component_multi_select_list_item_counter %}
+                    {% set count = buckets|filter(v => v.key == id)|first.result.count %}
+
+                    <div data-listing-counter-id="{{ id }}">{{ count }}</div>
+                {% endblock %}
+            </label>
+        {% endblock %}
+    </div>
+{% endblock %}

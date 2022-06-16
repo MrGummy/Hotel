@@ -1,0 +1,44 @@
+{% sw_extends '@Storefront/storefront/component/payment/payment-method.html.twig' %}
+
+{% block component_payment_method_field %}
+
+    {# APPLE PAY MOLLIE HACK #}
+    {% if payment.formattedHandlerIdentifier == 'handler_kiener_applepaypayment' %}
+        <meta class="payment-method-input applepay" id="paymentMethod{{ payment.id }}" />
+    {% endif %}
+
+    <div class="payment-form-group form-group">
+        {% block component_payment_method_control %}
+            <div class="custom-control custom-radio payment-method-radio">
+                {% block component_payment_method_label %}
+                    <label class="custom-control-label payment-method-label {% if payment.id is same as(selectedPaymentMethodId) %}payment-method-label--active{% endif %}"
+                            for="paymentMethod{{ payment.id }}">
+                        {% block component_payment_method_image %}
+                            {% if payment.media %}
+                                {% sw_thumbnails 'payment-method-image-thumbnails' with {
+                                    media: payment.media,
+                                    sizes: {
+                                        'default': '100px'
+                                    },
+                                    attributes: {
+                                        'class': 'payment-method-image',
+                                        'alt': (payment.media.translated.alt ?: payment.translated.name),
+                                        'title': (payment.media.translated.title ?: payment.translated.name)
+                                    }
+                                } %}
+                            {% endif %}
+                        {% endblock %}
+
+                        {% block component_payment_method_description %}
+                            <div class="payment-method-description">
+                                <strong>{{ payment.translated.name }}</strong>
+                            </div>
+                        {% endblock %}
+                    </label>
+                {% endblock %}
+            </div>
+        {% endblock %}
+    </div>
+{% endblock %}
+
+{% block component_payment_fieldset_template %}{% endblock %}

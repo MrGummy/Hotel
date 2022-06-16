@@ -1,0 +1,114 @@
+{% sw_extends '@Storefront/storefront/component/address/address-form.html.twig' %}
+
+
+{% block component_address_form_company_name_input %}
+    <input type="text"
+            class="form-control{% if violationPath %} is-invalid{% endif %}"
+            id="{{ prefix }}company"
+            placeholder="{{ "address.companyNamePlaceholder"|trans|striptags }}{{ "general.required"|trans|sw_sanitize }}"
+            name="{{ prefix }}[company]"
+            value="{{ data.get('company') }}"
+            {% if prefix != "shippingAddress" and accountTypeRequired %}required="required"{% endif %}>
+{% endblock %}
+
+{% block component_address_form_street_input %}
+    <input type="text"
+            class="form-control{% if violationPath %} is-invalid{% endif %}"
+            id="{{ prefix }}AddressStreet"
+            placeholder="{{ "address.streetPlaceholder"|trans|striptags }}{{ "general.required"|trans|sw_sanitize }}"
+            name="{{ prefix }}[street]"
+            value="{{ data.get('street') }}"
+            required="required">
+{% endblock %}
+
+{% block component_address_form_zipcode_input %}
+    <input type="text"
+            class="form-control{% if violationPath %} is-invalid{% endif %}"
+            id="{{ prefix }}AddressZipcode"
+            placeholder="{{ "address.zipcodePlaceholder"|trans|striptags }}{{ "general.required"|trans|sw_sanitize }}"
+            name="{{ prefix }}[zipcode]"
+            value="{{ data.get('zipcode') }}"
+            required="required">
+{% endblock %}
+
+{% block component_address_form_city_input %}
+    <input type="text"
+            class="form-control{% if violationPath %} is-invalid{% endif %}"
+            id="{{ prefix }}AddressCity"
+            placeholder="{{ "address.cityPlaceholder"|trans|striptags }}{{ "general.required"|trans|sw_sanitize }}"
+            name="{{ prefix }}[city]"
+            value="{{ data.get('city') }}"
+            required="required">
+{% endblock %}
+
+{% block component_address_form_additional_field1_input %}
+    <input type="text"
+            class="form-control {% if violationPath %} is-invalid{% endif %}"
+            id="{{ prefix }}AdditionalField1"
+            placeholder="{{ "address.additionalField1Placeholder"|trans|striptags }}{{ config('core.loginRegistration.additionalAddressField1Required') ? "general.required"|trans|sw_sanitize }}"
+            name="{{ prefix }}[additionalAddressLine1]"
+            value="{{ data.get('additionalAddressLine1') }}"
+            {{ config('core.loginRegistration.additionalAddressField1Required') ? 'required="true"' }}>
+{% endblock %}
+
+{% block component_address_form_additional_field2_input %}
+    <input type="text"
+            class="form-control {% if violationPath %} is-invalid{% endif %}"
+            id="{{ prefix }}AdditionalField2"
+            placeholder="{{ "address.additionalField2Placeholder"|trans|striptags }}{{ config('core.loginRegistration.additionalAddressField2Required') ? "general.required"|trans|sw_sanitize }}"
+            name="{{ prefix }}[additionalAddressLine2]"
+            value="{{ data.get('additionalAddressLine2') }}"
+            {{ config('core.loginRegistration.additionalAddressField2Required') ? 'required="true"' }}>
+{% endblock %}
+
+
+{% block component_address_form_country_select %}
+    <select class="country-select custom-select{% if violationPath %} is-invalid{% endif %}"
+            id="{{ prefix }}AddressCountry"
+            name="{{ prefix }}[countryId]"
+            required="required"
+            data-initial-country-id="{{ data.get('countryId') }}">
+        {% if not data.get('countryId') %}
+            <option disabled="disabled"
+                    value=""
+                    selected="selected">
+                {{ "address.countryPlaceholder"|trans|sw_sanitize }}{{ "general.required"|trans|sw_sanitize }}
+            </option>
+        {% endif %}
+        {% for country in page.countries %}
+            <option {% if country.id == data.get('countryId') %}
+                    selected="selected"
+                    {% endif %}
+                    value="{{ country.id }}"
+                    {% if feature('FEATURE_NEXT_14114') %}
+                    data-vat-id-required="{{ country.vatIdRequired }}"
+                    {% endif %}>
+                {{ country.translated.name }}
+            </option>
+        {% endfor %}
+    </select>
+{% endblock %}
+
+{% block component_address_form_country_state_select %}
+    <select class="country-state-select custom-select{% if violationPath %} is-invalid{% endif %}"
+            id="{{ prefix }}AddressCountryState"
+            name="{{ prefix }}[countryStateId]"
+            data-initial-country-state-id="{{ data.get('countryStateId') }}">
+        <option value=""
+                selected="selected"
+                data-placeholder-option="true">
+            {{ "address.countryStatePlaceholder"|trans|sw_sanitize }}{{ "general.required"|trans|sw_sanitize }}
+        </option>
+    </select>
+{% endblock %}
+
+
+{% block component_address_form_phone_number_input %}
+    <input type="text"
+            class="form-control"
+            id="{{ prefix }}AddressPhoneNumber"
+            placeholder="{{ "address.phoneNumberPlaceholder"|trans|striptags }}{{ config('core.loginRegistration.phoneNumberFieldRequired') ? "general.required"|trans|sw_sanitize }}"
+            name="{{ prefix }}[phoneNumber]"
+            value="{{ data.get('phoneNumber') }}"
+        {{ config('core.loginRegistration.phoneNumberFieldRequired') ? 'required="true"' }}>
+{% endblock %}

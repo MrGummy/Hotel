@@ -1,0 +1,22 @@
+{% block acris_partial_delivery_shipping_method_offcanvas_info %}
+    {% set deliveryId = activeShipping.extensions.acrisPartialDelivery.id %}
+
+    <div class="acris-partial-delivery-offcanvas-form"
+         data-acris-partial-delivery-offcanvas="true"
+         data-acris-partial-delivery-offcanvas-options='{"token" : "{{ sw_csrf('frontend.acris-partial-delivery.configure-deliveries', {"mode": "token"}) }}",
+                                                                               "postUrl":"{{ path('frontend.acris-partial-delivery.configure-deliveries') }}",
+                                                                               "deliveryId" : "{{ deliveryId }}"}'>
+        <div class="row offcanvas-shipping-info">
+            <span class="col-7 shipping-label shipping-cost">
+                <strong>{{ "checkout.summaryShipping"|trans|sw_sanitize }}{% if config('AcrisPartialDeliveryCS.config').shippingCostsCalculation == 'highest' %}{% else %} {{ loop.index }}{% endif %}</strong>
+                <small {% if page.shippingMethods|length %}class="js-toggle-shipping-selection"{% endif %}>
+                    ({{ activeShipping.shippingMethod.translated.name }})
+                </small>
+            </span>
+
+            <span class="col-5 shipping-value shipping-cost">
+                <strong>+ {{ activeShipping.shippingCosts.totalPrice|currency }}</strong>
+            </span>
+        </div>
+    </div>
+{% endblock %}

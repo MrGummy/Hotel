@@ -1,0 +1,207 @@
+
+{% set loginForm %}
+    {% block component_account_login %}
+        <div class="card login-card">
+            <div class="card-body">
+                {% block component_account_login_header %}{% endblock %}
+
+                {% block component_account_login_form %}
+                    <form class="login-form"
+                        action="{{ path('frontend.account.login') }}"
+                        method="post"
+                        data-form-csrf-handler="true"
+                        data-form-validation="true">
+
+                        {% block component_account_login_form_csrf %}
+                            {{ sw_csrf('frontend.account.login') }}
+                        {% endblock %}
+
+                        {% block component_account_login_form_redirect %}
+                            <input type="hidden"
+                                name="redirectTo"
+                                value="{{ redirectTo }}">
+
+                            <input type="hidden"
+                                name="redirectParameters"
+                                value="{{ redirectParameters }}">
+                        {% endblock %}
+
+                        {% block component_account_login_form_description %}{% endblock %}
+
+                        {% block component_account_login_form_error %}
+                            {% if loginError %}
+                                {% if errorSnippet != null %}
+                                    {% sw_include '@Storefront/storefront/utilities/alert.html.twig' with {
+                                        type: "danger",
+                                        content: errorSnippet|trans|sw_sanitize
+                                    } %}
+                                {% else %}
+                                    {% sw_include '@Storefront/storefront/utilities/alert.html.twig' with {
+                                        type: "danger",
+                                        content: "account.loginBadCredentials"|trans|sw_sanitize
+                                    } %}
+                                {% endif %}
+                            {% endif %}
+                        {% endblock %}
+
+                        {% block component_account_login_form_fields %}
+                                {% block component_account_login_form_mail %}
+                                        {% block component_account_login_form_mail_label %}
+                                            <label class="form-label"
+                                                for="loginMail">
+                                                {{ "account.loginMailLabel"|trans|sw_sanitize }}
+                                            </label>
+                                        {% endblock %}
+
+                                        {% block component_account_login_form_mail_input %}
+                                            <input type="email"
+                                                class="form-control{% if loginError %} is-invalid{% endif %} mb-2"
+                                                id="loginMail"
+                                                placeholder="{{ "account.loginMailPlaceholder"|trans|striptags }}"
+                                                name="username"
+                                                required="required">
+                                        {% endblock %}
+                                {% endblock %}
+
+                                {% block component_account_login_form_password %}
+                                        {% block component_account_login_form_password_label %}
+                                            <label class="form-label"
+                                                for="loginPassword">
+                                                {{ "account.loginPasswordLabel"|trans|sw_sanitize }}
+                                            </label>
+                                        {% endblock %}
+                                        {% block component_account_login_form_password_input %}
+                                            <input type="password"
+                                                class="form-control{% if loginError %} is-invalid{% endif %}"
+                                                id="loginPassword"
+                                                placeholder="{{ "account.loginPasswordPlaceholder"|trans|striptags }}"
+                                                name="password"
+                                                required="required">
+                                        {% endblock %}
+                                {% endblock %}
+                        {% endblock %}
+
+                        {% block component_account_login_password_recover %}
+                            <div class="login-password-recover mb-4 mt-2">
+                                {% block component_account_login_password_recover_link %}
+                                    <a href="{{ seoUrl('frontend.account.recover.page') }}">
+                                        {{ 'account.loginPasswordRecover'|trans }}
+                                    </a>
+                                {% endblock %}
+                            </div>
+                        {% endblock %}
+
+                        {% block component_account_login_submit %}
+                            <button type="submit" class="btn btn-primary w-100 mb-2">
+                                {{ "account.loginSubmit"|trans|sw_sanitize }}
+                            </button>
+
+                            <label class="btn btn-outline-primary w-100" for="checkout-register-tab-handler">
+                                {{ "mm-theme.checkout.register"|trans|sw_sanitize }}
+                            </label>
+
+                            <label class="btn btn-accent w-100" for="checkout-register-tab-handler">
+                                {{ "mm-theme.checkout.asGuest"|trans|sw_sanitize }}
+                            </label>
+                        {% endblock %}
+                    </form>
+                {% endblock %}
+            </div>
+        </div>
+    {% endblock %}
+{% endset %}
+
+{% if config('MoorlSignIn.config.enable') %}
+    {% if app.getRequest().query.get('customer') == false %}
+        {% set pluginProviders = context.extensions.moorlSignIn.get('providers') %}
+
+        {% if config('MoorlSignIn.config.priority') == false and config('MoorlSignIn.config.disableShopwareRegistration') == false %}
+            {{ loginForm }}
+
+            <div class="social-login__breaker mb-4">
+                <div class="social-login__breaker-text">
+                    {{ "mm-theme.login.or"|trans|sw_sanitize }}
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="social-login__text">{{ "mm-theme.login.loginDescription"|trans }}</div>
+
+        {% block moorl_component_account_login_before %}{% endblock %}
+
+        <div class="card login-card">
+            <div class="card-body">
+                <form class="login-form"
+                        action="{{ seoUrl('moorl.sign-in.get-url') }}"
+                        method="post"
+                        data-moorl-sign-in="true"
+                        data-form-validation="true"
+                        data-form-csrf-handler="true">
+                    {{ sw_csrf('moorl.sign-in.get-url') }}
+
+                    {% if redirectTo %}
+                        {# <input type="hidden" name="redirectUrl" value="{{ seoUrl(redirectTo, redirectParameters) }}"> #}
+                        <input type="hidden" name="redirectTo" value="{{ redirectTo }}">
+                        <input type="hidden" name="redirectParameters" value="{{ redirectParameters }}">
+                    {% endif %}
+
+                    <input type="hidden" name="redirectUri" value="{{ seoUrl('moorl.oauth2.login') }}">
+                    <input type="hidden" name="_provider" value="">
+
+                    {% if config('MoorlSignIn.config.privacy') %}
+                        <div class="form-row">
+                            <div class="form-group col-12">
+                                <div class="custom-control custom-checkbox">
+                                    <input id="loginPrivacyCheckbox" required type="checkbox"
+                                            class="custom-control-input" name="privacy" value="1">
+                                    <label for="loginPrivacyCheckbox"
+                                            class="custom-control-label">
+                                        {% block moorl_component_account_privacy_label %}
+                                            {{ "moorl-sign-in.loginPrivacyLabel"|trans|raw }}
+                                        {% endblock %}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    <div class="social-login">
+                        {% for key, provider in pluginProviders %}
+                            {% if config("MoorlSignIn.config.#{key}active") %}
+                                {% block moorl_component_account_login_button %}
+                                    <button type="submit"
+                                            class="btn social-login__item"
+                                            name="provider"
+                                            value="{{ key }}">
+
+                                        <svg class="social-login__icon social-login__icon--{{ key }}">
+                                            <use xlink:href="#mmo-{{ key }}"></use>
+                                        </svg>
+
+                                        <span class="social-login__label">
+                                            {{ provider.label|trans }}
+                                        </span>
+                                    </button>
+                                {% endblock %}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        {% block moorl_component_account_login_after %}{% endblock %}
+
+        {% if config('MoorlSignIn.config.priority') == true and config('MoorlSignIn.config.disableShopwareRegistration') == false %}
+            <div class="social-login__breaker mb-4">
+                <div class="social-login__breaker-text">
+                    {{ "mm-theme.login.or"|trans|sw_sanitize }}
+                </div>
+            </div>
+
+            {{ loginForm }}
+        {% endif %}
+    {% endif %}
+{% else %}
+    {{ loginForm }}
+{% endif %}

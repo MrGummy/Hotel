@@ -1,0 +1,30 @@
+{% block component_privacy_notice %}
+
+{# GENERATE RANDOM HANDLER #}
+{% set handler = [] %}
+{% set alpha = 'abcdefghijklmnopqrstuvwxyz' %}
+{% set numbers = '0123456789' %}
+
+{% for i in 1..10 %}
+    {% set randomCharacter = random(alpha ~ alpha|upper ~ numbers ~ '-_') %}
+    {% set handler = handler|merge([randomCharacter]) %}
+{% endfor %}
+
+{% set handler = handler|join %}
+
+<div class="form-row">
+  <div class="form-group col-12">
+      <div class="custom-control custom-checkbox">
+        {% block component_privacy_label %}
+          <input type="checkbox" class="custom-control-input" name="privacy" id="{{handler}}" required checked>
+          <label for="{{handler}}" class="custom-control-label">
+            {{ "general.privacyNotice"|trans({
+                '%privacyUrl%': path('frontend.cms.page',{ id: config('core.basicInformation.privacyPage') }),
+                '%tosUrl%': path('frontend.cms.page',{ id: config('core.basicInformation.tosPage') })
+            })|raw }}
+          </label>
+        {% endblock %}
+      </div>
+  </div>
+</div>
+{% endblock %}

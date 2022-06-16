@@ -1,0 +1,14 @@
+{% sw_extends '@Storefront/storefront/component/checkout/offcanvas-cart-summary.html.twig' %}
+
+
+{% block component_offcanvas_summary_total_label %}
+    <dt class="col-7 summary-label summary-total">
+        {{ "checkout.subtotalAmount"|trans|sw_sanitize }}
+    </dt>
+{% endblock %}
+
+{% block component_offcanvas_summary_total_value %}
+    <dd class="col-5 summary-value text-right summary-total">
+        {{ page.cart.price.positionPrice|currency }}
+    </dd>
+{% endblock %}

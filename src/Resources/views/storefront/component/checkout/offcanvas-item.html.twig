@@ -1,0 +1,105 @@
+{% sw_extends '@Storefront/storefront/component/checkout/offcanvas-item.html.twig' %}
+
+{% block component_offcanvas_product_image %}
+  {% block component_offcanvas_product_image_inner %}
+    <div class="col-3 cart-item-img">
+      {% if isDiscount %}
+        <div class="cart-item-discount-icon">
+          {% sw_icon 'marketing' style {
+                'color': 'success'
+            } %}
+        </div>
+      {% elseif isNested %}
+        <div class="cart-item-nested-icon">
+          {% sw_icon 'bag-product' style {
+                'color': 'light'
+            } %}
+        </div>
+      {% else %}
+        <a href="{{ seoUrl('frontend.detail.page', {'productId': referencedId}) }}" class="cart-item-img-link" title="{{ label }}">
+          {% if lineItem.cover.url %}
+            {% sw_thumbnails 'cart-item-img-thumbnails' with {
+                  media: lineItem.cover,
+                  sizes: {
+                      'default': '100px'
+                  },
+                  attributes: {
+                      'class': 'img-fluid cart-item-img-source',
+                      'alt': label,
+                      'title': label
+                  }
+              } %}
+          {% else %}
+            {% sw_icon 'placeholder' style {
+                'size': 'fluid'
+              } %}
+          {% endif %}
+        </a>
+      {% endif %}
+    </div>
+  {% endblock %}
+{% endblock %}
+
+{% block component_offcanvas_product_details %}
+    <div class="col-9 cart-item-details">
+        {{ block("component_offcanvas_product_details_inner") }}
+    </div>
+{% endblock %}
+
+{% block component_offcanvas_product_buy_quantity %}
+  {% set quantityOptions = {
+    quantity: quantity,
+    min: quantityInformation.minPurchase,
+    max: maxQuantity,
+    step: quantityInformation.purchaseSteps,
+    name: 'quantity'
+  } %}
+
+  <div class="quantity js-offcanvas-cart-change-quantity"
+    data-quantity-input="true"
+    data-quantity-input-options="{{ quantityOptions|json_encode }}">
+  </div>
+{% endblock %}
+
+{% block component_offcanvas_product_total_price %}
+  <div class="cart-item-price">
+    {{ price.totalPrice|currency }}
+    {% set referencePrice = price.referencePrice %}
+    {% if referencePrice is not null %}
+      <small class="cart-item-reference-price">
+        ({{ referencePrice.price|currency }} /
+        {{ referencePrice.referenceUnit }}&nbsp;{{ referencePrice.unitName }})
+      </small>
+    {% endif %}
+  </div>
+{% endblock %}
+
+{% block component_offcanvas_product_remove %}
+<div class="cart-item-remove">
+    {% block component_offcanvas_product_remove_form %}
+    {% if lineItem.removable %}
+    <form action="{{ path('frontend.checkout.line-item.delete', {'id': id}) }}"
+        class="cart-item-remove js-offcanvas-cart-remove-product" method="post">
+
+        {% block component_offcanvas_product_remove_form_csrf %}
+          {{ sw_csrf('frontend.checkout.line-item.delete') }}
+        {% endblock %}
+
+        {% block component_offcanvas_product_remove_redirect %}
+        <input type="hidden" name="redirectTo" value="frontend.cart.offcanvas" />
+        {% endblock %}
+
+        {% block component_offcanvas_product_remove_submit %}
+        <button type="submit" title="{{ " checkout.removeLineItem"|trans|striptags }}"
+            data-product-id="{{ lineItem.id }}" class="btn btn-light cart-item-remove-button">
+
+            <svg class="crw-icon crw-icon--sm">
+                <use xlink:href="#icon_close"></use>
+            </svg>
+        </button>
+        {% endblock %}
+    </form>
+    {% endif %}
+    {% endblock %}
+</div>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% sw_extends '@Storefront/storefront/component/compare/offcanvas-product.html.twig' %}
+
+
+{% block frosh_product_compare_offcanvas_product_image %}
+    <div class="col-auto mr-1">
+        {{ block('product_compare_offcanvas_product_image_inner') }}
+    </div>
+{% endblock %}
+
+{% block frosh_product_compare_offcanvas_product_label %}
+    <a href="{{ seoUrl('frontend.detail.page', {'productId': product.id}) }}"
+        class="cart-item-label"
+        target="_blank"
+        title="{{ label }}">
+        {{ label|u.truncate(60) }}
+    </a>
+
+    {% if product.variation %}
+        {{ block('component_product_box_variant_characteristics') }}
+    {% endif %}
+{% endblock %}
+
+{% block frosh_product_compare_offcanvas_product_remove %}
+    <div class="ml-auto">
+        {{ block('frosh_product_compareoffcanvas_product_remove_button') }}
+    </div>
+{% endblock %}
+

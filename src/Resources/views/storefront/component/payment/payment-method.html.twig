@@ -1,0 +1,28 @@
+{% sw_extends '@Storefront/storefront/component/payment/payment-method.html.twig' %}
+
+{% block component_payment_method_label %}
+    <label class="custom-control-label payment-method-label"
+            for="paymentMethod{{ payment.id }}">
+        {% block component_payment_method_image %}
+            {% if payment.media %}
+                {% sw_thumbnails 'payment-method-image-thumbnails' with {
+                    media: payment.media,
+                    sizes: {
+                        'default': '100px'
+                    },
+                    attributes: {
+                        'class': 'payment-method-image',
+                        'alt': (payment.media.translated.alt ?: payment.translated.name),
+                        'title': (payment.media.translated.title ?: payment.translated.name)
+                    }
+                } %}
+            {% endif %}
+        {% endblock %}
+
+        {{ block("component_payment_method_image") }}
+
+        {% block component_payment_method_content %}{% endblock %}
+
+        {{ block("component_payment_method_description") }}
+    </label>
+{% endblock %}

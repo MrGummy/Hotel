@@ -1,0 +1,81 @@
+{% block acris_partial_delivery_separate_deliveries %}
+    <div class="acris-partial-delivery-selection-checkbox">
+        {% block acris_partial_delivery_customer_separate_delivery_title %}
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card checkout-card">
+                        <div class="card-body">
+                            <div class="card-title">
+                                {{ "acrisPartialDelivery.separateDeliveryTitle"|trans }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endblock %}
+
+        {% block acris_partial_delivery_partial_delivery_shipping_method_field %}
+            <div class="acris-partial-delivery-delivery-option"
+                 data-acris-partial-delivery-selection="true"
+                 data-acris-partial-delivery-selection-options='{"token" : "{{ sw_csrf('frontend.acris-partial-delivery.separate-deliveries', {"mode": "token"}) }}",
+                                                                               "postUrl":"{{ path('frontend.acris-partial-delivery.separate-deliveries') }}",
+                                                                               "singleDelivery": "{{ page.cart.extensions.acrisPartialDelivery.singleDelivery }}"}'>
+                {% block component_partial_delivery_shipping_method_field %}
+                    <div class="form-group">
+                        {% block component_partial_delivery_shipping_method_control %}
+                            <div class="custom-control custom-radio shipping-method-radio">
+                                {% block component_partial_delivery_shipping_method_input %}
+                                    <input type="radio"
+                                           id="partialDeliveryStandardDisplay"
+                                           name="partialDeliveryStandardDisplay"
+                                           class="custom-control-input acris-partial-delivery-standard-partial-delivery">
+                                {% endblock %}
+
+                                {% block component_partial_delivery_shipping_method_label %}
+                                    <label class="custom-control-label shipping-method-label"
+                                           for="partialDeliveryStandardDisplay">
+
+                                        {% block component_partial_delivery_shipping_method_description %}
+                                            <div class="shipping-method-description">
+                                                <strong>{{ "acrisPartialDelivery.standardPartialDelivery"|trans }}</strong>
+                                                <p title="{{ "acrisPartialDelivery.standardPartialDeliveryDescription"|trans }}">{{ "acrisPartialDelivery.standardPartialDeliveryDescription"|trans }}</p>
+                                            </div>
+                                        {% endblock %}
+                                    </label>
+                                {% endblock %}
+                            </div>
+                        {% endblock %}
+                    </div>
+                {% endblock %}
+
+                {% block component_partial_delivery_shipping_method_field_single_delivey %}
+                    <div class="form-group">
+                        {% block component_partial_delivery_shipping_method_control_single_delivey %}
+                            <div class="custom-control custom-radio shipping-method-radio">
+                                {% block component_partial_delivery_shipping_method_input_single_delivey %}
+                                    <input type="radio"
+                                           id="singleDeliveryDisplay"
+                                           name="singleDeliveryDisplay"
+                                           class="custom-control-input acris-partial-delivery-single-delivery">
+                                {% endblock %}
+
+                                {% block component_partial_delivery_shipping_method_label_single_delivey %}
+                                    <label class="custom-control-label shipping-method-label"
+                                           for="singleDeliveryDisplay">
+
+                                        {% block component_partial_delivery_shipping_method_description_single_delivey %}
+                                            <div class="shipping-method-description">
+                                                <strong>{{ "acrisPartialDelivery.singleDeliveryPartialDelivery"|trans }}</strong>
+                                                <p title="{{ "acrisPartialDelivery.singleDeliveryPartialDeliveryDescription"|trans }}">{{ "acrisPartialDelivery.singleDeliveryPartialDeliveryDescription"|trans }}</p>
+                                            </div>
+                                        {% endblock %}
+                                    </label>
+                                {% endblock %}
+                            </div>
+                        {% endblock %}
+                    </div>
+                {% endblock %}
+            </div>
+        {% endblock %}
+    </div>
+{% endblock %}

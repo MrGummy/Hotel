@@ -1,0 +1,11 @@
+{% sw_extends '@Storefront/storefront/component/address/address-personal-company.html.twig' %}
+
+{% block component_address_form_company_name_input %}
+    <input type="text"
+            class="form-control{% if violationPath %} is-invalid{% endif %}"
+            id="{{ prefix }}company"
+            placeholder="{{ "address.companyNamePlaceholder"|trans|striptags }}{{ "general.required"|trans|sw_sanitize }}"
+            name="{{ prefix }}[company]"
+            value="{{ address.get('company') }}"
+            {% if accountTypeRequired %}required="required"{% endif %}>
+{% endblock %}

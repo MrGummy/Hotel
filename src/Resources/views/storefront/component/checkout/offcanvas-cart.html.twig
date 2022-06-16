@@ -1,0 +1,79 @@
+{% sw_extends '@Storefront/storefront/component/checkout/offcanvas-cart.html.twig' %}
+
+{% block utilities_offcanvas_close_icon %}
+    <svg class="crw-icon">
+        <use xlink:href="#icon_chevron-left"></use>
+    </svg>
+{% endblock %}
+
+{% block component_offcanvas_cart_header %}
+    <div class="row align-items-center h4 offcanvas-cart-header">
+        <div class="col">
+            {{ "checkout.cartHeader"|trans|sw_sanitize }}
+        </div>
+
+        {% set checkoutItemCounter = page.cart.lineItems|length %}
+
+        {% block component_offcanvas_cart_header_item_counter %}
+            {% if isCartNotEmpty %}
+                <div class="col-auto">
+                    <small class="offcanvas-cart-header-count">
+                        {{ "checkout.itemCounter"|trans({'%count%': checkoutItemCounter})|sw_sanitize }}
+                    </small>
+                </div>
+            {% endif %}
+        {% endblock %}
+    </div>
+{% endblock %}
+
+{% block component_offcanvas_cart_items %}
+<div class="offcanvas-cart-items">
+    {% set lineItemsDisplayed = [] %}
+    {% set deliveries = [] %}
+
+    {% for key, delivery in page.cart.deliveries %}
+        {% if delivery.extensions.AcrisPartialDeliveryDiscount or delivery.customFields.AcrisPartialDeliveryDiscount %}{% else %}
+            {% set deliveries = deliveries|merge([delivery]) %}
+        {% endif %}
+    {% endfor %}
+
+    {% for key, delivery in deliveries %}
+        <div class="partial-delivery partial-delivery__box">
+            <div class="partial-delivery__title">
+                {% block component_offcanvas_cart_item_delivery_heading %}
+                    {% if (config('AcrisPartialDeliveryCS.config').showHeadingIfOnlyOneDelivery and deliveries|length == 1) or deliveries|length > 1 %}
+                        <div class="partial-delivery__header">{{ "acrisPartialDelivery.deliveryHeading"|trans({'%orderKey%': key + 1, '%orderLength%': deliveries|length}) }}</div>
+                    {% endif %}
+                {% endblock %}
+                {% block component_offcanvas_cart_item_delivery_information %}
+                    {% if delivery.extensions.acrisPartialDelivery and delivery.extensions.acrisPartialDelivery.translated.information %}
+                        <div class="partial-delivery__text">{{ delivery.extensions.acrisPartialDelivery.translated.information|raw }}</div>
+                    {% endif %}
+                {% endblock %}
+            </div>
+            {% for lineItem in delivery.positions.getLineItems() %}
+                {% set lineItemsDisplayed = lineItemsDisplayed|merge([lineItem.id]) %}
+
+                {% sw_include '@Storefront/storefront/component/checkout/offcanvas-item.html.twig' %}
+            {% endfor %}
+        </div>
+    {% endfor %}
+
+    {% if page.cart.lineItems.count() != lineItemsDisplayed|length %}
+        <div class="partial-delivery partial-delivery__box">
+            <div class="partial-delivery__title">
+                <div class="partial-delivery__header">{{ "acrisPartialDelivery.otherLineItems"|trans }}</div>
+            <div>
+
+            {% for lineItem in page.cart.lineItems %}
+                {% if lineItem.id not in lineItemsDisplayed %}
+                    {% block page_checkout_cart_table_item %}
+
+                        {% sw_include '@Storefront/storefront/component/checkout/offcanvas-item.html.twig' %}
+                    {% endblock %}
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

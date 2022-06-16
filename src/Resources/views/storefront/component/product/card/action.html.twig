@@ -1,0 +1,31 @@
+{% sw_extends '@Storefront/storefront/component/product/card/action.html.twig' %}
+
+{% block page_product_detail_product_buy_button %}
+    {% if type == 'icon' %}
+        <button class="btn py-0 px-1"
+            title="{{ "listing.boxAddProduct"|trans|striptags }}">
+            <svg class="crw-icon">
+                <use xlink:href="#icon_card-cart"></use>
+            </svg>
+        </button>
+    {% else %}
+        <button class="btn btn-block btn-primary btn-buy"
+            title="{{ "listing.boxAddProduct"|trans|striptags }}">
+            {{ "listing.boxAddProduct"|trans|sw_sanitize }}
+        </button>
+    {% endif %}
+{% endblock %}
+
+{% block component_product_box_action_detail %}
+    {% if type == 'icon' %}
+    {% else %}
+        <a href="{{ seoUrl('frontend.detail.page', {'productId': id}) }}"
+            class="btn btn-block btn-outline-primary btn-buy"
+            title="{{ "listing.boxProductDetails"|trans|striptags }}">
+            {{ "listing.boxProductDetails"|trans|sw_sanitize }}
+        </a>
+    {% endif %}
+{% endblock %}
+
+{% block component_product_box_action_add_to_compare_button %}{% endblock %}
+{% block component_product_box_action_detail_add_to_compare_button %}{% endblock %}

@@ -1,0 +1,24 @@
+{% sw_extends '@Storefront/storefront/component/product/card/compare-button.html.twig' %}
+
+{% block frosh_product_compare_add_to_compare_button %}
+    {% if showIconOnly %}
+        <div class="compare__toggler"
+            data-add-to-compare-button="true"
+            data-add-to-compare-button-options="{{ addToCompareOptions|json_encode }}">
+            <svg class="crw-icon crw-icon--sm mr-1">
+                <use xlink:href="#icon_poll"></use>
+            </svg>
+        </div>
+    {% else %}
+        <div class="compare__toggler"
+            data-add-to-compare-button="true"
+            data-add-to-compare-button-options="{{ addToCompareOptions|json_encode }}">
+            <svg class="crw-icon crw-icon--sm mr-1">
+                <use xlink:href="#icon_poll"></use>
+            </svg>
+            <span class="compare__text">
+                {{ "froshProductCompare.general.addToCompare"|trans|sw_sanitize }}
+            </span>
+        </div>
+    {% endif %}
+{% endblock %}

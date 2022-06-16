@@ -1,0 +1,64 @@
+{% sw_extends '@Storefront/storefront/component/partial-delivery/delivery-shipping-method.html.twig' %}
+
+
+{% block acris_partial_delivery_delivery_shipping_method %}
+    {% set activeShippingMethod = null %}
+    {% set deliveryId = delivery.extensions.acrisPartialDelivery.id %}
+    {% set singleActiveDelivery = false %}
+    {% if deliveryId is empty and page.cart.deliveries|length == 1 %}{% set singleActiveDelivery = true %}{% endif %}
+
+    {% set shippingMethods = page.shippingMethods %}
+    {% if delivery.extensions.acrisPartialDeliveryShippingMethods %}
+        {% set shippingMethods = delivery.extensions.acrisPartialDeliveryShippingMethods %}
+    {% endif %}
+
+    {% if shippingMethods|length > 0 %}
+        <div class="partial-delivery acris-partial-delivery-selection-checkbox">
+            <div class="partial-delivery__shipping">
+                {% set shippingMethodInvalid = true %}
+
+                {% for shipping in page.shippingMethods %}
+                    {% if shipping.id is same as(context.shippingMethod.id) %}
+                        {% set shippingMethodInvalid = false %}
+                    {% endif %}
+                {% endfor %}
+
+                {% block page_checkout_confirm_shipping_title %}
+                    <div class="partial-delivery__shipping-title">
+                        {{ "checkout.confirmShippingMethod"|trans|sw_sanitize }}
+                    </div>
+                {% endblock %}
+
+                {% set formAjaxSubmitOptions = {
+                    changeTriggerSelectors: ['.shipping-method-input-partial-delivery']
+                } %}
+
+                {% block page_checkout_change_shipping_form_element_partial_delivery %}
+                    <form id="changeShippingForm"
+                          name="changeShippingForm"
+                          action="{% if singleActiveDelivery %}{{ path('frontend.checkout.configure') }}{% else %}{{ path('frontend.acris-partial-delivery.configure-deliveries') }}{% endif %}"
+                          data-form-csrf-handler="true"
+                          data-form-auto-submit="true"
+                          data-form-auto-submit-options='{{ formAjaxSubmitOptions|json_encode }}'
+                          method="post">
+
+                        {% block page_checkout_change_shipping_form_csrf_partial_delivery %}
+                            {% if singleActiveDelivery %}{{ sw_csrf('frontend.checkout.configure') }}{% else %}{{ sw_csrf('frontend.acris-partial-delivery.configure-deliveries') }}{% endif %}
+                        {% endblock %}
+
+                        {% block page_checkout_change_shipping_form_redirect_partial_delivery %}
+                            <input type="hidden" name="redirectTo" value="{{ redirectPath }}">
+                        {% endblock %}
+                        {% set visibleShippingMethodsLimit = 5 %}
+
+                        {% block page_checkout_change_shipping_form_fields_partial_delivery %}
+                            {% sw_include '@Storefront/storefront/component/partial-delivery/delivery-shipping-fields.html.twig' with {
+                                'visibleShippingMethodsLimit': 5
+                            } %}
+                        {% endblock %}
+                    </form>
+                {% endblock %}
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,56 @@
+{% block acris_partial_delivery_shipping_method_offcanvas %}
+    {% set deliveryId = delivery.extensions.acrisPartialDelivery.id %}
+    {% set singleActiveDelivery = false %}
+    {% if deliveryId is empty and page.cart.deliveries|length == 1 %}{% set singleActiveDelivery = true %}{% endif %}
+    {% set formAjaxSubmitOptions = {
+        changeTriggerSelectors: ['.acris-partial-delivery-shipping-selection-field']
+    } %}
+
+    {% set shippingMethods = page.shippingMethods %}
+    {% if delivery.extensions.acrisPartialDeliveryShippingMethods %}
+        {% set shippingMethods = delivery.extensions.acrisPartialDeliveryShippingMethods %}
+    {% endif %}
+
+    {% if shippingMethods|length > 0 %}
+        <div data-partial-delivery-id="{{ deliveryId }}" class="offcanvas-shipping-preference-partial-delivery mb-2 mt-2 offcanvas-shipping-preference--hidden acris-partial-delivery-offcanvas-{{ deliveryId }} acris-partial-delivery-offcanvas--hidden">
+            <form
+                action="{% if singleActiveDelivery %}{{ path('frontend.checkout.configure') }}{% else %}{{ path('frontend.acris-partial-delivery.configure-deliveries') }}{% endif %}"
+                name="confirmShippingForm"
+                data-form-csrf-handler="true"
+                method="post">
+                {% block page_checkout_confirm_shipping_form_csrf %}
+                    {% if singleActiveDelivery %}{{ sw_csrf('frontend.checkout.configure') }}{% else %}{{ sw_csrf('frontend.acris-partial-delivery.configure-deliveries') }}{% endif %}
+                {% endblock %}
+
+                {% block component_offcanvas_summary_content_shipping_select %}
+                    {% set activeShippingMethodValid = false %}
+                    {% if page.cart.extensions.acrisPartialDeliveryShippingMethodDeliveries.elements[deliveryId].shippingMethodId %}
+                        {% for shippingMethod in shippingMethods %}
+                            {% if shippingMethod.id == page.cart.extensions.acrisPartialDeliveryShippingMethodDeliveries.elements[deliveryId].shippingMethodId %}
+                                {% set activeShippingMethodValid = true %}
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+
+                    <select class="custom-select mt-2 col-12 acris-partial-delivery-shipping-selection-field partial-delivery-{{ deliveryId }}" name="shippingMethodId[{{ deliveryId }}]">
+                        <option {% if activeShippingMethodValid == true or page.cart.errors|length == 0 %}disabled{% endif %}>{{ "checkout.confirmChangeShipping"|trans|sw_sanitize }}</option>
+
+                        {% for shippingMethod in shippingMethods %}
+                            <option
+                                value="{{ shippingMethod.id }}"
+                                {% if singleActiveDelivery %}{% if shippingMethod.id is same as(activeShipping.shippingMethod.id) %}selected="selected"{% endif %}{% else %}{% if shippingMethod.id is same as(page.cart.extensions.acrisPartialDeliveryShippingMethodDeliveries.elements[deliveryId].shippingMethodId) %}selected="selected"
+                                {% else %}{% if shippingMethod.id is same as(shippingMethods.first.id and page.cart.errors|length == 0) %}selected="selected"{% endif %}{% endif %}{% endif %}
+                            >
+                                {{ shippingMethod.translated.name }}
+                                {% if shippingMethod.extensions.acrisPartialDeliveryShippingCosts.shippingCosts.totalPrice %}
+                                    ({{ shippingMethod.extensions.acrisPartialDeliveryShippingCosts.shippingCosts.totalPrice|currency }})
+                                {% endif %}
+                            </option>
+                        {% endfor %}
+                    </select>
+
+                {% endblock %}
+            </form>
+        </div>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,29 @@
+{% sw_extends '@Storefront/storefront/component/product/card/box-minimal.html.twig' %}
+
+{% block component_product_box_content %}
+    <div class="card-body">
+        {{ block('component_product_box_badges') }}
+        {{ block('component_product_box_rich_snippets') }}
+        {{ block('component_product_box_image') }}
+
+        {% block component_product_box_info %}
+            <div class="product-info">
+                {{ block('component_product_box_name') }}
+                {{ block('component_product_box_rating') }}
+
+                {% block component_product_box_price %}
+                <div class="product-price-box">
+                    {% sw_include '@Storefront/storefront/component/product/card/price-unit.html.twig' %}
+
+                    {% block component_product_box_action %}
+                        {% sw_include '@Storefront/storefront/component/product/card/action.html.twig' with {
+                            type: 'icon'
+                        } %}
+                    {% endblock %}
+                </div>
+                {% endblock %}
+
+            </div>
+        {% endblock %}
+    </div>
+{% endblock %}

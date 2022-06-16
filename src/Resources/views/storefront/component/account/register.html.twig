@@ -1,0 +1,87 @@
+{% sw_extends '@Storefront/storefront/component/account/register.html.twig' %}
+
+{% block component_account_register_header %}
+    <p class="register-required-info">
+        {{ "general.requiredFields"|trans|sw_sanitize }}
+    </p>
+
+    {% if cardTitle %}
+        <div class="card-title">
+            {{ cardTitle }}
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block component_account_register_personal_mail_input %}
+    <input type="email"
+            class="form-control{% if formViolations.getViolations('/email') is not empty %} is-invalid{% endif %}"
+            autocomplete="section-personal email"
+            id="personalMail"
+            placeholder="{{ "account.personalMailPlaceholder"|trans|striptags }}{{ "general.required"|trans|sw_sanitize }}"
+            name="email"
+            value="{{ data.get('email') }}"
+            {% if config('core.loginRegistration.requireEmailConfirmation') %}
+            data-form-validation-equal="personalMail"
+            {% endif %}
+            required="required">
+{% endblock %}
+
+
+{% block component_account_register_personal_mail_confirmation_input %}
+    <input type="email"
+            class="form-control{% if formViolations.getViolations('/email') is not empty or formViolations.getViolations('/emailConfirmation') is not empty %} is-invalid{% endif %}"
+            autocomplete="section-personal email"
+            id="personalMailConfirmation"
+            placeholder="{{ "account.personalMailConfirmationPlaceholder"|trans|striptags }}{{ "general.required"|trans|sw_sanitize }}"
+            name="emailConfirmation"
+            value="{{ data.get('emailConfirmation') }}"
+            data-form-validation-equal="personalMail"
+            data-form-validation-equal-message="{{ "account.personalMailConfirmationInvalidMessage"|trans|striptags }}"
+            required="required">
+{% endblock %}
+
+
+{% block component_account_register_personal_password_input %}
+    <input type="password"
+            class="form-control{% if formViolations.getViolations('/password') is not empty %} is-invalid{% endif %}"
+            autocomplete="new-password"
+            id="personalPassword"
+            placeholder="{{ "account.personalPasswordPlaceholder"|trans|striptags }}{{ "general.required"|trans|sw_sanitize }}"
+            name="password"
+            minlength="{{ config('core.loginRegistration.passwordMinLength') }}"
+            {% if config('core.loginRegistration.requirePasswordConfirmation') %}
+            data-form-validation-equal="newPassword"
+            {% endif %}
+            {% if config('core.loginRegistration.passwordMinLength') != 0 %}
+            data-form-validation-length="{{ config('core.loginRegistration.passwordMinLength') }}"
+            data-form-validation-length-message=" {{ "account.personalPasswordDescription"|trans({
+                '%minLength%': config('core.loginRegistration.passwordMinLength')
+            })|sw_sanitize }}"
+            {% endif %}
+            required="required">
+{% endblock %}
+
+{% block component_account_register_personal_password_confirmation_input %}
+    <input type="password"
+            class="form-control{% if formViolations.getViolations('/password') is not empty or formViolations.getViolations('/passwordConfirmation') is not empty %} is-invalid{% endif %}"
+            autocomplete="new-password"
+            id="personalPasswordConfirmation"
+            placeholder="{{ "account.personalPasswordConfirmationPlaceholder"|trans|striptags }}{{ "general.required"|trans|sw_sanitize }}"
+            name="passwordConfirmation"
+            minlength="{{ config('core.loginRegistration.passwordMinLength') }}"
+            data-form-validation-equal="newPassword"
+            data-form-validation-equal-message="{{ "account.personalPasswordConfirmationInvalidMessage"|trans|striptags }}"
+            required="required">
+{% endblock %}
+
+{% block component_account_register_required_fields %}
+{% endblock %}
+
+{% block component_account_register_submit %}
+    <div class="register-submit mt-3">
+        <button type="submit"
+                class="btn btn-primary btn-lg w-100">
+            {{ "account.registerSubmit"|trans|sw_sanitize }}
+        </button>
+    </div>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% sw_extends '@Storefront/storefront/component/product/listing.html.twig' %}
+
+{% block element_product_listing_row %}
+    {# {{ dump(element.data.listing) }} #}
+
+    {{ element.data.listing.aggregations.get('products-count-by-properties').buckets[0].result.count }}
+
+    {# {{ dump(element.data.listing.aggregations.get('products-count-by-manufacturers')) }}
+    {{ dump(element.data.listing.aggregations.get('products-count-by-properties')) }} #}
+
+    <div class="cms-listing-row js-listing-wrapper listing-grid-layout listing-grid-layout--grid {% if sidebar %}listing-grid-layout--with-sidebar{% endif %}">
+        {% if searchResult.total > 0 %}
+            {{ block('element_product_listing_col') }}
+        {% else %}
+            {{ block('element_product_listing_col_empty') }}
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block element_product_listing_pagination_nav_actions %}
+    {% if searchResult.extensions.searchResult.noResult == true and getKTypeFromSession() is not empty %}
+        <div class="cms-listing__no-result">
+            <div class="text-box" title="Für die ausgewählte Anfrage wurden keine Produkte gefunden, die genau zu Ihrem Fahrzeug passen">
+                Für die ausgewählte Anfrage wurden keine Produkte gefunden, die genau zu Ihrem Fahrzeug passen
+            </div>
+        </div>
+    {% endif %}
+
+    {# {{ dump(searchResult.aggregations.elements['products-count-by-manufacturers']) }}
+    {{ dump(searchResult.aggregations.elements['products-count-by-properties']) }} #}
+    <div class="cms-element-product-listing-actions row justify-content-between">
+        <div class="col-md-auto">
+            {% block element_product_listing_pagination_nav_top %}
+                {% sw_include '@Storefront/storefront/component/pagination.html.twig' with {
+                    entities: searchResult,
+                    criteria: searchResult.criteria
+                } %}
+            {% endblock %}
+        </div>
+
+        <div class="col-md-auto d-flex">
+            {% block element_product_listing_sorting %}
+                {% sw_include '@Storefront/storefront/component/sorting.html.twig' with {
+                    current: searchResult.sorting,
+                    sortings: searchResult.availableSortings
+                } %}
+            {% endblock %}
+
+            {% block element_product_listing_layout %}
+                {% sw_include '@Storefront/storefront/component/layout-switcher.html.twig' %}
+            {% endblock %}
+        </div>
+    </div>
+{% endblock %}

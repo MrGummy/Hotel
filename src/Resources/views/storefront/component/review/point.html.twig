@@ -1,0 +1,30 @@
+{% block component_review_point %}
+    {% if type == 'half' %}
+        <div class="point-container">
+            <div class="point-rating point-partial-placeholder">
+                <svg class="rating__star rating__star--blank">
+                    <use xlink:href="#icon_star-empty"></use>
+                </svg>
+                <svg class="rating__star rating__star--half">
+                    <use xlink:href="#icon_star-full"></use>
+                </svg>
+            </div>
+        </div>
+    {% elseif type == 'blank' %}
+        <div class="point-container">
+            <div class="point-rating">
+                <svg class="rating__star rating__star--blank">
+                    <use xlink:href="#icon_star-empty"></use>
+                </svg>
+            </div>
+        </div>
+    {% else %}
+        <div class="point-container">
+            <div class="point-rating">
+                <svg class="rating__star rating__star--full">
+                    <use xlink:href="#icon_star-full"></use>
+                </svg>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

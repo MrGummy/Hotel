@@ -1,0 +1,14 @@
+{% sw_extends '@Storefront/storefront/component/address/address-personal-vat-id.html.twig' %}
+
+{% block component_address_form_company_vatId_input %}
+    <input type="text"
+            class="form-control{% if violationPath %} is-invalid{% endif %}"
+            id="vatIds"
+            placeholder="{{ "address.companyVatPlaceholder"|trans|striptags }}{% if editMode == false and config('core.loginRegistration.vatIdFieldRequired') %}{{ "general.required"|trans|sw_sanitize }}{% endif %}"
+            name="vatIds[]"
+        {% if editMode == false and config('core.loginRegistration.vatIdFieldRequired') and not feature('FEATURE_NEXT_14114') %}
+            required="required"
+            data-form-validation-equal="vatIds"
+        {% endif %}
+            value="{{ activeRoute == 'frontend.account.profile.page' ? vatIds[0] : vatIds.get(0) }}">
+{% endblock %}

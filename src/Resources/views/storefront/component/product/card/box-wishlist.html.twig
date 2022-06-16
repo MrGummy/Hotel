@@ -1,0 +1,19 @@
+{% sw_extends '@Storefront/storefront/component/product/card/box-standard.html.twig' %}
+
+{% block component_product_box_wishlist %}
+    <form action="{{ path('frontend.wishlist.product.delete', {'id': id}) }}" method="post" class="product-wishlist">
+        {% block component_product_box_wishlist_remove_csrf %}
+            {{ sw_csrf('frontend.wishlist.product.delete') }}
+        {% endblock %}
+
+        {% block component_product_wishlist_remove_redirect %}
+            <input type="hidden" name="redirectTo" value="frontend.wishlist.page" />
+        {% endblock %}
+
+        {% block component_product_wishlist_remove_submit %}
+            <button type="submit" class="product-wishlist-action product-wishlist-added">
+                {% sw_icon 'heart-fill' style { 'class': 'wishlist icon-wishlist-added', 'size': size } %}
+            </button>
+        {% endblock %}
+    </form>
+{% endblock %}

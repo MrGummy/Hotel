@@ -1,0 +1,77 @@
+{% block acris_partial_delivery_shipping_method_field %}
+    <div class="shipping-method">
+        {% block component_shipping_method_field_partial_delivery %}
+            <div class="shipping-form-group form-group">
+                {% block component_shipping_method_control_partial_delivery %}
+                    <div class="custom-control custom-radio shipping-method-radio">
+                        {% block component_shipping_method_input_partial_delivery %}
+                            <input type="radio"
+                                   id="{% if singleActiveDelivery %}shippingMethodDelivery{{ shipping.id }}{% else %}shippingMethodDelivery{{ shipping.id }}{{ deliveryId }}{% endif %}"
+                                   name="{% if singleActiveDelivery %}shippingMethodId{% else %}shippingMethodId[{{ deliveryId }}]{% endif %}"
+                                   value="{{ shipping.id }}"
+                                   {% if singleActiveDelivery %}{% if shipping.id is same as(context.shippingMethod.id) %}checked="checked"
+                                   {% endif %}{% else %}{% if shipping.id is same as(page.cart.extensions.acrisPartialDeliveryShippingMethodDeliveries.elements[deliveryId].shippingMethodId) %}checked="checked"
+                                   {% else %}{% if shipping.id is same as(shippingMethods.first.id) and page.cart.errors|length == 0 %}checked="checked"{% endif %}{% endif %}{% endif %}
+                                   class="custom-control-input shipping-method-input-partial-delivery">
+                        {% endblock %}
+
+                        {% block component_shipping_method_label_partial_delivery %}
+                            <label class="custom-control-label shipping-method-label"
+                                   for="{% if singleActiveDelivery %}shippingMethodDelivery{{ shipping.id }}{% else %}shippingMethodDelivery{{ shipping.id }}{{ deliveryId }}{% endif %}">
+                                {% block component_shipping_method_image_partial_delivery %}
+                                    {% if shipping.media %}
+                                        {% sw_thumbnails 'shipping-method-image-thumbnails' with {
+                                            media: shipping.media,
+                                            sizes: {
+                                                'default': '100px'
+                                            },
+                                            attributes: {
+                                                'class': 'shipping-method-image',
+                                                'alt': (shipping.media.translated.alt ?: shipping.translated.name),
+                                                'title': (shipping.media.translated.title ?: shipping.translated.name)
+                                            }
+                                        } %}
+                                    {% endif %}
+                                {% endblock %}
+
+                                {% block component_shipping_method_description_partial_delivery %}
+                                    <div class="shipping-method-description">
+                                        <strong>{{ shipping.translated.name }}</strong>
+                                        {% if shipping.extensions.acrisPartialDeliveryShippingCosts.shippingCosts.totalPrice or shipping.extensions.acrisPartialDeliveryShippingCosts.shippingCosts.totalPrice == 0 %}
+                                            {% if singleActiveDelivery %}
+                                                {% if shipping.id is same as(context.shippingMethod.id) %}
+                                                    <strong>{% if shipping.extensions.acrisPartialDeliveryShippingCosts.shippingCosts.totalPrice == 0 %}{{ "acrisPartialDelivery.freeShipping"|trans }}{% else %}({{ shipping.extensions.acrisPartialDeliveryShippingCosts.shippingCosts.totalPrice|currency }}){% endif %}</strong>
+                                                {% else %}
+                                                    {% if shipping.extensions.acrisPartialDeliveryShippingCosts.shippingCosts.totalPrice == 0 %}{{ "acrisPartialDelivery.freeShipping"|trans }}{% else %}({{ shipping.extensions.acrisPartialDeliveryShippingCosts.shippingCosts.totalPrice|currency }}){% endif %}
+                                                {% endif %}
+                                            {% else %}
+                                                {% if shipping.id is same as(page.cart.extensions.acrisPartialDeliveryShippingMethodDeliveries.elements[deliveryId].shippingMethodId) %}
+                                                    <strong>{% if shipping.extensions.acrisPartialDeliveryShippingCosts.shippingCosts.totalPrice == 0 %}{{ "acrisPartialDelivery.freeShipping"|trans }}{% else %}({{ shipping.extensions.acrisPartialDeliveryShippingCosts.shippingCosts.totalPrice|currency }}){% endif %}</strong>
+                                                {% else %}
+                                                    {% if shipping.id is same as(shippingMethods.first.id) and page.cart.errors|length == 0 and page.cart.extensions.acrisPartialDeliveryShippingMethodDeliveries is empty %}
+                                                        <strong>{% if shipping.extensions.acrisPartialDeliveryShippingCosts.shippingCosts.totalPrice == 0 %}{{ "acrisPartialDelivery.freeShipping"|trans }}{% else %}({{ shipping.extensions.acrisPartialDeliveryShippingCosts.shippingCosts.totalPrice|currency }}){% endif %}</strong>
+                                                    {% else %}
+                                                        {% if shipping.extensions.acrisPartialDeliveryShippingCosts.shippingCosts.totalPrice == 0 %}{{ "acrisPartialDelivery.freeShipping"|trans }}{% else %}({{ shipping.extensions.acrisPartialDeliveryShippingCosts.shippingCosts.totalPrice|currency }}){% endif %}
+                                                    {% endif %}
+                                                {% endif %}
+                                            {% endif %}
+                                        {% endif %}
+                                        {% if shipping.translated.description %}
+                                            {% set shippingDescription = shipping.translated.description|raw %}
+
+                                            {% if not shipping.id is same as(context.shippingMethod.id) %}
+                                                {% set shippingDescription = (shippingDescription|length > 75 ? shippingDescription[:75] ~ ' ...' : shippingDescription) %}
+                                            {% endif %}
+
+                                            <p title="{{ shipping.translated.description|raw }}">{{ shippingDescription }}</p>
+                                        {% endif %}
+                                    </div>
+                                {% endblock %}
+                            </label>
+                        {% endblock %}
+                    </div>
+                {% endblock %}
+            </div>
+        {% endblock %}
+    </div>
+{% endblock %}

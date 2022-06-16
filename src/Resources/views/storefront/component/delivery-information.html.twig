@@ -1,0 +1,71 @@
+{% sw_extends '@Storefront/storefront/component/delivery-information.html.twig' %}
+
+{% block component_delivery_information_shipping_free %}
+    <p class="delivery-information delivery-shipping-free">
+        <svg class="crw-icon crw-icon--sm mr-1">
+            <use xlink:href="#icon_delivery"></use>
+        </svg>{{ "general.deliveryShippingFree"|trans|sw_sanitize }}
+    </p>
+{% endblock %}
+
+{% block component_delivery_information_not_available %}
+    <link itemprop="availability"
+            href="http://schema.org/LimitedAvailability"/>
+    <p class="delivery-information delivery-not-available">
+        <svg class="crw-icon crw-icon--sm mr-1 text-danger">
+            <use xlink:href="#icon_delivery"></use>
+        </svg>
+        <span>{{ "general.deliveryNotAvailable"|trans|sw_sanitize }}</span>
+    </p>
+{% endblock %}
+
+{% block component_delivery_information_pre_order %}
+    <link itemprop="availability"
+            href="http://schema.org/PreOrder"/>
+    <p class="delivery-information delivery-preorder">
+        <svg class="crw-icon crw-icon--sm mr-1 text-warning">
+            <use xlink:href="#icon_delivery"></use>
+        </svg>
+        <span>{{ "general.deliveryShipping"|trans|sw_sanitize }} {{ product.releaseDate|format_date('long', locale=app.request.locale) }}</span>
+    </p>
+{% endblock %}
+
+{% block component_delivery_information_available %}
+    <link itemprop="availability" href="http://schema.org/InStock"/>
+    <p class="delivery-information delivery-available">
+        <svg class="crw-icon crw-icon--sm mr-1 text-success">
+            <use xlink:href="#icon_delivery"></use>
+        </svg>
+        <span>
+            {{ "detail.deliveryTimeAvailable"|trans({
+                '%name%': product.deliveryTime.translation('name')
+            })|sw_sanitize }}
+        </span>
+    </p>
+{% endblock %}
+
+{% block component_delivery_information_soldout %}
+    <link itemprop="availability" href="http://schema.org/LimitedAvailability"/>
+    <p class="delivery-information delivery-soldout">
+        <svg class="crw-icon crw-icon--sm mr-1 text-danger">
+            <use xlink:href="#icon_delivery"></use>
+        </svg>
+        <span>{{ "detail.soldOut"|trans|sw_sanitize }}</span>
+    </p>
+{% endblock %}
+
+{% block component_delivery_information_restock %}
+    <link itemprop="availability" href="http://schema.org/LimitedAvailability"/>
+    <p class="delivery-information delivery-restock">
+        <svg class="crw-icon crw-icon--sm mr-1 text-warning">
+            <use xlink:href="#icon_delivery"></use>
+        </svg>
+        <span>
+            {{ "detail.deliveryTimeRestock"|trans({
+                '%count%': product.restockTime,
+                '%restockTime%': product.restockTime,
+                '%name%': product.deliveryTime.translation('name')
+            })|sw_sanitize }}
+        </span>
+    </p>
+{% endblock %}

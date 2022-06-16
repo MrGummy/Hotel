@@ -1,0 +1,22 @@
+{% sw_extends '@Storefront/storefront/component/payment/payment-fields.html.twig' %}
+
+{% block component_payment_methods %}
+    <div class="payment-methods">
+        {% block component_payment_method %}
+            {% for payment in page.paymentMethods[:visiblePaymentMethodsLimit] %}
+                {% sw_include '@Storefront/storefront/component/payment/payment-method-body.html.twig' %}
+            {% endfor %}
+        {% endblock %}
+    </div>
+
+    {% block component_payment_method_collapse %}
+        {% if page.paymentMethods | length > visiblePaymentMethodsLimit and visiblePaymentMethodsLimit is not same as(null) %}
+            <div class="d-none">
+                {% for payment in page.paymentMethods[visiblePaymentMethodsLimit:] %}
+                    {% sw_include '@Storefront/storefront/component/payment/payment-method.html.twig' %}
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endblock %}
+{% endblock %}
+

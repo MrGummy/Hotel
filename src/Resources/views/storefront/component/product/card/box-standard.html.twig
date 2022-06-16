@@ -1,0 +1,213 @@
+{% block component_product_box %}
+    {% if product %}
+        {% set name = product.translated.name %}
+        {% set id = product.id %}
+        {% set cover = product.cover.media %}
+        {% set buyable = product.available and product.calculatedMaxPurchase > 0 %}
+        {% set tax = product.calculatedPrice.calculatedTaxes.elements|first %}
+
+        <div class="card product-box box-{{ layout }}">
+            {% block component_product_box_content %}
+
+                <div class="card-body">
+                    {% block component_product_box_badges %}
+                        {% sw_include '@Storefront/storefront/component/product/card/badges.html.twig' %}
+                    {% endblock %}
+
+                    {% block component_product_box_rich_snippets %}
+                        {% sw_include '@Storefront/storefront/component/product/card/meta.html.twig' %}
+                    {% endblock %}
+
+                    {% block component_product_box_image %}
+                        <div class="product-image-wrapper">
+
+                            {% block component_product_box_manufacturer %}
+                                {% if product.manufacturer.name != empty %}
+                                    <div class="product-manufacturer">{{ product.manufacturer.name }}</div>
+                                {% endif %}
+                            {% endblock %}
+
+                            <a class="product-image-link"
+                                href="{{ seoUrl('frontend.detail.page', {'productId': id}) }}" title="{{ name }}">
+
+                                {% if cover.url %}
+                                    {% set attributes = {
+                                        'class': 'product-image is-'~displayMode,
+                                        'alt': (cover.translated.alt ?: name),
+                                        'title': (cover.translated.title ?: name),
+                                        'loading': 'lazy'
+                                    } %}
+
+                                    {% if displayMode == 'cover' or displayMode == 'contain' %}
+                                        {% set attributes = attributes|merge({ 'data-object-fit': displayMode }) %}
+                                    {% endif %}
+
+                                    {% sw_thumbnails 'product-image-thumbnails' with {
+                                        media: cover,
+                                        sizes: {
+                                            'xs': '501px',
+                                            'sm': '315px',
+                                            'md': '427px',
+                                            'lg': '333px',
+                                            'xl': '284px'
+                                        }
+                                    } %}
+
+                                {% else %}
+                                    <div class="product-image-placeholder">
+                                        {% sw_icon 'placeholder' style {
+                                            'size': 'fluid'
+                                        } %}
+                                    </div>
+                                {% endif %}
+                            </a>
+                        </div>
+                    {% endblock %}
+
+                    {% block component_product_box_info %}
+                        <div class="product-info--list">
+                            <a href="{{ seoUrl('frontend.detail.page', {'productId': id}) }}" title="{{ name }}" class="product-name">
+                                {{ name }}
+                            </a>
+
+                            <div class="product-price-box">
+                                {% sw_include '@Storefront/storefront/component/product/card/price-unit.html.twig' %}
+                            </div>
+
+                            <div class="product-vat-box">
+                                inkl. {{ tax.taxRate }}% MwSt., zzgl. Versandkosten
+                            </div>
+                        </div>
+
+                        <div class="product-info">
+                            {% block component_product_box_rating %}{% endblock %}
+
+                            {% block component_product_box_name %}
+                                <a href="{{ seoUrl('frontend.detail.page', {'productId': id}) }}" title="{{ name }}" class="product-name">
+                                    {{ name }}
+                                </a>
+                            {% endblock %}
+
+                            {% block utility_info_box %}
+                                {% sw_include '@Storefront/storefront/component/product/card/fit-info.html.twig' with {
+                                    productId: id
+                                } %}
+                            {% endblock %}
+
+                            {% block numbers_box %}
+                                <div class="product-numbers-box">
+                                    <div class="product-number">{{ "detail.productNumberLabel"|trans|sw_sanitize }} {{ product.productNumber }}</div>
+                                    <div class="product-number">{{ "component.product.feature.label.ean"|trans|sw_sanitize }}  {{ product.ean }}</div>
+                                </div>
+                            {% endblock %}
+
+                            {% block product_properties %}
+                                <div class="product-properties-box">
+                                {# @var product \Shopware\Core\Content\Product\SalesChannel\SalesChannelProductEntity #}
+                                {% for group in product.sortedProperties|sort((a, b) => a.customFields.custom_ets_view_priority < b.customFields.custom_ets_view_priority) %}
+                                    {% block product_detail_properties_row %}
+                                        {% if group.customFields.custom_ets_view_priority == 2 %}
+                                            {% block grid_properties_box %}
+                                                <div class="product-property">
+                                                    <div class="product-property__name">{{ group.translated.name|e }}</div>
+                                                    <div class="product-property__value">
+                                                        {% apply spaceless %}
+                                                            {% for option in group.options %}
+                                                                {% set i = ( i | default(0) ) + 1 %}
+                                                                <span>{% if i > 1 %}, {% endif %}{{ option.translated.name|e }}</span>
+                                                            {% endfor %}
+                                                        {% endapply %}
+                                                    </div>
+                                                </div>
+                                            {% endblock %}
+                                        {% elseif group.customFields.custom_ets_view_priority == 1 %}
+                                            {% block list_properties_box %}
+                                                <div class="product-property product-property--list">
+                                                    <div class="product-property__name">{{ group.translated.name|e }}</div>
+                                                    <div class="product-property__value">
+                                                        {% apply spaceless %}
+                                                            {% for option in group.options %}
+                                                                {% set i = ( i | default(0) ) + 1 %}
+                                                                <span>{% if i > 1 %}, {% endif %}{{ option.translated.name|e }}</span>
+                                                            {% endfor %}
+                                                        {% endapply %}
+                                                    </div>
+                                                </div>
+                                            {% endblock %}
+                                        {% endif %}
+                                    {% endblock %}
+                                {% endfor %}
+
+                                {% set names = product.customFields|keys %}
+                                {% set groups = getCustomFieldsByName(names).elements|filter(g => g.customFieldSet.name == 'custom_ets_product_attributes') %}
+
+                                {% for group in groups|sort((a, b) => a.config.helpText|first < b.config.helpText|first) %}
+                                    {% if group.config.helpText|first == 2 %}
+                                        <div class="product-property">
+                                            <div class="product-property__name">{{ group.config.label|first }}:</div>
+                                            <div class="product-property__value">{{ product.customFields[group.name] }}</div>
+                                        </div>
+                                    {% elseif group.config.helpText|first == 1 %}
+                                        <div class="product-property product-property--list">
+                                            <div class="product-property__name">{{ group.config.label|first }}:</div>
+                                            <div class="product-property__value">{{ product.customFields[group.name] }}</div>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                                </div>
+                            {% endblock %}
+                        </div>
+                    {% endblock %}
+
+                    {% block product_actions_box %}
+                        <div class="product-actions-box">
+                            {% block component_product_box_price %}
+                                <div class="product-price-box">
+                                    {% sw_include '@Storefront/storefront/component/product/card/price-unit.html.twig' %}
+                                </div>
+                            {% endblock %}
+
+                            {% block vat_info_box %}
+                                <div class="product-vat-box">
+                                    inkl. {{ tax.taxRate }}% MwSt., zzgl. Versandkosten
+                                </div>
+                            {% endblock %}
+
+                            {% block component_product_box_action %}
+                                {% sw_include '@Storefront/storefront/component/product/card/action.html.twig' %}
+                            {% endblock %}
+
+                            {% block component_product_favorites_box %}
+                                <div class="product-favorites-box">
+                                    {% block component_product_box_wishlist %}
+                                        {% if config('core.cart.wishlistEnabled') %}
+                                            {% sw_include '@Storefront/storefront/component/product/card/wishlist.html.twig' with {
+                                                productId: id,
+                                                showText: true,
+                                            } %}
+                                        {% endif %}
+                                    {% endblock %}
+                                </div>
+                            {% endblock %}
+
+                            {% block component_product_compare_box %}
+                                {% if app.request.attributes.get('_route') != 'frontend.compare.content' %}
+                                    {% block component_product_box_action_detail_add_to_compare_button %}
+                                        {% sw_include '@Storefront/storefront/component/product/card/compare-button.html.twig' %}
+                                    {% endblock %}
+                                {% endif %}
+                            {% endblock %}
+
+                            {% block component_product_delivery_box %}
+                                <div class="product-detail-delivery-information">
+                                    {% sw_include '@Storefront/storefront/component/delivery-information.html.twig' %}
+                                </div>
+                            {% endblock %}
+                        </div>
+                    {% endblock %}
+                </div>
+
+            {% endblock %}
+        </div>
+    {% endif %}
+{% endblock %}

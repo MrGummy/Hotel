@@ -1,0 +1,12 @@
+{% block acris_partial_delivery_shipping_fields_order %}
+    {% set collapseTriggerLabels = {
+        collapseTriggerMoreLabel: "checkout.collapseTriggerMore"|trans|sw_sanitize,
+        collapseTriggerLessLabel: "checkout.collapseTriggerLess"|trans|sw_sanitize
+    } %}
+
+    <div class="shipping-methods">
+        {% block component_shipping_method_partial_delivery_order %}
+            {% sw_include '@Storefront/storefront/component/partial-delivery/delivery-shipping-method-field-order.html.twig' %}
+        {% endblock %}
+    </div>
+{% endblock %}

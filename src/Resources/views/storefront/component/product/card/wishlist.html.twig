@@ -1,0 +1,32 @@
+{% sw_extends '@Storefront/storefront/component/product/card/wishlist.html.twig' %}
+
+{% block component_product_wishlist_button %}
+    <button
+        class="product-wishlist-{{ productId }} product-wishlist-action {% if appearance != '' %}product-wishlist-action--{{appearance}}{% endif %} product-wishlist-not-added product-wishlist-loading"
+        title="{{ "listing.toggleWishlist"|trans|sw_sanitize }}"
+        data-add-to-wishlist="true"
+        data-add-to-wishlist-options="{{ addToWishlistOptions|json_encode }}">
+
+        {% block component_product_wishlist_icon %}
+            <svg class="crw-icon crw-icon--sm icon-wishlist-not-added">
+                <use xlink:href="#icon_star-empty"></use>
+            </svg>
+
+            <svg class="crw-icon crw-icon--sm icon-wishlist-added">
+                <use xlink:href="#icon_star-full"></use>
+            </svg>
+
+            {% if showText %}
+                <span class="product-wishlist-btn-content text-wishlist-not-added">
+                    {{ "listing.addToWishlist"|trans|sw_sanitize }}
+                </span>
+
+                <span class="product-wishlist-btn-content text-wishlist-remove">
+                    {{ "listing.removeFromWishlist"|trans|sw_sanitize }}
+                </span>
+
+            {% endif %}
+        {% endblock %}
+
+    </button>
+{% endblock %}
