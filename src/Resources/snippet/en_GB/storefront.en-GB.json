@@ -1,0 +1,79 @@
+{
+  "mm-theme": {
+    "company": {
+      "legal": "legal snippet"
+    },
+    "product": {
+      "from": "from:",
+      "qty": "QTY.",
+      "outOfStock": "Out of stock",
+      "compatibility": "Kompatibel mit folgenden pkws"
+    },
+    "checkout": {
+      "checkout": "Checkout",
+      "login": "Returning customer",
+      "register": "New customer",
+      "available": "available",
+      "defaultPaymentProcessingMsg": "",
+      "ebay_payment": "Your eBay offer being generated",
+      "registerInfoMessage": "",
+      "messengersHeader": "Chat for communication",
+      "confirmCard": "Save card",
+      "changeCard": "Change",
+      "selectedCard": "Selected card:",
+      "step1": "Cashbox",
+      "step2": "Address",
+      "step3": "Payment",
+      "step4": "Confirm"
+    },
+    "account": {
+      "unfinishedOrder": "Your last order is unfinished"
+    },
+    "login": {
+      "loginWith": "Login with %providerName%",
+      "or": "OR",
+      "loginDescription": ""
+    },
+    "order": {
+      "ebayLinkTitle": "Your eBay offer for Order %orderNumber% is ready",
+      "ebayLinkDescription": "Please follow the link below, buy and pay an eBay offer by using your eBay account.",
+      "ebayLinkText": "to eBay offer"
+    },
+    "footer": {
+      "payments": "Payment Methods",
+      "delivery": "Delivery"
+    },
+    "announcement": {
+      "days": "Days",
+      "hours": "Hours",
+      "minutes": "Minutes",
+      "seconds": "Seconds"
+    },
+    "amazon-pay": {
+      "unregisteredWarning": "You must be logged into your account to use Amazon Pay",
+      "checkoutLoginRequest": "Use your Amazon account to authorize payment"
+    },
+    "modalContactForm": {
+      "title": "",
+      "text": "",
+      "namePlaceholder": "",
+      "landPlaceholder": "",
+      "betreffPlaceholder": "",
+      "betreffItems": {
+        "item1": "Zahlungsproblem",
+        "item2": "Lieferproblem",
+        "item3": "Das gelieferte Produkt entspricht nicht der Bestellung",
+        "item4": "Retouren kaufen",
+        "item5": "Unterstützung bei der Auswahl von Autoteilen verfolgen",
+        "item6": "Andere"
+      },
+      "commentPlaceholder": "",
+      "subTitle": "",
+      "subText": "",
+      "emailPlaceholder": "",
+      "whatsappPlaceholder": "",
+      "telegramPlaceholder": "",
+      "skypePlaceholder": ""
+    }
+  }
+}
