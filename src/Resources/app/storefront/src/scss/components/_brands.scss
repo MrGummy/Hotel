@@ -1,0 +1,8 @@
+.brands-link {
+  opacity: .4;
+  transition: opacity .2s;
+  
+  &:hover {
+    opacity: 1;
+  }
+}

@@ -1,0 +1,124 @@
+.header-middle {
+  display: flex;
+  align-items: center;
+
+  padding: 0 $spacer-4;
+
+  &-logo {
+    margin-right: auto;
+
+    @include media-breakpoint-up(sm) {
+      margin-right: 0;
+    }
+  }
+
+  &__center {
+    display: none;
+
+    @include media-breakpoint-up(sm) {
+      display: flex;
+    }
+
+    flex: 1;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-left: $spacer-2 * 6;
+    margin-right: $spacer-2 * 6;
+  }
+
+  &-nav {
+    display: flex;
+
+    @include media-breakpoint-up(xl) {
+      display: none;
+    }
+
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+    .icon-nav-toggler {
+      margin-left: $spacer-1;
+      color: $accent;
+
+      & > svg {
+        top: unset;
+      }
+    }
+  }
+
+  .contacts-box {
+    display: none;
+
+    @include media-breakpoint-up(lg) {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  &-service {
+    display: flex;
+
+    &-contacts,
+    &-favorites,
+    &-compare,
+    &-cart {
+      &:not(:last-child) {
+        margin-right: $spacer-3;
+      }
+
+      a {
+        display: flex;
+        align-items: center;
+      }
+
+      @include ui-base;
+      font-weight: $font-weight-bold;
+      font-size: 1rem;
+      display: flex;
+      cursor: pointer;
+    }
+
+    &-contacts {
+      align-items: center;
+      padding-right: 3px;
+
+      @include media-breakpoint-up(md) {
+        display: none;
+      }
+    }
+
+    &__icon.crw-icon {
+      height: 20px;
+      width: 20px;
+
+      margin-right: 0;
+
+      @include media-breakpoint-up(md) {
+        height: 16px;
+        width: 16px;
+
+        margin-right: $spacer-1;
+      }
+    }
+
+    &__label {
+      display: none;
+      margin-right: 5px;
+
+      @include media-breakpoint-up(md) {
+        display: flex;
+      }
+    }
+
+    &__badge {
+      @include ui-sm;
+      position: relative;
+      color: $accent;
+      font-weight: $font-weight-bold;
+
+      top: -$spacer-1;
+    }
+  }
+}

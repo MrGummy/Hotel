@@ -1,0 +1,100 @@
+.btn {
+  font-weight: $font-weight-bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-transform: uppercase;
+
+  cursor: pointer;
+
+  &:not(:disabled):hover,
+  &:not(.disabled):hover {
+    box-shadow: 0px 0px 0px 0 $white inset;
+  }
+
+  &:focus {
+    box-shadow: 0px 0px 0px 2px $white inset;
+    border-width: 1px;
+  }
+}
+
+.btn-buy {
+  padding: $spacer-1;
+}
+
+.btn-loader {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+}
+
+.btn-buy:not(:disabled):hover,
+.btn-buy:not(.disabled):hover,
+.btn-primary:not(:disabled):hover,
+.btn-primary:not(.disabled):hover {
+  color: $primary;
+  background-color: $white;
+  box-shadow: 0px 0px 0px 0 $white inset;
+
+  .icon {
+    color: $primary;
+  }
+}
+
+/*.btn-primary:not(:disabled):focus,
+.btn-primary:not(.disabled):focus*/
+.btn-buy:not(:disabled):focus,
+.btn-buy:not(.disabled):focus {
+  color: $white;
+  background-color: $primary;
+  box-shadow: 0px 0px 0px 2px $white inset;
+  border-width: 1px;
+
+  .icon {
+    color: $white;
+  }
+}
+
+.btn {
+  &.disabled,
+  &:disabled,
+  &.disabled:hover,
+  &:disabled:hover,
+  &.disabled:active,
+  &:disabled:active,
+  &.disabled:focus,
+  &:disabled:focus {
+    cursor: not-allowed;
+
+    outline: none;
+    opacity: 1;
+    background: $disabled-btn-bg;
+    border-color: $disabled-btn-border-color;
+    color: $color-theme-600;
+
+    .icon {
+      color: $color-theme-600;
+    }
+  }
+}
+
+.btn.out-of-stock {
+  background-color: $color-theme-500;
+  border-color: $color-theme-500;
+}
+
+.btn-primary2 {
+  @extend .btn;
+  @include button-variant($buy-btn-bg, $buy-btn-bg);
+}
+
+.btn-primary3 {
+  @extend .btn;
+  @include button-variant($buy-btn-bg, $buy-btn-bg);
+}
+
+.btn-primary4 {
+  @extend .btn;
+  @include button-variant($buy-btn-bg, $buy-btn-bg);
+}

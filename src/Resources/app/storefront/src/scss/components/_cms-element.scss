@@ -1,0 +1,121 @@
+/*
+CMS elements
+==============================================
+Skin styling for cms elements
+*/
+
+.cms-element-product-listing {
+  padding: 0;
+
+  .listing-grid-layout {
+    margin-bottom: $grid-gutter-width;
+
+    display: grid;
+    gap: $grid-gutter-width * 2;
+
+    @include media-breakpoint-up(sm) {
+      gap: $grid-gutter-width;
+    }
+
+    grid-template-columns: repeat(2, 1fr);
+
+    @include media-breakpoint-only(sm) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include media-breakpoint-only(md) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @include media-breakpoint-only(lg) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @include media-breakpoint-up(xl) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    @media screen and (min-width: 1600px) {
+      grid-template-columns: repeat(5, 1fr);
+    }
+
+    &--with-sidebar {
+      @include media-breakpoint-only(lg) {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      @include media-breakpoint-up(xl) {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      @media screen and (min-width: 1600px) {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    // list
+
+    &--list {
+      grid-template-columns: 1fr;
+
+      @include media-breakpoint-only(sm) {
+        grid-template-columns: repeat(1, 1fr);
+      }
+
+      @include media-breakpoint-only(md) {
+        grid-template-columns: repeat(1, 1fr);
+      }
+
+      @include media-breakpoint-only(lg) {
+        grid-template-columns: repeat(1, 1fr);
+      }
+
+      @include media-breakpoint-up(xl) {
+        grid-template-columns: repeat(1, 1fr);
+      }
+
+      @media screen and (min-width: 1600px) {
+        grid-template-columns: repeat(1, 1fr);
+      }
+    }
+  }
+
+  .cms-listing-col {
+    padding: 0;
+    margin: 0;
+    position: relative;
+
+    &.col-12 {
+      padding: unset;
+      margin: unset;
+      grid-column: 1/-1;
+    }
+
+    &.wishlist-listing-col {
+      margin-top: 5rem;
+    }
+  }
+}
+
+.cms-element-text {
+  font-size: $font-size-md;
+
+  blockquote {
+    font-size: $font-size-lg;
+    font-style: italic;
+    line-height: 24px;
+    margin-top: 16px;
+    margin-left: 20px;
+    position: relative;
+
+    &::before {
+      content: '"';
+      font-size: 40px;
+      line-height: 16px;
+      color: $cms-element-text-quotes-color;
+      position: absolute;
+      top: 10px;
+      left: -24px;
+    }
+  }
+}

@@ -1,0 +1,41 @@
+.product-details {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: $spacer-4;
+
+  @include media-breakpoint-up(md) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.product-detail-delivery-information {
+  margin: $spacer-1 0;
+
+  @include sys-sm;
+
+  .delivery-information {
+    display: flex;
+    align-items: flex-start;
+    font-weight: $font-weight-semibold;
+    margin: 0;
+
+    .crw-icon {
+      margin-top: 2px;
+    }
+  }
+}
+
+.product-detail-price-container {
+  margin-bottom: $spacer-1;
+
+  display: flex;
+  align-items: baseline;
+}
+
+.product-detail-list-price-wrapper {
+  @include header3;
+}
+
+.product-wishlist {
+  margin-bottom: $spacer-1;
+}

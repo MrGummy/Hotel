@@ -1,0 +1,32 @@
+.custom-select {
+  color: $input-color;
+  background-color: $input-bg;
+  cursor: pointer;
+
+  &:invalid {
+    color: $input-placeholder-color;
+  }
+
+  &:hover {
+    border-color: $border-color;
+    color: $input-color;
+  }
+
+  &:focus,
+  &:active {
+    border-color: $primary;
+  }
+
+  option {
+    color: $input-color;
+  }
+}
+
+.custom-control-input:disabled:checked ~ .custom-control-label::before {
+  background-color: $color-theme-800;
+}
+
+.custom-control-input:checked ~ .custom-control-label::before,
+.custom-control-input:not(:disabled):active ~ .custom-control-label::before {
+  background-color: $white;
+}

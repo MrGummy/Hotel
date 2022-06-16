@@ -1,0 +1,53 @@
+/* RANGE SLIDER */
+
+.range-slider {
+  z-index: 0;
+  position: relative;
+
+  &__body {
+    padding: 35px 10px 25px;
+  }
+
+  &__label {
+    font-weight: var(--font-normal);
+    color: $color-theme-700;
+    text-transform: uppercase;
+    font-size: 14px;
+    margin-bottom: 40px;
+  }
+
+  &__inputs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__input {
+    background-color: rgb(31, 33, 38);
+    color: $color-theme-700;
+    border: 1px solid rgb(41, 45, 51);
+    position: relative;
+    text-align: center;
+
+    font-size: 16px;
+
+    border-radius: 0;
+    padding: 10px;
+    margin: 5px 15px;
+
+    transition: color 0.2s, border 0.2s;
+
+    min-width: 70px;
+    width: 70px;
+
+    &:hover {
+      color: $color-theme-700;
+      border: 1px solid rgb(242, 242, 242);
+    }
+  }
+
+  &__input.error {
+    background-color: rgb(51, 30, 32);
+    border: 1px solid rgb(70, 31, 31);
+  }
+}

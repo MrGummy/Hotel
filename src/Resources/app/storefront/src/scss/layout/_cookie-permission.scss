@@ -1,0 +1,40 @@
+.cookie-permission-container {
+  border-top: none;
+  background: $color-theme-950;
+  z-index: $cookie-msg-zindex;
+  text-align: left;
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+  padding: 10px;
+
+  box-shadow: $base-shadow;
+
+  @include media-breakpoint-up(md) {
+    position: fixed;
+    bottom: 0;
+  }
+
+  .cookie-permission-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: auto;
+  }
+
+  .cookie-permission-content {
+    @include sys-xs;
+
+    @include media-breakpoint-up(md) {
+      @include sys-sm;
+    }
+
+    margin: 0;
+  }
+
+  .cookie-permission-actions {
+    margin-left: 5px;
+    display: flex;
+  }
+}

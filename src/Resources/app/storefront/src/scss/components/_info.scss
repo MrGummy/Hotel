@@ -1,0 +1,61 @@
+.info {
+  @include ui-base;
+
+  text-align: center;
+  border: 1px dashed $black;
+  font-weight: $font-weight-bold;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-clamp: 1;
+
+  padding: $spacer-2 $spacer-1;
+  margin: $spacer-2 0;
+
+  .crw-icon {
+    margin-left: $spacer-1;
+
+    margin-top: -$spacer-1;
+    margin-bottom: -$spacer-1;
+  }
+
+  &--success {
+    border-color: $success;
+
+    .crw-icon {
+      color: $success;
+      fill: $success;
+    }
+  }
+
+  &--warning {
+    border-color: $warning;
+
+    .crw-icon {
+      color: $warning;
+      fill: $warning;
+    }
+  }
+
+  &--danger {
+    border-color: $danger;
+
+    .crw-icon {
+      color: $danger;
+      fill: $danger;
+    }
+  }
+
+  &--info {
+    border-color: $info;
+
+    .crw-icon {
+      color: $info;
+      fill: $info;
+    }
+  }
+}

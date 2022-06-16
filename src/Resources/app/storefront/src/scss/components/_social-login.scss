@@ -1,0 +1,96 @@
+$foundation-colors: (
+  'facebook': #3c5a99,
+  'google': #eee,
+  'azure': #00a4ef,
+  'amazon': #ff9900,
+  'office365': #00a4ef,
+  'paypal': #0173b9,
+  'generic': #7289da,
+  'discord': #7289da,
+  'twitter': #55acee,
+  'instagram': #eee,
+  'pinterest': #bd081c,
+  'whatsapp': #25d366,
+  'youtube': #ff0000,
+);
+
+@each $color, $value in $foundation-colors {
+  .btn-#{$color} {
+    @include button-variant($value, $value);
+  }
+}
+
+.social-login {
+  display: grid;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  grid-template-columns: repeat(1, 1fr);
+  gap: 10px;
+
+  @include media-breakpoint-up(xl) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  & > * {
+    flex-basis: 50%;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: $spacer-2;
+    border: 1px solid $color-theme-900;
+    color: $primary;
+
+    &:hover,
+    &:active {
+      border: 1px solid $primary;
+    }
+  }
+
+  &__icon {
+    width: 22px;
+    height: 22px;
+    margin-right: 10px;
+
+    fill: $icon-base-color;
+
+    @each $color, $value in $foundation-colors {
+      &--#{$color} {
+        color: $value;
+      }
+    }
+  }
+
+  &__text {
+    @include sys-sm;
+    text-align: center;
+    margin-bottom: $spacer-4;
+  }
+
+  &__breaker {
+    display: flex;
+    align-items: center;
+
+    &::before,
+    &::after {
+      height: 1px;
+      background: $color-theme-700;
+      content: '';
+      flex: 1;
+    }
+  }
+
+  &__breaker-text {
+    @include ui-sm;
+    justify-content: center;
+    align-items: center;
+    color: $accent;
+    font-weight: $font-weight-bold;
+    flex: 0;
+    margin: $spacer-1;
+  }
+}

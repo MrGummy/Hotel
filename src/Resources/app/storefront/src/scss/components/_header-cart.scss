@@ -1,0 +1,37 @@
+.header-cart,
+.header-wishlist {
+  position: relative;
+
+  .header-cart-badge,
+  .header-wishlist-badge {
+    border: 0;
+    border-radius: 50px;
+    box-sizing: content-box;
+    height: 20px;
+    line-height: 20px;
+    margin: 0 5px;
+    min-width: 10px;
+    padding: 0 5px;
+
+    top: 2px;
+  }
+
+  .header-cart-badge {
+    right: -12px;
+    display: block;
+  }
+
+  .header-wishlist-badge {
+    right: -5px;
+  }
+
+  .header-actions-btn {
+    overflow: visible;
+  }
+}
+
+.header-cart {
+  .header-actions-btn {
+    padding-right: 0;
+  }
+}

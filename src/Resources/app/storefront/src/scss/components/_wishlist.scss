@@ -1,0 +1,36 @@
+.product-wishlist {
+  margin-top: 0;
+}
+
+.wishlist-headline {
+  height: auto;
+}
+
+.product-wishlist-action {
+  display: flex;
+  justify-content: center;
+
+  &--button {
+    padding: 0;
+    transition: background-color 0.2s, color 0.2s;
+  }
+
+  &:hover,
+  &:active {
+  }
+}
+
+.product-wishlist-btn-content {
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+
+  @include sys-sm;
+  font-weight: $font-weight-semibold;
+}
+
+.product-wishlist-added {
+  .icon-wishlist {
+    color: $color-theme-600;
+  }
+}

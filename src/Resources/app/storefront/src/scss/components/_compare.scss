@@ -1,0 +1,26 @@
+.compare {
+  &-button {
+    margin: $spacer-1 0;
+  }
+
+  &__toggler {
+    @include sys-sm;
+
+    display: flex;
+    align-items: flex-start;
+    font-weight: $font-weight-semibold;
+    margin: 0;
+
+    cursor: pointer;
+
+    &.is-added-to-compare {
+      .crw-icon {
+        color: $success;
+      }
+    }
+
+    // .crw-icon {
+    //   margin-top: 2px;
+    // }
+  }
+}

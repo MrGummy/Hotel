@@ -1,0 +1,16 @@
+.blog {
+  &__title-link {
+    color: $primary;
+    transition: color .2s;
+
+    &:hover {
+      color: $white;
+      text-decoration: none;
+    }
+  }
+}
+
+.blog-post {
+    font-size: $font-size-md;
+    line-height: $font-size-md * 1.6;
+}

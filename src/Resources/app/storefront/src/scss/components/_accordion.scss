@@ -1,0 +1,50 @@
+.accordion {
+  .card {
+    border-top: 1px solid $border-color;
+    border-bottom: 1px solid $border-color;
+  }
+
+  .card-header,
+  .card-body {
+    background-color: transparent;
+
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .card-body {
+    padding-top: 0;
+  }
+
+  .card-header {
+    .btn {
+      padding: 0;
+      font-size: $font-size-lg;
+
+      padding-left: 30px;
+      position: relative;
+
+      &::before {
+        display: block;
+        position: absolute;
+        content: '';
+
+        width: 22px;
+        height: 22px;
+
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23FFFFFF' d='M12,2A10,10,0,1,0,22,12,10,10,0,0,0,12,2Zm0,18a8,8,0,1,1,8-8A8,8,0,0,1,12,20Zm4-9H8a1,1,0,0,0,0,2h8a1,1,0,0,0,0-2Z'/%3E%3C/svg%3E%0A");
+        color: $white;
+
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+      }
+
+      &.collapsed {
+        &::before {
+          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23FFFFFF' d='M12,2A10,10,0,1,0,22,12,10,10,0,0,0,12,2Zm0,18a8,8,0,1,1,8-8A8,8,0,0,1,12,20Zm4-9H13V8a1,1,0,0,0-2,0v3H8a1,1,0,0,0,0,2h3v3a1,1,0,0,0,2,0V13h3a1,1,0,0,0,0-2Z'/%3E%3C/svg%3E");
+        }
+      }
+    }
+  }
+}

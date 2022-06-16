@@ -1,0 +1,42 @@
+.pagination {
+  margin-bottom: 0;
+
+  .page-item {
+    &.disabled {
+      .page-link {
+        cursor: default;
+        opacity: 1;
+        background: $white;
+        color: $color-theme-700;
+      }
+
+      .icon {
+        color: $color-theme-700;
+      }
+    }
+
+    &.active {
+      .page-link {
+        color: $white;
+      }
+
+      .page-link:hover {
+        color: $black;
+      }
+    }
+  }
+
+  .page-link {
+    cursor: pointer;
+    line-height: $custom-select-line-height;
+    margin-bottom: 0;
+
+    &:hover {
+      background-color: $color-theme-900;
+    }
+  }
+
+  .icon {
+    color: $black;
+  }
+}

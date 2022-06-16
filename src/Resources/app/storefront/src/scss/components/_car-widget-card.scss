@@ -1,0 +1,34 @@
+.car-widget-card {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  cursor: pointer;
+
+  &__title {
+    @include header3;
+    font-weight: $font-weight-normal;
+    line-height: 1;
+    margin-bottom: $spacer-2;
+
+    &--small {
+      @include ui-base;
+      font-weight: $font-weight-bold;
+      line-height: 1.4;
+      margin-bottom: $spacer-0;
+    }
+  }
+
+  &__year {
+    margin-right: $spacer-1;
+  }
+
+  &__name {
+    margin-right: $spacer-1;
+  }
+
+  &__details {
+    @include sys-sm;
+    font-weight: $font-weight-semibold;
+    color: $color-theme-500;
+  }
+}

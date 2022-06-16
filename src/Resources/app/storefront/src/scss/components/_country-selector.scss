@@ -1,0 +1,27 @@
+.country-selector {
+  &__app {
+    position: relative;
+  }
+
+  &__handler {
+    user-select: none;
+    position: relative;
+    cursor: pointer;
+  }
+
+  &__dropdown {
+    position: absolute;
+    left: -$spacer-1;
+    top: calc(100% - 10px);
+    padding: $spacer-2 $spacer-4;
+
+    box-shadow: $base-shadow;
+    background: $color-theme-950;
+
+    z-index: $car-search-zindex;
+  }
+
+  &__element {
+    cursor: pointer;
+  }
+}

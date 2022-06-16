@@ -1,0 +1,49 @@
+.slider__button {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background-color: $color-theme-400;
+
+  color: $white;
+  transition: background-color 0.3s;
+
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+.slider__button:hover {
+  background-color: $primary;
+}
+
+.slider__button::before {
+  position: absolute;
+  color: $white;
+  left: 50%;
+  top: 50%;
+
+  transform: translate(-50%, -50%);
+}
+
+.slider__button--prev {
+  left: 0px;
+}
+
+.slider__button--next {
+  right: 0px;
+}
+
+.slider__button--disabled,
+.slider__button--disabled:hover {
+  background-color: $color-theme-400;
+}
+
+.slider__button--disabled {
+  color: hsl(217, 8%, 33%);
+}
+
+.slider__button > .chevron {
+  width: 30px;
+  height: 30px;
+}

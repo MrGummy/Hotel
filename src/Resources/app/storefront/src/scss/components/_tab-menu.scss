@@ -1,0 +1,54 @@
+/*
+Tab Menu
+==============================================
+Custom skin styling for bootstrap card with included tab navigation.
+
+https://getbootstrap.com/docs/4.3/components/card/#navigation
+*/
+
+.card-tabs {
+  border: 0;
+
+  .card-header {
+    background: none;
+    padding-left: $spacer-2;
+    padding-right: $spacer-2;
+  }
+
+  .nav-item {
+    margin-right: $spacer-2;
+  }
+
+  .nav-link {
+    @include header2;
+
+    font-weight: $font-weight-bold;
+    color: $color-theme-300;
+    padding: $spacer-1 0;
+    margin-left: $spacer-2;
+    margin-right: $spacer-2;
+
+    border-top: none;
+    border-left: none;
+    border-right: none;
+
+    transition: all 0.2s;
+
+    &:hover {
+      color: $color-theme-300;
+    }
+
+    &.active {
+      color: $black;
+    }
+
+    &.active,
+    &:hover {
+      background-color: transparent;
+    }
+
+    .product-cross-selling-tab-navigation {
+      padding: 0;
+    }
+  }
+}

@@ -1,0 +1,109 @@
+/*
+Navigation flyout
+==============================================
+Custom skin styling for navigation flyout which opens on hover over the main navigation.
+*/
+
+.navigation-flyouts {
+  left: 0;
+  bottom: 0;
+  z-index: -2;
+}
+
+.navigation-flyout {
+  position: relative;
+  background-color: $white;
+  box-shadow: none;
+
+  max-height: 65vh;
+  overflow-y: scroll;
+
+  &::after {
+    background-color: transparent;
+    width: 100vw;
+    height: 100vh;
+    left: 0;
+    top: 0;
+    position: fixed;
+    content: '';
+    z-index: -3;
+    pointer-events: none;
+    transition: background-color 0.2s;
+  }
+
+  &.is-open {
+    &::after {
+      background-color: $transparent-400;
+    }
+  }
+
+  &::before {
+    pointer-events: none;
+    content: '';
+    width: 100%;
+    height: calc(100% - 10px);
+    position: absolute;
+    box-shadow: $base-shadow;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+  }
+}
+
+.navigation-flyout-content {
+  padding: $spacer-4 $spacer-4 $spacer-6;
+}
+
+.navigation-flyout-categories {
+  &.is-level-0 {
+    column-count: 5;
+    column-gap: $spacer-4;
+    column-fill: balance;
+
+    display: block;
+
+    & > * {
+      margin-bottom: 30px;
+      position: relative;
+
+      break-inside: avoid;
+
+      &.breakable {
+        break-inside: auto;
+      }
+    }
+  }
+}
+
+.navigation-flyout-link {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  &.is-level-0 {
+    @include ui-base;
+    font-weight: $font-weight-bold;
+  }
+
+  &.is-level-1 {
+    @include sys-sm;
+  }
+
+  &.is-level-2 {
+    @include sys-sm;
+  }
+
+  &:hover {
+    color: $primary;
+  }
+}
+
+.navigation-flyout-bar {
+  align-items: center;
+  padding: $padding 0;
+}
+
+.navigation-flyout-category-link {
+  font-weight: $font-weight-bold;
+  font-size: $font-size-lg;
+}

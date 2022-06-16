@@ -1,0 +1,37 @@
+{% sw_extends '@Storefront/storefront/page/account/order-history/order-detail.html.twig' %}
+
+{% block page_account_order_item_detail_shipping_method %}
+    <dt class="col-6 col-md-5">Adults</dt>
+    <dd class="col-6 col-md-7 order-item-detail-labels-value">{{ order.lineItems.elements|last.extensions["booking"].adults }}</dd>
+{% endblock %}
+
+{% block page_account_order_item_detail_tracking_code %}
+    <dt class="col-6 col-md-5">Childrens</dt>
+    <dd class="col-6 col-md-7 order-item-detail-labels-value">{{ order.lineItems.elements|last.extensions["booking"].childrens }}</dd>
+{% endblock %}
+
+{% block page_account_order_item_detail_summary %}
+    <dl class="row no-gutters order-item-detail-summary">
+        {% block page_account_order_item_detail_amount %}
+            {% block page_account_order_item_detail_amount_label %}
+                <dt class="col-6 col-md-8">
+                    {% if order.isTaxFree %}
+                        {{ "account.orderItemNetTotal"|trans|sw_sanitize }}
+                    {% else %}
+                        {{ "account.orderItemTotal"|trans|sw_sanitize }}
+                    {% endif %}
+                </dt>
+            {% endblock %}
+
+            {% block page_account_order_item_detail_amount_value %}
+                <dd class="col-6 col-md-4">
+                    {% if order.isTaxFree %}
+                        {{ order.amountNet|currency(order.currency.isoCode) }}
+                    {% else %}
+                        {{ order.amountTotal|currency(order.currency.isoCode) }}
+                    {% endif %}
+                </dd>
+            {% endblock %}
+        {% endblock %}
+    </dl>
+{% endblock %}

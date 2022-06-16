@@ -1,0 +1,21 @@
+.apps {
+  .car-search-app {
+    padding-left: $spacer-4;
+    padding-right: $spacer-4;
+  }
+
+  .car-catalog__app--front-page {
+    padding-left: $spacer-4;
+    padding-right: $spacer-4;
+  }
+}
+
+.car-search-app {
+  width: 100%;
+}
+
+.cms-block-container-row {
+  .car-search-app:not(.car-search-app--dialog) {
+    margin-top: -$spacer-4;
+  }
+}

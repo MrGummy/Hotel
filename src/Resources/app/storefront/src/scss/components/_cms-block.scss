@@ -1,0 +1,22 @@
+.cms-block {
+  overflow: unset;
+}
+
+.cms-block-text-hero {
+  .cms-element-text hr {
+    max-width: 160px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 2px solid $cms-block-text-hero-hr-color;
+  }
+}
+
+.cms-block-product-listing {
+  margin-right: 0;
+  margin-left: 0;
+}
+
+.cms-block-product-slider {
+  margin-right: -$spacer-4;
+  margin-left: -$spacer-4;
+}

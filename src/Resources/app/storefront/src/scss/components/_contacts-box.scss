@@ -1,0 +1,20 @@
+.contacts-box {
+  &__text {
+    @include sys-sm;
+  }
+
+  &__cta {
+    @include sys-sm;
+    text-transform: uppercase;
+    color: $accent;
+    margin-top: $spacer-2;
+    font-weight: $font-weight-bold;
+
+    cursor: pointer;
+    transition: color 0.2s;
+
+    &:hover {
+      color: $black;
+    }
+  }
+}

@@ -1,0 +1,489 @@
+.checkout-aside-summary {
+  background: inherit;
+}
+
+.checkout-aside-summary-container {
+  border-top: $border-width solid $border-color;
+}
+
+// .checkout-aside-container {
+//   padding-left: $spacer-4;
+// }
+
+.is-act-cartpage .checkout .checkout-aside-container {
+  top: 100px;
+}
+
+.checkout-aside-summary,
+.checkout-aside-products {
+}
+
+.checkout-aside-action,
+.swag-amazon-pay-wrapper {
+  margin-top: $spacer-2;
+}
+
+.checkout-aside-summary-label {
+  @include ui-md;
+  margin: $spacer-0;
+}
+
+.checkout-aside-summary-value {
+  @include ui-md;
+  margin: $spacer-0;
+}
+
+.checkout-aside-summary-total {
+  @include header2;
+
+  margin: $spacer-0;
+  padding-top: $spacer-0;
+  margin-top: $spacer-2;
+
+  text-transform: none;
+  border-top: 0;
+}
+
+.checkout-aside-summary-list {
+  margin-top: $spacer-2;
+}
+
+.checkout-aside-item {
+  .product-feature-list-list {
+    margin: 0;
+  }
+
+  .checkout-aside-item-title {
+    @include ui-md;
+
+    margin-bottom: $spacer-0;
+  }
+
+  .checkout-aside-item-link-price {
+    @include header3;
+
+    font-weight: $font-weight-bold;
+    margin-top: $spacer-1;
+  }
+
+  .checkout-aside-item-characteristics {
+    @include ui-sm;
+
+    color: $color-theme-500;
+    margin-bottom: $spacer-0;
+  }
+
+  .checkout-aside-item-link-quantity {
+    @include ui-sm;
+
+    color: $color-theme-500;
+    margin-bottom: $spacer-0;
+
+    .quantity {
+      max-width: 90px;
+
+      .vue-number-input {
+        &__input {
+          font-size: 12px !important;
+        }
+      }
+    }
+  }
+}
+
+.checkout-container-custom {
+  display: grid;
+  grid-gap: $spacer-4;
+
+  margin: 0;
+
+  grid-template-areas: 'header' 'main' 'aside';
+  grid-template-columns: 1fr;
+
+  @include media-breakpoint-up(md) {
+    grid-template-areas: 'header header' 'main aside';
+    grid-template-columns: 2fr 1fr;
+  }
+}
+
+.checkout-main-custom {
+  grid-area: main;
+
+  padding: $spacer-4;
+  border: $border-width solid $border-color;
+}
+
+.checkout-aside-custom {
+  grid-area: aside;
+
+  padding: $spacer-4;
+  border: $border-width solid $border-color;
+}
+
+.checkout-header-row {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+
+  grid-area: header;
+
+  @include media-breakpoint-up(md) {
+    flex-wrap: nowrap;
+  }
+
+  .checkout-header {
+    flex: 1;
+    order: 0;
+
+    flex-basis: 50%;
+    display: flex;
+    align-items: center;
+
+    @include media-breakpoint-up(md) {
+      flex-basis: unset;
+    }
+  }
+
+  .checkout-steps {
+    flex: 1;
+    order: 2;
+
+    display: flex;
+    flex-direction: column;
+
+    flex-basis: 100%;
+
+    justify-content: flex-start;
+    align-items: flex-start;
+
+    @include media-breakpoint-up(md) {
+      order: 1;
+      flex: 3;
+
+      flex-direction: row;
+      flex-basis: unset;
+
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  .checkout-back {
+    flex: 1;
+    order: 1;
+
+    flex-basis: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    @include media-breakpoint-up(md) {
+      order: 2;
+      flex-basis: unset;
+    }
+  }
+}
+
+.checkout-step {
+  display: flex;
+
+  margin-top: $spacer-2;
+  margin-bottom: $spacer-2;
+
+  &:not(:last-child) {
+    margin-right: $spacer-6;
+  }
+
+  .step-number {
+    @include ui-base;
+    font-weight: $font-weight-bold;
+
+    height: 24px;
+    width: 24px;
+    border-radius: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: $color-theme-900;
+
+    margin-right: $spacer-2;
+  }
+
+  .step-text {
+    @include ui-base;
+
+    font-weight: $font-weight-bold;
+
+    display: flex;
+    align-items: center;
+  }
+
+  &--current {
+    .step-number {
+      color: $white;
+      background-color: $accent;
+    }
+
+    .step-text {
+      color: $accent;
+    }
+  }
+}
+
+.checkout-custom {
+  flex: 1 0 100%;
+
+  justify-content: space-between;
+
+  display: flex;
+  flex-wrap: wrap;
+
+  .checkout-header {
+    @include header2;
+  }
+
+  .card-body {
+    padding: 0;
+  }
+
+  .checkout-block {
+    flex: 0 0 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    border: 1px solid $color-theme-900;
+    padding: 25px;
+
+    margin-bottom: 20px;
+
+    @include media-breakpoint-up(md) {
+      flex: 0 0 33%;
+
+      &--double {
+        flex: 0 0 65%;
+      }
+    }
+
+    &--login {
+      .checkout-block-inner {
+        margin: 0 auto;
+
+        width: 100%;
+        max-width: 500px;
+      }
+
+      .checkout-header {
+        text-align: center;
+      }
+    }
+  }
+
+  .custom-select {
+    background-color: $input-bg;
+
+    @include ui-base;
+    font-weight: $font-weight-bold;
+
+    &:invalid {
+      color: $color-theme-700;
+    }
+  }
+}
+
+.checkout-aside-item {
+  display: flex;
+}
+
+.checkout-aside-coins-label {
+  color: $primary;
+}
+
+.checkout-aside-coins-value {
+  text-align: right;
+  color: $primary;
+}
+
+.checkout-aside-item-image {
+  flex: 0 0 85px;
+  margin-right: 10px;
+}
+
+.checkout-aside-item-data {
+  flex: 1;
+}
+
+.checkout-coins {
+  margin-bottom: 30px;
+}
+
+.checkout-block {
+  .form-label {
+    display: none;
+
+    // display: block;
+    // position: absolute;
+    // left: $spacer-3;
+    // top: 0;
+    // z-index: 5;
+    // margin: 0;
+
+    // transform: translateY(10px);
+    // user-select: none;
+    // pointer-events: none;
+
+    // @include ui-base;
+    // color: $color-theme-500;
+    // font-weight: $font-weight-bold;
+  }
+
+  // .form-group:focus-within .form-label,
+  // .form-control:not(:placeholder-shown) + .form-label {
+  //   display: none;
+  // }
+
+  .form-control {
+    @include ui-base;
+    font-weight: $font-weight-bold;
+
+    &::-webkit-input-placeholder {
+      color: $color-theme-700;
+    }
+  }
+
+  input:focus,
+  .stripe-payment-card-selection .form-control {
+    background-color: $white;
+  }
+
+  .stripe-payment-selected-card {
+    font-size: $font-size-md;
+    font-weight: $font-weight-semibold;
+    color: $white;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .stripe-payment-card-selection__card-cvc-input {
+    margin-right: 0;
+  }
+
+  .stripe-payment-card-selection__card-cvc-info-button {
+    top: 0;
+  }
+
+  .StripeElement {
+    display: flex;
+    align-items: center;
+
+    & > * {
+      flex: 1;
+
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  #stripe-shopware-payment-card-selection-card-number-input > * {
+    height: 80%;
+  }
+}
+
+.checkout-tabs {
+  margin-top: $spacer-4;
+
+  display: flex;
+  flex: 1 0 100%;
+
+  flex-wrap: wrap;
+
+  justify-content: center;
+
+  &__input {
+    display: none;
+  }
+
+  &__input:checked + &__label {
+    color: $primary;
+
+    margin-bottom: 20px;
+    border-bottom: 2px solid $primary;
+  }
+
+  &__label {
+    font-size: 16px;
+    font-weight: $font-weight-bold;
+    cursor: pointer;
+
+    &:not(:last-of-type) {
+      margin-right: 20px;
+    }
+  }
+
+  #checkout-login-tab-handler:not(:checked) ~ .checkout-custom #checkout-login-tab,
+  #checkout-register-tab-handler:not(:checked) ~ .checkout-custom #checkout-register-tab {
+    display: none;
+  }
+}
+
+.custom-billing {
+  border-top: 1px solid $color-theme-900;
+
+  padding-top: $spacer-3;
+  display: flex;
+
+  align-items: flex-start;
+  justify-content: space-between;
+
+  @include ui-sm;
+  font-weight: $font-weight-bold;
+  text-transform: none;
+}
+
+.confirm-address {
+  margin-bottom: $spacer-0;
+}
+
+.confirm-address-change-link a {
+  text-transform: uppercase;
+  color: $accent;
+}
+
+.confirm-payment-box {
+  display: grid;
+  grid-gap: $spacer-6;
+
+  grid-template-areas: 'selector' 'content';
+  grid-template-columns: 1fr;
+
+  @include media-breakpoint-up(md) {
+    grid-template-areas: 'selector content';
+    grid-template-columns: 1fr 2fr;
+  }
+}
+
+.confirm-content {
+}
+
+.revocation-notice {
+  @include ui-sm;
+
+  a {
+    color: $accent;
+    font-weight: $font-weight-bold;
+  }
+}
+
+.checkout-confirm-checkbox {
+  @include ui-sm;
+
+  a {
+    color: $accent;
+    font-weight: $font-weight-bold;
+  }
+}

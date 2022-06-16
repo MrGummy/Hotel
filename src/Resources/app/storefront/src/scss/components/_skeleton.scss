@@ -1,0 +1,11 @@
+.skeleton {
+  @include skeleton;
+
+  width: $spacer-4;
+  min-width: $spacer-4;
+
+  height: $spacer-4;
+  min-height: $spacer-4;
+
+  align-self: start;
+}

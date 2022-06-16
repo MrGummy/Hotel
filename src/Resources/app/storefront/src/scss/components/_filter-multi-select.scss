@@ -1,0 +1,25 @@
+.filter-property-select-list-item {
+  .custom-checkbox {
+    flex: 1;
+  }
+}
+
+.filter-multi-select-item-label {
+  display: flex;
+  justify-content: space-between;
+
+  padding-right: 0;
+  padding-left: $spacer-1;
+}
+
+.filter-multi-select-dropdown {
+  padding: 0;
+}
+
+.filter-multi-select-list {
+}
+
+.filter-multi-select-list-item {
+  padding-left: 0;
+  padding-right: 0;
+}

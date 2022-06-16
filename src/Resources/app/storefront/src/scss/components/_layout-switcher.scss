@@ -1,0 +1,28 @@
+.layout-switcher {
+  color: $black;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-left: $spacer-4;
+
+  .layout {
+    color: $color-theme-700;
+    cursor: pointer;
+
+    transition: color 0.2s;
+
+    &:not(:last-child) {
+      margin-right: $spacer-2;
+    }
+
+    &:hover {
+      color: $color-theme-500;
+    }
+
+    &--active {
+      color: $accent;
+    }
+  }
+}

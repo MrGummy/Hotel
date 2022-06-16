@@ -1,0 +1,18 @@
+.mail-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+
+  &__email {
+    margin-left: auto;
+
+    a {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  &__comment {
+    color: $color-theme-500;
+  }
+}

@@ -1,0 +1,26 @@
+.footer-contacts {
+  &__icon {
+    width: 18px;
+    height: 18px;
+
+    margin-right: 5px;
+  }
+}
+
+.footer-messengers,
+.footer-reviews {
+  color: $color-theme-700;
+  margin-bottom: 15px;
+
+  a {
+    color: $color-theme-800;
+  }
+
+  p {
+    margin-bottom: 3px;
+  }
+}
+
+.footer-reviews {
+  font-size: 12px;
+}

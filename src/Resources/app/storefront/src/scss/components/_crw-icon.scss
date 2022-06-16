@@ -1,0 +1,29 @@
+.crw-icon {
+  width: $icon-size;
+  height: $icon-size;
+
+  color: currentColor;
+  fill: currentColor;
+
+  &:not(:last-child) {
+    margin-right: $spacer-2;
+  }
+
+  &--sm {
+    width: $icon-size-sm;
+    height: $icon-size-sm;
+
+    &:not(:last-child) {
+      margin-right: $spacer-1;
+    }
+  }
+
+  &--xs {
+    width: $icon-size-xs;
+    height: $icon-size-xs;
+
+    &:not(:last-child) {
+      margin-right: $spacer-1;
+    }
+  }
+}

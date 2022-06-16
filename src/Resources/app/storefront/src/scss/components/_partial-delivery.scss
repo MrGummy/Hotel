@@ -1,0 +1,90 @@
+.partial-delivery {
+  &--confirm {
+    padding: 0;
+    border: 0;
+    padding-bottom: $spacer-2;
+    border-bottom: $border-width solid $border-color;
+  }
+
+  &__box {
+    margin: 0 0 $spacer-2;
+    padding: $spacer-2 $spacer-3;
+
+    border: $border-width solid $border-color;
+
+    &--light {
+      padding: 0;
+      border: 0;
+      margin: 0;
+
+      padding-bottom: $spacer-2;
+      border-bottom: $border-width solid $border-color;
+    }
+  }
+
+  &__shipping {
+    padding: $spacer-2 0;
+    margin: 0;
+  }
+
+  &__title {
+    padding-bottom: $spacer-2;
+    border-bottom: $border-width solid $border-color;
+
+    margin-bottom: $spacer-2;
+  }
+
+  &__header {
+    @include ui-base;
+    font-weight: $font-weight-bold;
+    color: $color-theme-500;
+  }
+
+  &__text {
+    @include sys-xs;
+  }
+
+  &__items {
+    margin-top: $spacer-3;
+  }
+
+  &__shipping-title {
+    @include header3;
+    margin-bottom: $spacer-2;
+  }
+
+  .shipping-methods {
+    @include sys-sm;
+  }
+
+  .shipping-method-description {
+    margin-top: 2px;
+    width: fit-content;
+    cursor: pointer;
+  }
+
+  .shipping-method-label {
+    width: auto;
+  }
+
+  .confirm-checkout-collapse-trigger {
+    display: flex;
+    align-items: center;
+    height: 20px;
+
+    width: fit-content;
+
+    margin-top: $spacer-2;
+  }
+
+  .confirm-checkout-collapse-trigger-label {
+    margin-top: 8px;
+
+    @include ui-base;
+    font-weight: $font-weight-bold;
+  }
+
+  .acris-partial-delivery-selection-checkbox {
+    margin-bottom: $spacer-2;
+  }
+}

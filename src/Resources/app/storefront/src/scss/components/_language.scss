@@ -1,0 +1,14 @@
+.language {
+  &__icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  &__text {
+    position: relative;
+    top: 1px;
+    margin-left: 5px;
+    text-transform: uppercase;
+    font-weight: $font-weight-bold;
+  }
+}

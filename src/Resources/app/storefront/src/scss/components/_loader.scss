@@ -1,0 +1,121 @@
+/*
+Element loader
+==============================================
+Element loader can be applied to any element.
+*/
+
+.has-element-loader {
+  z-index: 15;
+  pointer-events: none;
+  position: relative;
+}
+
+.element-loader-backdrop {
+  opacity: 0;
+  transition: opacity 0.45s cubic-bezier(0.3, 0, 0.15, 1), visibility 0.45s linear;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: absolute;
+  background-color: $element-backdrop-bg;
+  box-shadow: 0 0 11px 7px $element-backdrop-bg;
+  z-index: 15;
+
+  &.element-loader-backdrop-open {
+    opacity: 1;
+  }
+
+  > .loader {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -$spacer;
+    margin-top: -$spacer;
+  }
+}
+
+/*
+Skeleton screen
+==============================================
+Skeleton screen for reloading product-listing with subtle shimmer effect
+*/
+
+.has-element-loader .cms-element-product-listing {
+  .product-badges,
+  .product-review-rating,
+  .product-wishlist,
+  .product-fit > * {
+    display: none;
+  }
+
+  .product-image-wrapper {
+    background: transparent;
+  }
+
+  .product-info .info,
+  .product-action,
+  .product-image-link {
+    border: 0;
+
+    & > * {
+      opacity: 0;
+    }
+  }
+
+  .product-image-wrapper:after,
+  .product-rating,
+  .product-name,
+  .product-manufacturer,
+  .product-variant-characteristics,
+  .product-description,
+  .product-price-unit,
+  .product-number,
+  .product-fit,
+  .product-property,
+  .product-vat-box,
+  .product-action,
+  .product-favorites-box,
+  .product-wishlist,
+  .product-delivery-box,
+  .product-price {
+    border-radius: $border-radius;
+    color: transparent;
+    animation: skeletonShimmer 1.5s linear 0s infinite normal forwards running;
+    background: linear-gradient(to right, $color-theme-900 8%, $color-theme-700 18%, $color-theme-900 28%);
+    background-size: 800px 100px;
+  }
+
+  .product-rating {
+    width: 100%;
+  }
+
+  .product-name,
+  .product-manufacturer {
+    width: 100%;
+  }
+
+  .product-price {
+    width: 100%;
+  }
+
+  // wishlist page
+  .product-wishlist-info {
+    &-item {
+      border-radius: $border-radius;
+      color: transparent;
+      animation: skeletonShimmer 1.5s linear 0s infinite normal forwards running;
+      background: linear-gradient(to right, $color-theme-900 8%, $color-theme-700 18%, $color-theme-900 28%);
+      background-size: 800px 100px;
+    }
+
+    &-status {
+      display: none;
+    }
+  }
+
+  .product-variant-characteristics-text,
+  .product-wishlist-remove {
+    display: none;
+  }
+}

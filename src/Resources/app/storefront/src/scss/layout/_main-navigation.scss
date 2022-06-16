@@ -1,0 +1,106 @@
+/*
+Main navigation
+==============================================
+Custom styling for main navigation on larger screens.
+
+Based on bootstrap nav:
+https://getbootstrap.com/docs/4.3/components/navs/
+*/
+
+.main-navigation__box {
+  display: flex;
+  flex-direction: column;
+
+  background-color: $white;
+  z-index: $top-bar-zindex;
+
+  position: sticky;
+  top: 61px;
+
+  @include media-breakpoint-up(md) {
+    top: 0;
+  }
+
+  .main-navigation {
+    padding: 0 $spacer-4;
+
+    display: none;
+
+    @include media-breakpoint-up(xl) {
+      display: flex;
+    }
+
+    justify-content: center;
+    align-items: center;
+    min-height: 80px;
+
+    background: $white;
+  }
+
+  &::before {
+    pointer-events: none;
+    content: '';
+    width: 100%;
+    height: calc(100% - 10px);
+    position: absolute;
+    box-shadow: $base-shadow;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+  }
+}
+
+.main-navigation-menu {
+  @include ui-base;
+
+  font-weight: $font-weight-bold;
+
+  justify-content: center;
+  flex-wrap: nowrap;
+}
+
+.main-navigation-link[data-mm-mega-menu-trigger] {
+  cursor: pointer;
+}
+
+.main-navigation-link {
+  color: $body-color;
+  padding: 0;
+  padding-left: 0;
+  transition: color 0.2s;
+
+  &:not(:last-child) {
+    @include media-breakpoint-only(xl) {
+      padding-right: $spacer-4;
+    }
+
+    @include media-breakpoint-up(xxl) {
+      padding-right: $spacer-6;
+    }
+  }
+
+  display: flex;
+  align-items: center;
+
+  .main-navigation-link-text {
+    text-align: center;
+    text-transform: uppercase;
+
+    @include media-breakpoint-only(xl) {
+      font-size: $font-size-sm;
+    }
+
+    @include media-breakpoint-up(xxl) {
+      font-size: $font-size-base;
+    }
+  }
+
+  &:hover,
+  &.is-open {
+    color: $accent;
+  }
+
+  &.active {
+    color: $accent;
+  }
+}
