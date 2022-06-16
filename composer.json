@@ -1,0 +1,29 @@
+{
+  "name": "mm/mm-shopware-theme-plugin",
+  "description": "Shopware 6 Theme Plugin",
+  "type": "shopware-platform-plugin",
+  "version": "v0.0.1",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "HirePlayers GMBH"
+    }
+  ],
+  "require": {
+    "shopware/core": "*",
+    "shopware/administration": "*",
+    "shopware/storefront": "*"
+	},
+  "autoload": {
+    "psr-4": {
+      "MmTheme\\": "src/"
+    }
+  },
+  "extra": {
+    "shopware-plugin-class": "MmTheme\\MmTheme",
+    "plugin-icon": "src/Resources/config/logo.png",
+    "label": {
+      "en-GB": "MM Theme Plugin"
+    }
+  }
+}

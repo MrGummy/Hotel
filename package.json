@@ -1,0 +1,26 @@
+{
+  "name": "storefront",
+  "version": "0.0.1",
+  "description": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@chenfengyuan/vue-number-input": "^2.0.1",
+    "@vueform/multiselect": "^2.3.3",
+    "@vueuse/core": "^8.4.2",
+    "@vueuse/shared": "^8.4.2",
+    "delay": "^5.0.0",
+    "inputmask": "^5.0.7",
+    "p-debounce": "^4.0.0",
+    "p-limit": "^4.0.0",
+    "tippy.js": "^6.3.7",
+    "toastify-js": "^1.11.2",
+    "vue": "^3.2.33",
+    "vue-demi": "^0.12.5",
+    "vue-height-collapsible": "^0.1.1"
+  }
+}
