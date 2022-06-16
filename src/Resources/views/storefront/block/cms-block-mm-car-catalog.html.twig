@@ -1,0 +1,12 @@
+{% block cms_block_mm_car_catalog %}
+  <div class="col-12">
+    {% set element = block.slots.getSlot('config') %}
+    {% block cms_block_mm_car_catalog_body %}
+      {% set carCatalogOptions = {
+        rootId: page.navigationId,
+        salesChannelId: context.salesChannel.id
+      } %}
+      <div class="car-catalog__app" data-car-catalog="true" data-car-catalog-options="{{ carCatalogOptions|json_encode }}"></div>
+    {% endblock %}
+  </div>
+{% endblock %}

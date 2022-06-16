@@ -1,0 +1,7 @@
+{% block cms_block_mm_car_search %}
+  {% set carSearchOptions = {
+    mode: activeRoute == "frontend.home.page" ? 'full' : 'minimal',
+  } %}
+
+  <div class="car-search-app" data-car-search="true" data-car-search-options="{{ carSearchOptions|json_encode }}"></div>
+{% endblock %}

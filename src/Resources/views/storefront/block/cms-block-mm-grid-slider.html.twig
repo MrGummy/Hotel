@@ -1,0 +1,17 @@
+{% block cms_block_mm_grid_slider %}
+
+  {% set element = block.slots.getSlot('config') %}
+  {% set slider = {
+      config: element.config.contentCODE.value ? element.config.contentCODE.value|raw : '[]',
+      options: {
+        spaceBetween: 20,
+      }
+  } %}
+
+  {% block cms_block_mm_grid_slider_body %}
+    <div data-grid-slider data-grid-slider-options="{{slider|json_encode}}" class="grid-slider__wrapper col">
+        <div class="grid-slider-app"></div>
+    </div>
+  {% endblock %}
+
+{% endblock %}
