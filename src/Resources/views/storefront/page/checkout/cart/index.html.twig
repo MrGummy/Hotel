@@ -12,7 +12,7 @@
     {% set lineItemsDisplayed = [] %}
     {% set deliveries = [] %}
 
-    {% for key, delivery in page.cart.deliveries %}
+    {# {% for key, delivery in page.cart.deliveries %}
         {% if delivery.extensions.AcrisPartialDeliveryDiscount or delivery.customFields.AcrisPartialDeliveryDiscount %}{% else %}
             {% set deliveries = deliveries|merge([delivery]) %}
         {% endif %}
@@ -56,14 +56,10 @@
                     } %}
                 {% endblock %}
             </div>
-    {% endfor %}
+    {% endfor %} #}
 
     {% if page.cart.lineItems.count() != lineItemsDisplayed|length %}
         <div class="partial-delivery">
-            <div>{{ "acrisPartialDelivery.otherLineItems"|trans }}</div>
-
-            {% sw_include '@Storefront/storefront/page/checkout/cart/cart-product-header.html.twig' %}
-
             {% for lineItem in page.cart.lineItems %}
                 {% if lineItem.id not in lineItemsDisplayed %}
                     {% block page_checkout_cart_table_item %}

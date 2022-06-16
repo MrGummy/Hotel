@@ -75,11 +75,11 @@
                       content="{{ page.product.releaseDate|format_date(pattern="Y-MM-dd", locale=app.request.locale) }}"/>
             {% endblock %}
         {% endblock %}
-        {% if not feature('FEATURE_NEXT_16992') %}
-            {# @deprecated tag:v6.5.0 tag:)(FEATURE_NEXT_16992) - Block will be removed in v6.5.0 #}
+        {# {% if not feature('FEATURE_NEXT_16992') %}
+            {# @deprecated tag:v6.5.0 tag:)(FEATURE_NEXT_16992) - Block will be removed in v6.5.0
             {% block page_product_detail_not_available %}
             {% endblock %}
-        {% endif %}
+        {% endif %} #}
         {% block page_product_detail_buy_container %}
             <div itemprop="offers"
                  itemscope
@@ -125,30 +125,6 @@
                         </div>
                     {% endif %}
                 {% endblock %}
-            </div>
-        {% endblock %}
-
-        {% if config('core.cart.wishlistEnabled') %}
-            {% block page_product_detail_wishlist %}
-                {% sw_include '@Storefront/storefront/component/product/card/wishlist.html.twig' with {
-                    showText: true,
-                    size: 'md',
-                    productId: page.product.id
-                } %}
-            {% endblock %}
-        {% endif %}
-
-        {% block page_product_detail_compare_box %}
-            {% if app.request.attributes.get('_route') != 'frontend.compare.content' %}
-                {% block component_product_box_action_detail_add_to_compare_button %}
-                    {% sw_include '@Storefront/storefront/component/product/card/compare-button.html.twig' %}
-                {% endblock %}
-            {% endif %}
-        {% endblock %}
-
-        {% block page_product_detail_delivery_informations %}
-            <div class="product-detail-delivery-information">
-                {% sw_include '@Storefront/storefront/component/delivery-information.html.twig' %}
             </div>
         {% endblock %}
     </div>

@@ -42,11 +42,11 @@
                                     <div class="col-lg-5 product-detail-buy js-magnifier-zoom-image-container">
                                         {% sw_include '@Storefront/storefront/page/product-detail/headline.html.twig' %}
 
-                                        {% block utility_info_box %}
+                                        {# {% block utility_info_box %}
                                             {% sw_include '@Storefront/storefront/component/product/card/fit-info.html.twig' with {
                                                 productId: page.product.id
                                             } %}
-                                        {% endblock %}
+                                        {% endblock %} #}
 
                                         <div class="breaker"></div>
 
@@ -65,7 +65,7 @@
                         </div>
                     {% endblock %}
 
-                    {% sw_include '@Storefront/storefront/page/product-detail/compatibility.html.twig' %}
+                    {# {% sw_include '@Storefront/storefront/page/product-detail/compatibility.html.twig' %} #}
                 </div>
 
                 {% block page_product_detail_cross_selling %}

@@ -92,7 +92,7 @@
 
 {% block page_checkout_aside_cart %}
     {% block page_checkout_confirm_table_items %}
-        {% set lineItemsDisplayed = [] %}
+       {#  {% set lineItemsDisplayed = [] %}
         {% set deliveries = [] %}
 
         {% for key, delivery in page.cart.deliveries %}
@@ -137,7 +137,7 @@
                 } %}
             {% endblock %}
 
-        {% endfor %}
+        {% endfor %} #}
 
         {% if page.cart.lineItems.count() != lineItemsDisplayed|length %}
             <div class="partial-delivery partial-delivery--confirm">

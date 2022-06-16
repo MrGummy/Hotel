@@ -5,7 +5,7 @@
     {% set listPrice = price.listPrice %}
 
     <div class="product-detail-price{% if listPrice.percentage > 0 %} with-list-price{% endif %}">
-        {{ price.unitPrice|currency }}{{ "general.star"|trans|sw_sanitize }}
+        {{ price.unitPrice|currency }}{{ "general.star"|trans|sw_sanitize }} <span style="text-transform: lowercase; font-size: 14px;">per day</span>
     </div>
 
     {% if listPrice.percentage > 0 %}
@@ -20,7 +20,7 @@
                 <span class="product-detail-list-price-wrapper">
                     {% if beforeListPriceSnippetExists %}{{"listing.beforeListPrice"|trans|trim}}{% endif %}
 
-                    <span{% if not (afterListPriceSnippetExists or beforeListPriceSnippetExists) %} class="list-price-price"{% endif %}>{{ listPrice.price|currency }}{{ "general.star"|trans|sw_sanitize }}</span>
+                    <span{% if not (afterListPriceSnippetExists or beforeListPriceSnippetExists) %} class="list-price-price"{% endif %}>{{ listPrice.price|currency }}{{ "general.star"|trans|sw_sanitize }} per day</span>
 
                     {% if afterListPriceSnippetExists %}
                         {{"listing.afterListPrice"|trans|trim}}
