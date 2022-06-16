@@ -1,0 +1,10 @@
+{% block layout_header_current_car %}
+
+{% set garageWidgetOptions = { contextCar: getKTypeFromSession() } %}
+
+<div class="car-widget"
+    data-car-widget="true"
+    data-car-widget-options="{{ garageWidgetOptions|json_encode }}">
+    <div class="loader"></div>
+</div>
+{% endblock %}

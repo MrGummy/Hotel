@@ -1,0 +1,11 @@
+{% block layout_header_actions_contacts_widget %}
+    <a class="header-middle-service-contacts"
+        data-offcanvas-custom="true"
+        href="#contacts-pane">
+        <svg class="crw-icon header-middle-service__icon"><use xlink:href="#icon_phone"></use></svg>
+    </a>
+
+    <div class="d-none">
+        {% sw_include '@Storefront/storefront/layout/header/actions/contacts-pane.html.twig' %}
+    </div>
+{% endblock %}

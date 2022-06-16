@@ -1,0 +1,113 @@
+{% sw_extends '@Storefront/storefront/layout/header/header.html.twig' %}
+
+{% block layout_header %}
+    {% block layout_header_navigation %}
+        {% block base_header_icons %}
+            {% sw_include '@Storefront/storefront/layout/header/header-icons.html.twig' %}
+        {% endblock %}
+
+        {% block layout_header_top %}
+            <div class="header-top__box">
+                <div class="container">
+                    <div class="header-top">
+                        {% block layout_header_top_nav %}
+                        <div class="header-top-nav">
+                            {% apply spaceless %}
+                                {% for serviceMenuItem in page.header.serviceMenu %}
+                                    <a class="header-top-nav__link"
+                                        href="{{ category_url(serviceMenuItem) }}"
+                                        {% if category_linknewtab(serviceMenuItem) %}target="_blank"{% endif %}
+                                        title="{{ serviceMenuItem.translated.name }}">
+                                        {{ serviceMenuItem.translated.name }}
+                                    </a>
+                                {% endfor %}
+                            {% endapply %}
+                        </div>
+                        {% endblock %}
+
+                        {% block layout_header_top_service %}
+                            {% sw_include '@Storefront/storefront/layout/header/service-menu.html.twig' %}
+                        {% endblock %}
+
+                        {% block layout_header_top_login %}
+                        <div class="header-top-login">
+                            {% sw_include '@Storefront/storefront/layout/header/actions/account-widget.html.twig' %}
+                        </div>
+                        {% endblock %}
+                    </div>
+                </div>
+            </div>
+        {% endblock %}
+
+        {% block layout_header_middle %}
+            <div class="header-middle__box">
+                <div class="container">
+                    <div class="header-middle">
+                        {% block layout_header_middle_logo %}
+                        <div class="header-middle-logo">
+                            {% sw_include '@Storefront/storefront/layout/header/logo.html.twig' %}
+                        </div>
+                        {% endblock %}
+                        <div class="header-middle__center">
+                            {% block layout_header_middle_phone %}
+                            <div class="phone-box">
+                                <div class="phone-box__phone">
+                                    <a href="tel:+4934199150024"><svg class="crw-icon"><use xlink:href="#icon_phone"></use></svg><span>+49 341 991 500 24</span></a>
+                                </div>
+                                <div class="phone-box__comment">Kostenlos in Deutschland</div>
+                            </div>
+                            {% endblock %}
+
+                            {% block layout_header_middle_contacts %}
+                            {# <div class="contacts-box">
+                                <div class="contacts-box__text">Auswahl und Bestellung<br>Ersatzteile, von 08:00 bis 18:00</div>
+                                <div class="contacts-box__cta">RUF MICH ZURÜCK</div>
+                            </div> #}
+                            {% endblock %}
+                        </div>
+                        {% block layout_header_middle_service %}
+                        <div class="header-middle-service">
+                            {% sw_include '@Storefront/storefront/layout/header/actions/contacts-widget.html.twig' %}
+
+                            {% block layout_header_middle_service_compare %}
+                                {% sw_include '@Storefront/storefront/layout/header/actions/compare-widget.html.twig' %}
+                            {% endblock %}
+
+                            {% if config('core.cart.wishlistEnabled') %}
+                                {% block layout_header_middle_service_favorites %}
+                                    {% sw_include '@Storefront/storefront/layout/header/actions/wishlist-widget.html.twig' %}
+                                {% endblock %}
+                            {% endif %}
+
+                            {% block layout_header_middle_service_cart %}
+                                <div class="header-middle-service-cart"
+                                    data-offcanvas-cart="true">
+
+                                    <a href="{{ path('frontend.checkout.cart.page') }}"
+                                        title="{{ 'checkout.cartTitle'|trans|striptags }}"
+                                        data-cart-widget="true"
+                                        aria-label="{{ 'checkout.cartTitle'|trans|striptags }}">
+                                        {% sw_include '@Storefront/storefront/layout/header/actions/cart-widget.html.twig' %}
+                                    </a>
+                                </div>
+                            {% endblock %}
+
+                            {% block layout_header_navigation_toggle_button %}
+                                <div class="header-middle-nav"
+                                    data-offcanvas-menu="true"
+                                    aria-label="{{ "general.menuLink"|trans|striptags }}">
+
+                                    {% block layout_header_navigation_toggle_button_icon %}
+                                        {% sw_icon 'stack' style { 'class': 'nav-toggler' } %}
+                                    {% endblock %}
+                                </div>
+                            {% endblock %}
+                        </div>
+                        {% endblock %}
+                    </div>
+               </div>
+            </div>
+        {% endblock %}
+
+    {% endblock %}
+{% endblock %}

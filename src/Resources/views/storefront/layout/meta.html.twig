@@ -1,0 +1,25 @@
+{% sw_extends '@Storefront/storefront/layout/meta.html.twig' %}
+
+{% block layout_head_meta_tags_charset %}
+    {% sw_include '@Storefront/storefront/utilities/redirects.html.twig' %}
+
+    <meta charset="utf-8">
+{% endblock %}
+
+{% block layout_head_stylesheet %}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@400;600&display=swap" rel="stylesheet">
+
+  <link href="{{ asset('bundles/mmtheme/storefront/assets/css/multiselect/default.css') }}" rel="stylesheet">
+
+  {{ parent() }}
+{% endblock %}
+
+{% block layout_head_favicon %}
+  <link rel="shortcut icon" href="{{ asset('bundles/mmtheme/storefront/assets/logo/favicon.svg') }}">
+{% endblock %}
+
+{% block layout_head_javascript_tracking %}
+  {{ parent() }}
+{% endblock %}

@@ -1,0 +1,50 @@
+{% block layout_header_search %}
+
+<form action="{{ path('frontend.search.page') }}"
+    method="get"
+    data-search-form="true"
+    data-url="{{ path('frontend.search.suggest') }}?search="
+    class="header-search-form">
+
+    <div class="header-search-crw">
+        <div class="header-search-crw__box">
+            <div class="header-search-crw__bar"></div>
+
+            {# <div class="header-search-crw__tag">
+                BMW 3 Series
+                <svg class="crw-icon crw-icon--xs header-search-crw__tag-close"><use xlink:href="#icon_close"></use></svg>
+            </div>
+
+            <div class="header-search-crw__tag">
+                BMW 3 Series
+                <svg class="crw-icon crw-icon--xs header-search-crw__tag-close"><use xlink:href="#icon_close"></use></svg>
+            </div> #}
+
+            <svg class="crw-icon crw-icon--sm header-search-crw__icon"><use xlink:href="#icon_search"></use></svg>
+
+            {% block layout_header_search_input %}
+            <input class="header-search-crw__input header-search-input"
+                id="header-search-crw"
+                type="search"
+                name="search"
+                utocomplete="off"
+                autocapitalize="off"
+                placeholder="{{ "header.searchPlaceholder"|trans|striptags }}"
+                aria-label="{{ "header.searchPlaceholder"|trans|striptags }}"
+                value="{{ page.searchTerm }}">
+            {% endblock %}
+
+            <input type="hidden" id="kType" data-ktype-input>
+
+            <div class="header-search-crw__overlay"></div>
+            <svg class="crw-icon crw-icon--sm header-search-crw__help"><use xlink:href="#icon_question"></use></svg>
+
+            <button type="submit"
+                    class="d-none"
+                    aria-label="{{ "header.searchButton"|trans|striptags }}">
+            </button>
+        </div>
+    </div>
+</form>
+
+{% endblock %}

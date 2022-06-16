@@ -1,0 +1,166 @@
+{% sw_extends '@Storefront/storefront/layout/footer/footer.html.twig' %}
+
+{% block layout_footer_navigation %}
+  <div id="footerColumns"
+        class="footer-columns"
+        data-collapse-footer="true">
+
+        {% block layout_footer_navigation_hotline %}
+          <div class="footer-column footer-column-left js-footer-column">
+            {% block layout_footer_navigation_hotline_headline %}
+              <div
+                class="footer-column-headline footer-headline js-footer-column-headline js-collapse-footer-column-trigger"
+                id="collapseFooterHotlineTitle"
+                data-target="#collapseFooterHotline"
+                aria-expanded="true"
+                aria-controls="collapseFooterHotline">
+
+                Wir sind für dich da
+
+                {% block layout_footer_navigation_hotline_icons %}
+                  <div class="footer-column-toggle">
+                    <span class="footer-plus-icon">
+                      <svg class="footer__chevron">
+                        <use xlink:href="#icon_chevron-down"></use>
+                      </svg>
+                    </span>
+
+                    <span class="footer-minus-icon">
+                      <svg class="footer__chevron footer__chevron--open">
+                        <use xlink:href="#icon_chevron-down"></use>
+                      </svg>
+                    </span>
+                  </div>
+                {% endblock %}
+              </div>
+            {% endblock %}
+
+            {% block layout_footer_navigation_hotline_content %}
+              <div id="collapseFooterHotline" class="footer-column-content collapse js-footer-column-content footer-contact" aria-labelledby="collapseFooterHotlineTitle">
+                <div class="footer-hotline my-3">
+
+                  <div class="phone-box">
+                      <div class="phone-box__phone">
+                          <a href="tel:+4934199150024"><svg class="crw-icon"><use xlink:href="#icon_phone"></use></svg><span>+49 341 991 500 24</span></a>
+                      </div>
+                      <div class="phone-box__comment">Kostenlos in Deutschland</div>
+                  </div>
+
+                  <div class="mail-box">
+                    <div class="mail-box__email">
+                      <a href="mailto:hilfe@crw-autoteile.de"><svg class="crw-icon crw-icon--sm"><use xlink:href="#icon_mail"></use></svg>
+                      <span>hilfe@crw-autoteile.de</span></a>
+                    </div>
+                    <div class="mail-box__comment">- Technische Hilfe</div>
+                  </div>
+
+                  <div class="contacts-box">
+                    <a data-offcanvas-custom="true"
+                      href="#contacts-pane"
+                      class="contacts-box__cta">
+                      Kontaktiere uns</a>
+                  </div>
+
+                </div>
+              </div>
+            {% endblock %}
+          </div>
+        {% endblock %}
+
+        {% block layout_footer_navigation_columns %}
+            {% for root in page.footer.navigation.tree %}
+              {% block layout_footer_navigation_column %}
+                <div class="footer-column js-footer-column">
+                  {% block layout_footer_navigation_information_headline %}
+                    <div
+                      class="footer-column-headline footer-headline js-collapse-footer-column-trigger"
+                      data-target="#collapseFooterTitle{{ loop.index }}"
+                      aria-expanded="true"
+                      aria-controls="collapseFooter{{ loop.index }}">
+
+                      {{ root.category.translated.name }}
+
+                      {% block layout_footer_navigation_information_icons %}
+                        <div class="footer-column-toggle">
+
+                          <span class="footer-plus-icon">
+                            <svg class="footer__chevron">
+                              <use xlink:href="#icon_chevron-down"></use>
+                            </svg>
+                          </span>
+
+                          <span class="footer-minus-icon">
+                            <svg class="footer__chevron footer__chevron--open">
+                              <use xlink:href="#icon_chevron-down"></use>
+                            </svg>
+                          </span>
+
+                        </div>
+                      {% endblock %}
+                    </div>
+                  {% endblock %}
+
+                  {% block layout_footer_navigation_information_content %}
+                    <div id="collapseFooter{{ loop.index }}" class="footer-column-content collapse js-footer-column-content" aria-labelledby="collapseFooterTitle{{ loop.index }}">
+                      <div class="footer-column-content-inner">
+                        {% block layout_footer_navigation_information_links %}
+                          <ul class="list-unstyled my-3">
+                            {% for treeItem in root.children %}
+                              {% set category = treeItem.category %}
+                              {% set name = category.translated.name %}
+                              {% set externalLink = category.translated.externalLink %}
+                              {% block layout_footer_navigation_information_link_item %}
+                                <li class="footer-link-item">
+                                  {% block layout_footer_navigation_information_link %}
+                                    <a class="footer-link" href="{% if externalLink %}{{ externalLink }}{% else %}{{ seoUrl('frontend.navigation.page', { navigationId: category.id }) }}{% endif %}" title="{{ name }}">
+                                      {{ name }}
+                                    </a>
+                                  {% endblock %}
+                                </li>
+                              {% endblock %}
+                            {% endfor %}
+                          </ul>
+                        {% endblock %}
+                      </div>
+                    </div>
+                  {% endblock %}
+                </div>
+              {% endblock %}
+            {% endfor %}
+        {% endblock %}
+  </div>
+{% endblock %}
+
+{% block layout_footer_payment_shipping_logos %}{% endblock %}
+{% block layout_footer_service_menu %}{% endblock %}
+{% block layout_footer_vat %}{% endblock %}
+
+{% block layout_footer_copyright %}
+  <div class="footer-logos-row">
+    <div class="container">
+      <div class="footer-logos">
+        <div class="footer-trust-badges">
+          {{ context.salesChannel.translated.customFields.mmtheme_trust_badges|raw }}
+        </div>
+
+        <div class="footer-logos-wrapper">
+          <div class="footer-logos-title">{{ "mm-theme.footer.delivery"|trans|sw_sanitize }}</div>
+          <div class="footer-logos-group">
+            {{ context.salesChannel.translated.customFields.mmtheme_delivery_logos|raw }}
+          </div>
+        </div>
+
+        <div class="footer-logos-wrapper">
+          <div class="footer-logos-title">{{ "mm-theme.footer.payments"|trans|sw_sanitize }}</div>
+          <div class="footer-logos-group">
+            {{ context.salesChannel.translated.customFields.mmtheme_payment_logos|raw }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="footer-copyright">{{ "footer.copyrightInfo"|trans|sw_sanitize }}</div>
+  </div>
+{% endblock %}

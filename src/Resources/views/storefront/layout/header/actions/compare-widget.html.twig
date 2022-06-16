@@ -1,0 +1,30 @@
+{% sw_extends '@Storefront/storefront/component/compare/compare-float.html.twig' %}
+
+{% block frosh_product_compare_float_button_inner %}
+    {% set compareFloatOptions = {
+        maximumNumberCompareProductsText: "froshProductCompare.general.maximumCompareProducts"|trans|sw_sanitize,
+        modalEnabled: modalEnabled
+    } %}
+
+    <div data-compare-float="true" data-compare-float-options="{{ compareFloatOptions|json_encode }}" class="header-middle-service-compare">
+        {% block frosh_product_compare_float_button %}
+            <div class="js-compare-float-button d-flex align-items-center"
+                title="{{ 'froshProductCompare.general.headline'|trans|striptags }}"
+                aria-label="{{ 'froshProductCompare.general.headline'|trans|striptags }}"
+                >
+
+                <svg class="crw-icon header-middle-service__icon">
+                  <use xlink:href="#icon_poll"></use>
+                </svg>
+
+                {% if 'froshProductCompare.general.headline'|trans|striptags is not empty and layout != 'minimal' %}
+                    <span class="header-middle-service__label">{{ 'froshProductCompare.general.headline'|trans|striptags }}</span>
+                {% endif %}
+
+                <div class="header-middle-service__badge compare-badge is-hidden"></div>
+            </div>
+        {% endblock %}
+
+        {{ sw_csrf('frontend.compare.offcanvas') }}
+    </div>
+{% endblock %}

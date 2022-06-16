@@ -1,0 +1,35 @@
+{% sw_extends '@Storefront/storefront/layout/header/actions/account-widget.html.twig' %}
+
+{% block layout_header_actions_account_widget_dropdown_button %}
+    {% if context.customer %}
+        <a class="header-top-login__signed"
+            type="button"
+            id="accountWidget"
+            data-offcanvas-account-menu="true"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+            aria-label="{{ "account.myAccount"|trans|striptags }}">
+          <svg class="crw-icon">
+              <use xlink:href="#icon_user"></use>
+          </svg>
+
+            {{ "account.myAccount"|trans|sw_sanitize }}
+
+            <span class="account-badge d-none"
+                data-last-order-warning
+                >1</span>
+
+          <svg class="header-top-login__chevron">
+              <use xlink:href="#icon_chevron-down"></use>
+          </svg>
+        </a>
+    {% else %}
+        <a href="{{ path('frontend.account.login.page') }}"
+            type="button"
+            title="{{ "account.loginSubmit"|trans|striptags }}"
+            class="header-top-login__unsigned">
+            {{ "account.loginSubmit"|trans|sw_sanitize }}
+        </a>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,332 @@
+{% block cms_form_contact %}
+
+    <div class="mb-5 text-center">
+      <div class="header1">{{ "mmTheme.modalContactForm.title"|trans }}</div>
+      <div class="sys-sm">{{ "mmTheme.modalContactForm.text"|trans }}</div>
+    </div>
+
+    <form action="{{ path(action) }}"
+          method="post"
+          data-form-csrf-handler="true"
+          data-form-validation="true">
+
+        <div class="form-content custom-form">
+        <div class="form-row">
+
+            {% block cms_form_contact_select_salutation %}
+                <div class="form-group {{ additionalClass }}">
+                    {% block cms_form_select_salutation_content_label %}
+                        <label class="form-label" for="form-Salutation">
+                            {{ "account.personalSalutationLabel"|trans }}{% if required %} {{ "general.required"|trans }}{% endif %}
+                        </label>
+                    {% endblock %}
+
+                    {% block cms_form_select_salutation_content_select %}
+                        <select name="salutationId"
+                                id="form-Salutation"
+                                {% if required %}required="required"{% endif %}
+                                class="custom-select contact-select{% if formViolations.getViolations('/salutationId') %} is-invalid{% endif %}">
+                            {% if not data.get('salutationId') %}
+                                <option disabled="disabled" selected="selected" value="">
+                                    {{ "account.personalSalutationPlaceholder"|trans }}
+                                </option>
+                            {% endif %}
+
+                            {% for salutation in page.salutations %}
+                                <option {% if salutation.id == data.get('salutationId') %}
+                                    selected="selected"
+                                {% endif %}
+                                        value="{{ salutation.id }}">
+                                    {{ salutation.translated.displayName }}
+                                </option>
+                            {% endfor %}
+                        </select>
+
+                        {% if formViolations.getViolations('/salutationId') is not empty %}
+                            {% sw_include '@Storefront/storefront/utilities/form-violation.html.twig'
+                                with { violationPath: '/salutationId' }
+                            %}
+                        {% endif %}
+                    {% endblock %}
+                </div>
+            {% endblock %}
+
+            {% block cms_form_contact_input_name %}
+                {% sw_include '@Storefront/storefront/element/cms-element-form/form-components/cms-element-form-input.html.twig'
+                    with {
+                    fieldName: 'name',
+                    required: true,
+                    additionalClass: 'col',
+                    label: '',
+                    placeholder: 'mmTheme.modalContactForm.namePlaceholder'
+                }
+                %}
+            {% endblock %}
+        </div>
+
+        <div class="form-row">
+            {% block cms_form_contact_input_land %}
+                {% sw_include '@Storefront/storefront/element/cms-element-form/form-components/cms-element-form-input.html.twig'
+                    with {
+                    fieldName: 'land',
+                    required: true,
+                    additionalClass: 'col-12',
+                    label: '',
+                    placeholder: 'mmTheme.modalContactForm.landPlaceholder'
+                }
+                %}
+            {% endblock %}
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-12">
+                {% block cms_form_select %}
+                    <select name="betreff"
+                            id="form-betreff"
+                            required="required"
+                            class="custom-select contact-select">
+
+                        <option disabled="disabled" selected="selected" value="">
+                            {{ "mmTheme.modalContactForm.betreffPlaceholder"|trans }}
+                        </option>
+
+                        <option value="{{ "mmTheme.modalContactForm.betreffItems.item1"|trans }}">
+                          {{ "mmTheme.modalContactForm.betreffItems.item1"|trans }}
+                        </option>
+
+                        {% if
+                          "mmTheme.modalContactForm.betreffItems.item2"|trans != "mmTheme.modalContactForm.betreffItems.item2" and
+                          "mmTheme.modalContactForm.betreffItems.item2"|trans != "" and
+                          "mmTheme.modalContactForm.betreffItems.item2"|trans is not empty %}
+                        <option value="{{ "mmTheme.modalContactForm.betreffItems.item2"|trans }}">
+                          {{ "mmTheme.modalContactForm.betreffItems.item2"|trans }}
+                        </option>
+                        {% endif %}
+
+                        {% if
+                          "mmTheme.modalContactForm.betreffItems.item3"|trans != "mmTheme.modalContactForm.betreffItems.item3" and
+                          "mmTheme.modalContactForm.betreffItems.item3"|trans != "" and
+                          "mmTheme.modalContactForm.betreffItems.item3"|trans is not empty %}
+                        <option value="{{ "mmTheme.modalContactForm.betreffItems.item3"|trans }}">
+                          {{ "mmTheme.modalContactForm.betreffItems.item3"|trans }}
+                        </option>
+                        {% endif %}
+
+                        {% if
+                          "mmTheme.modalContactForm.betreffItems.item4"|trans != "mmTheme.modalContactForm.betreffItems.item4" and
+                          "mmTheme.modalContactForm.betreffItems.item4"|trans != "" and
+                          "mmTheme.modalContactForm.betreffItems.item4"|trans is not empty %}
+                        <option value="{{ "mmTheme.modalContactForm.betreffItems.item4"|trans }}">
+                          {{ "mmTheme.modalContactForm.betreffItems.item4"|trans }}
+                        </option>
+                        {% endif %}
+
+                        {% if
+                          "mmTheme.modalContactForm.betreffItems.item5"|trans != "mmTheme.modalContactForm.betreffItems.item5" and
+                          "mmTheme.modalContactForm.betreffItems.item5"|trans != "" and
+                          "mmTheme.modalContactForm.betreffItems.item5"|trans is not empty %}
+                        <option value="{{ "mmTheme.modalContactForm.betreffItems.item5"|trans }}">
+                          {{ "mmTheme.modalContactForm.betreffItems.item5"|trans }}
+                        </option>
+                        {% endif %}
+
+                        {% if
+                          "mmTheme.modalContactForm.betreffItems.item6"|trans != "mmTheme.modalContactForm.betreffItems.item6" and
+                          "mmTheme.modalContactForm.betreffItems.item6"|trans != "" and
+                          "mmTheme.modalContactForm.betreffItems.item6"|trans is not empty %}
+                        <option value="{{ "mmTheme.modalContactForm.betreffItems.item6"|trans }}">
+                          {{ "mmTheme.modalContactForm.betreffItems.item6"|trans }}
+                        </option>
+                        {% endif %}
+
+                        {% if
+                          "mmTheme.modalContactForm.betreffItems.item7"|trans != "mmTheme.modalContactForm.betreffItems.item7" and
+                          "mmTheme.modalContactForm.betreffItems.item7"|trans != "" and
+                          "mmTheme.modalContactForm.betreffItems.item7"|trans is not empty %}
+                        <option value="{{ "mmTheme.modalContactForm.betreffItems.item7"|trans }}">
+                          {{ "mmTheme.modalContactForm.betreffItems.item7"|trans }}
+                        </option>
+                        {% endif %}
+
+                        {% if
+                          "mmTheme.modalContactForm.betreffItems.item8"|trans != "mmTheme.modalContactForm.betreffItems.item8" and
+                          "mmTheme.modalContactForm.betreffItems.item8"|trans != "" and
+                          "mmTheme.modalContactForm.betreffItems.item8"|trans is not empty %}
+                        <option value="{{ "mmTheme.modalContactForm.betreffItems.item8"|trans }}">
+                          {{ "mmTheme.modalContactForm.betreffItems.item8"|trans }}
+                        </option>
+                        {% endif %}
+
+                        {% if
+                          "mmTheme.modalContactForm.betreffItems.item9"|trans != "mmTheme.modalContactForm.betreffItems.item9" and
+                          "mmTheme.modalContactForm.betreffItems.item9"|trans != "" and
+                          "mmTheme.modalContactForm.betreffItems.item9"|trans is not empty %}
+                        <option value="{{ "mmTheme.modalContactForm.betreffItems.item9"|trans }}">
+                          {{ "mmTheme.modalContactForm.betreffItems.item9"|trans }}
+                        </option>
+                        {% endif %}
+
+                        {% if
+                          "mmTheme.modalContactForm.betreffItems.item10"|trans != "mmTheme.modalContactForm.betreffItems.item10" and
+                          "mmTheme.modalContactForm.betreffItems.item10"|trans != "" and
+                          "mmTheme.modalContactForm.betreffItems.item10"|trans is not empty %}
+                        <option value="{{ "mmTheme.modalContactForm.betreffItems.item10"|trans }}">
+                          {{ "mmTheme.modalContactForm.betreffItems.item10"|trans }}
+                        </option>
+                        {% endif %}
+                    </select>
+                {% endblock %}
+            </div>
+        </div>
+
+        <div class="form-row">
+            {% block cms_form_contact_comment_textarea %}
+                {% sw_include '@Storefront/storefront/element/cms-element-form/form-components/cms-element-form-textarea.html.twig'
+                    with {
+                    rows: 5,
+                    required: true,
+                    fieldName: 'comment',
+                    additionalClass: 'col-12',
+                    label: '',
+                    placeholder: 'mmTheme.modalContactForm.commentPlaceholder'
+                }
+                %}
+            {% endblock %}
+        </div>
+
+        <div class="mt-3 mb-4">
+          <div class="header3">{{ "mmTheme.modalContactForm.subTitle"|trans }}</div>
+          <div class="sys-sm">{{ "mmTheme.modalContactForm.subText"|trans }}</div>
+        </div>
+
+        <div class="form-row">
+            {% block cms_form_contact_input_email %}
+                {% sw_include '@Storefront/storefront/element/cms-element-form/form-components/cms-element-form-input.html.twig'
+                    with {
+                    fieldName: 'email',
+                    type: 'email',
+                    required: true,
+                    additionalClass: 'col-12',
+                    label: '',
+                    placeholder: 'mmTheme.modalContactForm.emailPlaceholder',
+                    icon: 'mmo-email'
+                }
+                %}
+            {% endblock %}
+        </div>
+
+        <div class="form-row">
+            {% block cms_form_contact_input_whatsapp %}
+                {% sw_include '@Storefront/storefront/element/cms-element-form/form-components/cms-element-form-input.html.twig'
+                    with {
+                    fieldName: 'whatsapp',
+                    type: 'whatsapp',
+                    required: true,
+                    additionalClass: 'col-12',
+                    label: '',
+                    placeholder: 'mmTheme.modalContactForm.whatsappPlaceholder',
+                    icon: 'mmo-whatsapp'
+                }
+                %}
+            {% endblock %}
+        </div>
+
+        <div class="form-row">
+            {% block cms_form_contact_input_telegram %}
+                {% sw_include '@Storefront/storefront/element/cms-element-form/form-components/cms-element-form-input.html.twig'
+                    with {
+                    fieldName: 'telegram',
+                    type: 'telegram',
+                    required: true,
+                    additionalClass: 'col-12',
+                    label: '',
+                    placeholder: 'mmTheme.modalContactForm.telegramPlaceholder',
+                    icon: 'mmo-telegram'
+                }
+                %}
+            {% endblock %}
+        </div>
+
+        <div class="form-row">
+            {% block cms_form_contact_input_skype %}
+                {% sw_include '@Storefront/storefront/element/cms-element-form/form-components/cms-element-form-input.html.twig'
+                    with {
+                    fieldName: 'skype',
+                    type: 'skype',
+                    required: true,
+                    additionalClass: 'col-12',
+                    label: '',
+                    placeholder: 'mmTheme.modalContactForm.skypePlaceholder',
+                    icon: 'mmo-skype'
+                }
+                %}
+            {% endblock %}
+        </div>
+
+        {% block cms_form_contact_required_fields_info %}
+            <div class="form-text mt-2 mb-2 ui-sm font-weight-bold">{{ "general.requiredFields"|trans }}</div>
+        {% endblock %}
+
+        {% block cms_form_contact_captcha %}
+            {% sw_include '@Storefront/storefront/component/captcha/base.html.twig' with { additionalClass : 'col-md-12'} %}
+        {% endblock %}
+
+        {% block cms_form_contact_privacy %}
+            {# GENERATE RANDOM HANDLER #}
+            {% set handler = [] %}
+            {% set alpha = 'abcdefghijklmnopqrstuvwxyz' %}
+            {% set numbers = '0123456789' %}
+
+            {% for i in 1..10 %}
+                {% set randomCharacter = random(alpha ~ alpha|upper ~ numbers ~ '-_') %}
+                {% set handler = handler|merge([randomCharacter]) %}
+            {% endfor %}
+
+            {% set handler = handler|join %}
+
+            <div class="form-text privacy-notice custom-control custom-checkbox">
+                {% block cms_form_privacy_opt_in_input %}
+                    <input name="privacy"
+                          type="checkbox"
+                          class="custom-control-input"
+                          id="{{handler}}"
+                          required
+                          checked>
+                {% endblock %}
+
+                {% block cms_form_privacy_opt_in_label %}
+                    <label for="{{handler}}" class="custom-control-label">
+                        {{ "general.privacyNotice"|trans({
+                            '%privacyUrl%': path('frontend.cms.page',{ id: config('core.basicInformation.privacyPage') }),
+                            '%tosUrl%': path('frontend.cms.page',{ id: config('core.basicInformation.tosPage') })
+                        })|raw }}
+                    </label>
+                {% endblock %}
+            </div>
+        {% endblock %}
+
+        {% block cms_form_contact_submit %}
+            <button type="submit" class="btn btn-primary w-100 mt-4">
+                {{ ( submitText ? submitText : 'general.formSubmit' )|trans }}
+            </button>
+        {% endblock %}
+        </div>
+
+        {% block cms_form_contact_hidden_fields %}
+            <div class="form-hidden-fields">
+                {% block cms_form_contact_csrf %}
+                    {{ sw_csrf(action) }}
+                {% endblock %}
+
+                {% if page.navigationId and page.entityName %}
+                    <input type="hidden" name="navigationId" value="{{ page.navigationId }}"/>
+                    <input type="hidden" name="entityName" value="{{ page.entityName }}"/>
+                {% else %}
+                    <input type="hidden" name="navigationId" value="{{ page.header.navigation.active.id }}"/>
+                {% endif %}
+
+                <input type="submit" class="submit--hidden d-none" />
+            </div>
+        {% endblock %}
+    </form>
+{% endblock %}

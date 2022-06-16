@@ -1,0 +1,20 @@
+{% block layout_header_top_service %}
+<div class="header-top-service">
+    {# <div class="header-top-service__link header-language">
+        <a href="#"><svg class="crw-icon crw-icon--sm"><use xlink:href="#icon_globe"></use></svg><span>Deutsch</span></a>
+    </div> #}
+
+    {% set config = { country: context.shippingLocation.country } %}
+    <div class="header-location country-selector__app" data-country-selector="true" data-country-selector-options={{ config|json_encode }}>
+        <div class="loader"></div>
+    </div>
+
+    {# <div class="header-top-service__link header-privat">
+        <a href="#"><span>Privat</span></a>
+    </div>
+
+    <div class="header-top-service__link header-top-service__link--disabled header-business">
+        <span>Geschäftlich</span>
+    </div> #}
+</div>
+{% endblock %}

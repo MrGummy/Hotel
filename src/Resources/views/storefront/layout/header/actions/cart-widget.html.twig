@@ -1,0 +1,9 @@
+{% block layout_header_actions_cart_widget %}
+    <svg class="crw-icon header-middle-service__icon"><use xlink:href="#icon_cart"></use></svg>
+
+    <span class="header-middle-service__label">Warenkorb</span>
+
+    {% if page.cart.lineItems|length > 0 %}
+        <div class="header-middle-service__badge">{{ page.cart.lineItems|length }}</div>
+    {% endif %}
+{% endblock %}

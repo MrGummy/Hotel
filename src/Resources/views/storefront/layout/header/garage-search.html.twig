@@ -1,0 +1,41 @@
+{% block garage_search %}
+    <div class="header-bottom__box">
+        <div class="container">
+            <div class="header-bottom">
+                {% block layout_garage %}
+                    {% sw_include '@Storefront/storefront/layout/header/actions/garage-widget.html.twig' %}
+                {% endblock %}
+
+                {% block layout_search %}
+                    {% sw_include '@Storefront/storefront/layout/header/search.html.twig' %}
+                {% endblock %}
+
+                <div class="header-bottom__actions" data-sticky-header="true">
+                    {% block layout_header_middle_service_compare %}
+                        {% sw_include '@Storefront/storefront/layout/header/actions/compare-widget.html.twig' with {
+                            modalEnabled: true
+                        } %}
+                    {% endblock %}
+
+                    {% if config('core.cart.wishlistEnabled') %}
+                        {% block layout_header_middle_service_favorites %}
+                            {% sw_include '@Storefront/storefront/layout/header/actions/wishlist-widget.html.twig' %}
+                        {% endblock %}
+                    {% endif %}
+
+                    {% block layout_header_middle_service_cart %}
+                        <div class="header-middle-service-cart"
+                            data-offcanvas-cart="true">
+                            <a href="{{ path('frontend.checkout.cart.page') }}"
+                                title="{{ 'checkout.cartTitle'|trans|striptags }}"
+                                data-cart-widget="true"
+                                aria-label="{{ 'checkout.cartTitle'|trans|striptags }}">
+                                {% sw_include '@Storefront/storefront/layout/header/actions/cart-widget.html.twig' %}
+                            </a>
+                        </div>
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
