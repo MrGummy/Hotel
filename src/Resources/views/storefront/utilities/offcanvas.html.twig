@@ -1,0 +1,23 @@
+{% sw_extends '@Storefront/storefront/utilities/offcanvas.html.twig' %}
+
+{% block utilities_offcanvas %}
+    {% block utilities_offcanvas_close %}
+        <button class="btn btn-block offcanvas-close js-offcanvas-close sticky-top">
+            {% block utilities_offcanvas_close_icon %}
+                <svg class="crw-icon crw-icon--sm">
+                    <use xlink:href="#icon_close"></use>
+                </svg>
+            {% endblock %}
+
+            {% block utilities_offcanvas_close_text %}
+                <span>{{ "general.offcanvasCloseMenu"|trans|sw_sanitize }}</span>
+            {% endblock %}
+        </button>
+    {% endblock %}
+
+    {% block utilities_offcanvas_content_container %}
+        <div class="offcanvas-content-container">
+            {% block utilities_offcanvas_content %}{% endblock %}
+        </div>
+    {% endblock %}
+{% endblock %}

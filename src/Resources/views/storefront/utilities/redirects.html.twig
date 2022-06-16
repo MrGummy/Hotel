@@ -1,0 +1,43 @@
+{% block redirect %}
+  {% set redirectTarget = '' %}
+
+  {# redirect to order edit #}
+  {% if activeRoute == 'frontend.checkout.finish.page' %}
+    {% set lastPaymentState = page.order.transactions.elements|last %}
+
+    {% if lastPaymentState.stateMachineState.technicalName == 'failed' or
+        lastPaymentState.stateMachineState.technicalName == 'cancelled' %}
+
+      {% set orderId = page.order.id %}
+      {% set languageId = page.order.languageId %}
+      {% set urlPrefix = null %}
+      {% set domains = context.salesChannel.domains %}
+
+      {% for domain in domains %}
+        {% if domain.languageId == languageId %}
+          {% set urlPrefix = domain.url %}
+        {% endif %}
+      {% endfor %}
+
+      {% set redirectTarget = urlPrefix ~ '/account/order/edit/' ~ orderId %}
+    {% endif %}
+  {% endif %}
+
+  {# redirect action #}
+  {% if redirectTarget != '' %}
+      <meta http-equiv="refresh" content="0;url='{{ redirectTarget }}'">
+
+      <script type="text/javascript">
+        window.location = "{{ redirectTarget }}";
+      </script>
+  {% endif %}
+
+  {% if activeRoute == 'frontend.checkout.confirm.page' or activeRoute == 'frontend.checkout.cart.page' %}
+      <script type="text/javascript">
+        if (window.performance && window.performance.navigation.type === window.performance.navigation.TYPE_BACK_FORWARD) {
+          window.location.reload();
+        }
+      </script>
+  {% endif %}
+
+{% endblock %}

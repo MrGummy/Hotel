@@ -1,0 +1,10 @@
+{% if icon == blank %}
+  {% set icon = 'icon_check' %}
+{% endif %}
+
+<div class="info info--{{ type }}">
+  <span>{{ text }}</span>
+  <svg class="crw-icon">
+    <use xlink:href="#{{ icon }}"></use>
+  </svg>
+</div>
