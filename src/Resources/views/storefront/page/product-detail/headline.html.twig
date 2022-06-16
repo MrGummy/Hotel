@@ -1,0 +1,49 @@
+{% sw_extends '@Storefront/storefront/page/product-detail/headline.html.twig' %}
+
+{% block page_product_detail_headline_inner %}
+  {% block page_product_detail_name_container %}
+    {% block page_product_detail_name %}
+      <h1 class="header2">
+        {{ page.product.translated.name }}
+      </h1>
+    {% endblock %}
+
+    {% block page_product_detail_ordernumber_container %}
+      {% if page.product.productNumber %}
+          <div class="product-detail-ordernumber-container">
+              <div>
+                {% block page_product_detail_ordernumber_label %}
+                    <span class="product-detail-ordernumber-label">
+                        {{ "detail.productNumberLabel"|trans|sw_sanitize }}
+                    </span>
+                {% endblock %}
+                {% block page_product_detail_ordernumber %}
+                    <meta itemprop="productID"
+                          content="{{ page.product.id }}"/>
+                    <span class="product-detail-ordernumber"
+                          itemprop="sku">
+                        {{ page.product.productNumber }}
+                    </span>
+                {% endblock %}
+              </div>
+
+              <div>
+                {% block page_product_detail_ean_label %}
+                    <span class="product-detail-ordernumber-label">
+                        {{ "component.product.feature.label.ean"|trans|sw_sanitize }}
+                    </span>
+                {% endblock %}
+                {% block page_product_detail_ean %}
+                    <meta itemprop="productID"
+                          content="{{ page.product.ean }}"/>
+                    <span class="product-detail-ordernumber"
+                          itemprop="sku">
+                        {{ page.product.ean }}
+                    </span>
+                {% endblock %}
+              </div>
+          </div>
+      {% endif %}
+    {% endblock %}
+  {% endblock %}
+{% endblock %}

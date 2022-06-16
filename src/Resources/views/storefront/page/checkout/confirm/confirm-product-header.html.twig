@@ -1,0 +1,9 @@
+{% sw_extends '@Storefront/storefront/page/checkout/confirm/confirm-product-header.html.twig' %}
+
+{% block page_checkout_cart_header_quantity %}
+    {% set layout = context.salesChannel.taxCalculationType == 'horizontal' ? 'col-2' : 'col-4' %}
+
+    <div class="{{ layout }} cart-header-quantity text-right">
+        {{ "checkout.cartHeaderQuantity"|trans|sw_sanitize }}
+    </div>
+{% endblock %}

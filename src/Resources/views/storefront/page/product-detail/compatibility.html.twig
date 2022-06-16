@@ -1,0 +1,16 @@
+<div class="product-detail-compatibility">
+  <div class="product-detail-compatibility__header-box">
+    <div class="product-detail-compatibility__header">
+      {{ "mm-theme.product.compatibility"|trans|sw_sanitize }}
+    </div>
+  </div>
+
+  {% set productCompatibility = {
+    productId: page.product.id
+  } %}
+
+  <div class="product-detail-compatibility__body"
+    data-product-compatibility="true"
+    data-product-compatibility-options="{{ productCompatibility|json_encode }}">
+  </div>
+</div>

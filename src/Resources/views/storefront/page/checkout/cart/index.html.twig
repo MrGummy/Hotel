@@ -1,0 +1,76 @@
+{% sw_extends '@Storefront/storefront/page/checkout/cart/index.html.twig' %}
+
+{% block page_checkout_cart_header %}
+    <div class="cart-main-header">
+        {{ "checkout.cartHeader"|trans|sw_sanitize }}
+    </div>
+{% endblock %}
+
+{% block page_checkout_cart_shipping_costs %}{% endblock %}
+
+{% block page_checkout_cart_table_items %}
+    {% set lineItemsDisplayed = [] %}
+    {% set deliveries = [] %}
+
+    {% for key, delivery in page.cart.deliveries %}
+        {% if delivery.extensions.AcrisPartialDeliveryDiscount or delivery.customFields.AcrisPartialDeliveryDiscount %}{% else %}
+            {% set deliveries = deliveries|merge([delivery]) %}
+        {% endif %}
+    {% endfor %}
+
+    {% if config('AcrisPartialDeliveryCS.config').customerSeparateDelivery and (deliveries|length > 1 or page.cart.extensions.acrisPartialDelivery.singleDelivery) %}
+        {% sw_include '@Storefront/storefront/component/partial-delivery/separate-deliveries.html.twig' %}
+    {% endif %}
+
+    {% for key, delivery in deliveries %}
+            <div class="partial-delivery partial-delivery__box">
+                {% block page_checkout_cart_table_delivery_heading %}
+                    {% if (config('AcrisPartialDeliveryCS.config').showHeadingIfOnlyOneDelivery and deliveries|length == 1) or deliveries|length > 1 %}
+                        <div class="partial-delivery__header">{{ "acrisPartialDelivery.deliveryHeading"|trans({'%orderKey%': key + 1, '%orderLength%': deliveries|length}) }}</div>
+                    {% endif %}
+                {% endblock %}
+
+                {% block page_checkout_cart_table_delivery_information %}
+                    {% if delivery.extensions.acrisPartialDelivery and delivery.extensions.acrisPartialDelivery.translated.information %}
+                        <div class="partial-delivery__text">{{ delivery.extensions.acrisPartialDelivery.translated.information|raw }}</div>
+                    {% endif %}
+                {% endblock %}
+
+                <div class="partial-delivery__items">
+                    {% block page_checkout_cart_table_delivery_product_header %}
+                        {% sw_include '@Storefront/storefront/page/checkout/cart/cart-product-header.html.twig' %}
+                    {% endblock %}
+                    {% for lineItem in delivery.positions.getLineItems() %}
+                        {% set lineItemsDisplayed = lineItemsDisplayed|merge([lineItem.id]) %}
+                        {% block page_checkout_cart_table_delivery_item %}
+                            {% block page_checkout_delivery_item %}
+                                {% sw_include '@Storefront/storefront/page/checkout/checkout-item.html.twig' %}
+                            {% endblock %}
+                        {% endblock %}
+                    {% endfor %}
+                </div>
+
+                {% block acris_partial_delivery_shipping_method_index_cart %}
+                    {% sw_include '@Storefront/storefront/component/partial-delivery/delivery-shipping-method.html.twig' with {
+                        'redirectPath': 'frontend.checkout.cart.page'
+                    } %}
+                {% endblock %}
+            </div>
+    {% endfor %}
+
+    {% if page.cart.lineItems.count() != lineItemsDisplayed|length %}
+        <div class="partial-delivery">
+            <div>{{ "acrisPartialDelivery.otherLineItems"|trans }}</div>
+
+            {% sw_include '@Storefront/storefront/page/checkout/cart/cart-product-header.html.twig' %}
+
+            {% for lineItem in page.cart.lineItems %}
+                {% if lineItem.id not in lineItemsDisplayed %}
+                    {% block page_checkout_cart_table_item %}
+                        {{ parent() }}
+                    {% endblock %}
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}

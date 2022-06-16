@@ -1,0 +1,140 @@
+{% sw_extends '@Storefront/storefront/page/checkout/checkout-aside-item.html.twig' %}
+
+{% block page_checkout_aside_item_image %}
+    <div class="col-4 checkout-aside-item-image">
+        <a href="{{ seoUrl('frontend.detail.page', {'productId': lineItem.referencedId}) }}"
+            title="{{ lineItem.label }}">
+            {{ block("page_checkout_aside_item_image_inner") }}
+        </a>
+    </div>
+{% endblock %}
+
+{% block page_checkout_aside_item_quantity %}
+    <div class="checkout-aside-item-link-quantity">
+
+        {% if lineItem.quantityInformation and lineItem.stackable and not isChild %}
+            <form action="{{ path('frontend.checkout.line-item.change-quantity', {'id': lineItem.id}) }}"
+                    method="post"
+                    data-form-auto-submit="true">
+
+                {% block page_checkout_aside_quantity_form_csrf %}
+                    {{ sw_csrf('frontend.checkout.line-item.change-quantity') }}
+                {% endblock %}
+
+                {% block page_checkout_aside_quantity_redirect %}
+                    <input type="hidden"
+                            name="redirectTo"
+                            value="frontend.checkout.confirm.page">
+                {% endblock %}
+
+                {# @var quantityInformation \Shopware\Core\Checkout\Cart\LineItem\QuantityInformation #}
+                {% set quantityInformation = lineItem.quantityInformation %}
+                {% if quantityInformation.maxPurchase %}
+                    {% set maxQuantity = quantityInformation.maxPurchase %}
+                {% else %}
+                    {% set maxQuantity = config('core.cart.maxQuantity') %}
+                {% endif %}
+
+                {% block page_product_detail_buy_quantity %}
+                    {% set quantityOptions = {
+                        quantity: lineItem.quantity,
+                        min: quantityInformation.minPurchase,
+                        max: maxQuantity,
+                        step: quantityInformation.purchaseSteps,
+                        name: 'quantity'
+                    } %}
+
+                    <div class="quantity js-offcanvas-cart-change-quantity"
+                        data-quantity-input="true"
+                        data-quantity-input-options="{{ quantityOptions|json_encode }}">
+                    </div>
+                {% endblock %}
+
+            </form>
+        {% elseif lineItem.type != "promotion" %}
+            {% block page_checkout_aside_quantity_number %}
+                <div class="d-flex justify-content-end cart-item-quantity">
+                    {{ lineItem.quantity }}
+                </div>
+            {% endblock %}
+    {% endif %}
+
+    </div>
+{% endblock %}
+
+{% block page_checkout_aside_item_info_features %}
+    {{ parent() }}
+
+    {% block page_checkout_item_info_variant_characteristics %}
+        <div class="cart-item-details-characteristics">
+
+            {% for option in lineItem.payload.options %}
+                {{ option.group }}:
+                <span class="cart-item-details-characteristics-option">{{ option.option }}</span>
+
+                {% if lineItem.payload.options|last != option %}
+                    {{ " | " }}
+                {% endif %}
+            {% endfor %}
+
+        </div>
+    {% endblock %}
+
+    {% block page_checkout_item_info_features %}
+        {% if lineItem.type == 'product' and lineItem.payload.features is not null %}
+            {% sw_include '@Storefront/storefront/component/product/feature/list.html.twig' with {
+                'features': lineItem.payload.features
+            } %}
+        {% endif %}
+    {% endblock %}
+
+    {% block page_checkout_item_info_ordernumber %}
+        {% if lineItem.payload.productNumber %}
+            <div class="cart-item-ordernumber">
+                {{ "checkout.cartItemInfoId"|trans|sw_sanitize }} {{ lineItem.payload.productNumber }}
+            </div>
+        {% endif %}
+    {% endblock %}
+
+    {% block page_checkout_item_delivery_date %}
+        {% if deliveryPosition and deliveryPosition.deliveryDate and config('core.cart.showDeliveryTime') %}
+            <div class="cart-item-delivery-date">
+                {{ "checkout.lineItemDeliveryDate"|trans({
+                    '%earliest%': deliveryPosition.deliveryDate.earliest|format_date('short', locale=app.request.locale),
+                    '%latest%': deliveryPosition.deliveryDate.latest|format_date('short', locale=app.request.locale)
+                })|sw_sanitize }}
+            </div>
+        {% endif %}
+    {% endblock %}
+{% endblock %}
+
+{% block page_checkout_aside_item_data %}
+    {{ parent() }}
+
+    {% block page_checkout_aside_item_remove_form %}
+        <div class="ml-auto">
+            {% if lineItem.removable %}
+                <form action="{{ path('frontend.checkout.line-item.delete', {'id': lineItem.id}) }}"
+                        method="post"
+                        data-form-csrf-handler="true">
+                    {% block page_checkout_aside_item_remove_form_csrf %}
+                        {{ sw_csrf('frontend.checkout.line-item.delete') }}
+                    {% endblock %}
+                    {% block page_checkout_aside_item_remove_redirect %}
+                        <input type="hidden"
+                                name="redirectTo"
+                                value="frontend.checkout.confirm.page">
+                    {% endblock %}
+                    {% block page_checkout_aside_item_remove_submit %}
+                        <button type="submit"
+                                title="{{ "checkout.removeLineItem"|trans|striptags }}"
+                                data-product-id="{{ lineItem.id }}"
+                                class="btn btn-light btn-sm cart-item-remove-button">
+                            {% sw_icon 'x' style { 'size': 'sm' } %}
+                        </button>
+                    {% endblock %}
+                </form>
+            {% endif %}
+        </div>
+    {% endblock %}
+{% endblock %}

@@ -1,0 +1,81 @@
+{% sw_extends '@Storefront/storefront/page/product-detail/index.html.twig' %}
+
+{% block base_content %}
+    {% block page_product_detail %}
+        <div class="product-detail"
+             itemscope
+             itemtype="https://schema.org/Product">
+            {% block page_product_detail_inner %}
+                {% block page_product_detail_content %}
+                    <div class="product-detail-content">
+                        {% block page_product_detail_breadcrumb %}{% endblock %}
+
+                        {% block page_product_detail_headline %}{% endblock %}
+
+                        {% set mediaItems = page.product.media.media %}
+
+                        {% block page_product_detail_main %}
+                            <div class="row product-detail-main">
+                                {% block page_product_detail_media %}
+                                    <div class="col-lg-7 product-detail-media">
+                                        {% if page.product.media %}
+                                            {% sw_include '@Storefront/storefront/element/cms-element-image-gallery.html.twig' with {
+                                                'mediaItems': mediaItems,
+                                                'zoom': true,
+                                                'zoomModal': true,
+                                                'displayMode': 'contain',
+                                                'gutter': 5,
+                                                'minHeight': '430px',
+                                                'navigationArrows': 'inside',
+                                                'navigationDots': 'inside',
+                                                'galleryPosition': 'left',
+                                                'isProduct': true,
+                                                'fallbackImageTitle': page.product.translated.name,
+                                                'startIndexThumbnails': page.product.cover.position + 1,
+                                                'startIndexSlider': page.product.cover.position + 1
+                                            } %}
+                                        {% endif %}
+                                    </div>
+                                {% endblock %}
+
+                                {% block page_product_detail_buy %}
+                                    <div class="col-lg-5 product-detail-buy js-magnifier-zoom-image-container">
+                                        {% sw_include '@Storefront/storefront/page/product-detail/headline.html.twig' %}
+
+                                        {% block utility_info_box %}
+                                            {% sw_include '@Storefront/storefront/component/product/card/fit-info.html.twig' with {
+                                                productId: page.product.id
+                                            } %}
+                                        {% endblock %}
+
+                                        <div class="breaker"></div>
+
+                                        {% sw_include '@Storefront/storefront/page/product-detail/buy-widget.html.twig' %}
+                                    </div>
+                                {% endblock %}
+                            </div>
+                        {% endblock %}
+                    </div>
+                {% endblock %}
+
+                <div class="product-details">
+                    {% block page_product_detail_tabs %}
+                        <div class="product-detail-tabs">
+                            {% sw_include '@Storefront/storefront/page/product-detail/tabs.html.twig' %}
+                        </div>
+                    {% endblock %}
+
+                    {% sw_include '@Storefront/storefront/page/product-detail/compatibility.html.twig' %}
+                </div>
+
+                {% block page_product_detail_cross_selling %}
+                    <div class="product-detail-tabs product-detail-cross-selling">
+                        {% sw_include '@Storefront/storefront/page/product-detail/cross-selling/tabs.html.twig' with {
+                            crossSellings: page.crossSellings
+                        } only %}
+                    </div>
+                {% endblock %}
+            {% endblock %}
+        </div>
+    {% endblock %}
+{% endblock %}

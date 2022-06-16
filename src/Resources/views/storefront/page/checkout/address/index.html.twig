@@ -1,0 +1,125 @@
+{% sw_extends '@Storefront/storefront/page/checkout/_page.html.twig' %}
+
+{% block base_navigation %}{% endblock %}
+
+{% block page_checkout %}
+  <div class="checkout pt-0">
+
+    {% block page_checkout_container %}
+      <div class="checkout-container">
+
+        <div class="checkout-header-row">
+          <div class="checkout-header">
+            <span class="checkout-custom-header h1 mb-0">
+                {{ "mm-theme.checkout.checkout"|trans|sw_sanitize }}
+            </span>
+          </div>
+
+          {% sw_include '@Storefront/storefront/page/checkout/steps.html.twig' with { step: 1 } %}
+
+          <div class="checkout-back">
+            <a href="{{ path('frontend.home.page') }}"
+                class="btn btn-outline-primary header-minimal-back-to-shop-button"
+                title="{{ "checkout.finishButtonBackToShop"|trans|striptags }}">
+                {{ "checkout.finishButtonBackToShop"|trans|striptags }}
+            </a>
+          </div>
+        </div>
+
+        <div class="checkout-tabs">
+
+          <input
+            class="checkout-tabs__input"
+            type="radio"
+            name="tabs"
+            id="checkout-login-tab-handler"
+            checked="true">
+
+          <input
+            class="checkout-tabs__input"
+            type="radio"
+            name="tabs"
+            id="checkout-register-tab-handler">
+
+          <div class="checkout-custom">
+            {% block page_checkout_main_content %}
+              {% block page_checkout_address %}
+
+                <div class="checkout-block checkout-block--double checkout-block--login" id="checkout-login-tab">
+                  <div class="checkout-block-inner checkout-block-inner">
+                    <h2 class="checkout-header">
+                      {{ "mm-theme.checkout.login"|trans|sw_sanitize }}
+                    </h2>
+                    {% block page_checkout_address_login %}
+                      {% block page_checkout_address_login_card %}
+                        {% sw_include '@Storefront/storefront/component/account/login.html.twig' %}
+                      {% endblock %}
+                    {% endblock %}
+                  </div>
+                </div>
+
+                <div class="checkout-block checkout-block--double" id="checkout-register-tab">
+                  <div class="checkout-block-inner">
+                    <h2 class="checkout-header">
+                      {{ "mm-theme.checkout.register"|trans|sw_sanitize }}
+                    </h2>
+
+                    {% block page_checkout_address_register %}
+                      {% block page_checkout_address_register_card %}
+                        {% sw_include '@Storefront/storefront/page/checkout/address/register.html.twig' with {
+                            'cardTitle': "checkout.addressRegisterCardTitle"|trans|sw_sanitize
+                          } %}
+                      {% endblock %}
+                    {% endblock %}
+
+                    <label class="btn btn-accent w-100 mt-2" for="checkout-login-tab-handler">
+                        {{ "mm-theme.checkout.login"|trans|sw_sanitize }}
+                    </label>
+                  </div>
+                </div>
+              {% endblock %}
+            {% endblock %}
+
+            <div class="checkout-block">
+
+              {% block page_checkout_aside %}
+                {% block page_checkout_aside_container %}
+                  {% block page_checkout_aside_summary %}
+                    {% block page_checkout_address_products %}
+
+                      {% block page_checkout_address_products_header %}
+                        <h2 class="checkout-header">
+                          {{ "checkout.cartHeader"|trans|sw_sanitize }}
+                        </h2>
+                      {% endblock %}
+
+                      {% block page_checkout_address_products_list %}
+                        <div class="checkout-aside-product-list">
+                          {% block page_checkout_address_product_list_container %}
+                            {% for lineItem in page.cart.lineItems %}
+                              {% block page_checkout_address_product_summary_item %}
+                                {% sw_include '@Storefront/storefront/page/checkout/checkout-aside-item.html.twig' %}
+                              {% endblock %}
+                            {% endfor %}
+                          {% endblock %}
+                        </div>
+                      {% endblock %}
+
+                    {% endblock %}
+                  {% endblock %}
+
+                  {% block page_checkout_aside_actions %}{% endblock %}
+                {% endblock %}
+              {% endblock %}
+
+              {% sw_include '@Storefront/storefront/page/checkout/summary.html.twig' %}
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    {% endblock %}
+  </div>
+{% endblock %}

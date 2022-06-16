@@ -1,0 +1,16 @@
+{% sw_extends '@Storefront/storefront/page/checkout/checkout-item.html.twig' %}
+
+{% block page_product_detail_buy_quantity %}
+    {% set quantityOptions = {
+        quantity: lineItem.quantity,
+        min: quantityInformation.minPurchase,
+        max: maxQuantity,
+        step: quantityInformation.purchaseSteps,
+        name: 'quantity'
+    } %}
+
+    <div class="quantity js-offcanvas-cart-change-quantity"
+        data-quantity-input="true"
+        data-quantity-input-options="{{ quantityOptions|json_encode }}">
+    </div>
+{% endblock %}

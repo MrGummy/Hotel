@@ -1,0 +1,180 @@
+{% sw_extends '@Storefront/storefront/page/product-detail/buy-widget-form.html.twig' %}
+
+{% block page_product_detail_buy_container %}
+    {% if buyable %}
+        <div class="form-row buy-widget-container">
+            {% block page_product_detail_buy_quantity_container %}
+                <div class="col-8">
+                    {% block page_product_detail_price %}
+                        <div class="product-detail-price-container">
+                            {% sw_include '@Storefront/storefront/page/product-detail/buy-widget-price.html.twig' %}
+                        </div>
+                    {% endblock %}
+                    {% block page_product_detail_tax %}
+                        <div class="product-detail-tax-container">
+                            {% if context.taxState == "gross" %}
+                                {% set taxText = "general.grossTaxInformation"|trans|sw_sanitize %}
+                            {% else %}
+                                {% set taxText = "general.netTaxInformation"|trans|sw_sanitize %}
+                            {% endif %}
+                            <div class="product-detail-tax">
+                                {% block page_product_detail_tax_link %}
+                                    {# <a class="product-detail-tax-link"
+                                        href="{{ path('frontend.cms.page',{ id: config('core.basicInformation.shippingPaymentInfoPage') }) }}"
+                                        title="{{ taxText }}"
+                                        data-toggle="modal"
+                                        data-url="{{ path('frontend.cms.page',{ id: config('core.basicInformation.shippingPaymentInfoPage') }) }}">
+                                        {{ taxText }}
+                                    </a> #}
+                                    {% set tax = product.calculatedPrice.calculatedTaxes.elements|first %}
+                                    inkl. {{ tax.taxRate }}% MwSt., zzgl. Versandkosten
+                                {% endblock %}
+                            </div>
+                        </div>
+                    {% endblock %}
+
+                </div>
+                <div class="col-4 product-detail-quantity-select-box">
+                    {% block page_product_detail_buy_quantity %}
+                        {% set quantityOptions = {
+                            min: product.minPurchase,
+                            max: product.calculatedMaxPurchase,
+                            step: product.purchaseSteps,
+                            name: 'lineItems[' ~ product.id ~ '][quantity]'
+                        } %}
+
+                        <div class="quantity"
+                            data-quantity-input="true"
+                            data-quantity-input-options="{{ quantityOptions|json_encode }}">
+                        </div>
+                    {% endblock %}
+                </div>
+            {% endblock %}
+        </div>
+
+        <div class="breaker"></div>
+
+        <div class="form-row buy-widget-container">
+            {% block page_product_detail_buy_redirect_input %}
+                {# fallback redirect back to detail page is deactivated via js #}
+                <input type="hidden"
+                        name="redirectTo"
+                        value="frontend.detail.page">
+                <input type="hidden"
+                        name="redirectParameters"
+                        data-redirect-parameters="true"
+                        value='{"productId": "{{ product.id }}"}'>
+            {% endblock %}
+
+            {% block page_product_detail_buy_product_buy_info %}
+                <input type="hidden"
+                        name="lineItems[{{ product.id }}][id]"
+                        value="{{ product.id }}">
+                <input type="hidden"
+                        name="lineItems[{{ product.id }}][type]"
+                        value="product">
+                <input type="hidden"
+                        name="lineItems[{{ product.id }}][referencedId]"
+                        value="{{ product.id }}">
+                <input type="hidden"
+                        name="lineItems[{{ product.id }}][stackable]"
+                        value="1">
+                <input type="hidden"
+                        name="lineItems[{{ product.id }}][removable]"
+                        value="1">
+            {% endblock %}
+            {% block page_product_detail_product_buy_meta %}
+                <input type="hidden"
+                        name="product-name"
+                        value="{{ product.translated.name }}">
+                <input type="hidden"
+                        name="brand-name"
+                        value="{{ product.manufacturer.getName() }}">
+            {% endblock %}
+            {% block page_product_detail_buy_button_container %}
+                <div class="col">
+                    {% block page_product_detail_buy_button %}
+                        <button class="btn btn-primary btn-block btn-buy"
+                                title="{{ "detail.addProduct"|trans|striptags }}"
+                                aria-label="{{ "detail.addProduct"|trans|striptags }}">
+                            {{ "detail.addProduct"|trans|sw_sanitize }}
+                        </button>
+                    {% endblock %}
+                </div>
+            {% endblock %}
+        </div>
+    {% endif %}
+
+    {% if buyable and page.extensions.SwagAmazonPayButton is not null %}
+        {% block page_product_detail_buy_container_swag_amazon_pay_button %}
+            <div id="swag-amazon-pay-product-detail-wrapper"
+                 class="form-row mt-2 justify-content-end"
+                 data-amazon-pay-button-product-detail="true"
+                 data-amazon-pay-button-product-detail-options='{
+                    "addLineItemUrl": "{{ page.extensions.SwagAmazonPayButton.addLineItemUrl }}",
+                    "addLineItemToken": "{{ sw_csrf('frontend.checkout.line-item.add', {"mode": "token"}) }}",
+                    "clearCartToken": "{{ sw_csrf('frontend.swag.amazon.pay.clear.cart', {"mode": "token"}) }}",
+                    "clearCartUrl": "{{ page.extensions.SwagAmazonPayButton.clearCartUrl }}"
+                 }'>
+
+                <div class="col-12">
+                    {% sw_include '@Storefront/storefront/component/swag-amazon-pay/amazon-pay-button.html.twig' with {
+                        'identifier': 'product-detail'
+                    } %}
+                </div>
+            </div>
+        {% endblock %}
+    {% endif %}
+
+    {% block page_product_detail_buy_container_apple_direct %}
+        {# this is for Shopware < 6.4 #}
+        {% set buyableLegacy = (not page.product.isCloseout or (page.product.availableStock >= page.product.minPurchase)) and page.product.childCount <= 0 %}
+        {# this is for Shopware >= 6.4 #}
+        {% set buyable = product.available and product.childCount <= 0 and product.calculatedMaxPurchase > 0 %}
+
+        {% set productPrice = 0 %}
+
+        {% if product.calculatedPrices|length == 1 %}
+            {% set productPrice = product.calculatedPrices.first.unitPrice %}
+        {% else %}
+            {% set productPrice = product.calculatedPrice.unitPrice %}
+
+            {% if listPrice.percentage > 0 %}
+                {% set productPrice = listPrice.price %}
+            {% endif %}
+        {% endif %}
+
+        {% if mollie_applepaydirect_enabled and ('pdp' not in mollie_applepaydirect_restrictions) and  ((buyableLegacy) or (buyable and productPrice) > 0) %}
+            {% block page_product_detail_buy_container_apple_direct_component %}
+                <div class="form-row mt-3 justify-content-end js-apple-pay-container">
+                    {% include '@MolliePayments/mollie/component/apple-pay-direct-button.twig' with {cols: 'col-12'} %}
+                </div>
+            {% endblock %}
+        {% endif %}
+    {% endblock %}
+
+    {% block page_product_detail_buy_container_paypal %}
+        {% if buyable and product.calculatedCheapestPrice.totalPrice > 0 %}
+            {% set expressSettings = page.extensions[constant('Swag\\PayPal\\Checkout\\ExpressCheckout\\ExpressCheckoutSubscriber::PAYPAL_EXPRESS_CHECKOUT_BUTTON_DATA_EXTENSION_ID')] %}
+
+            {% if expressSettings.productDetailEnabled %}
+                <div class="form-row mt-2">
+                    <div class="col-12">
+                        {% sw_include '@SwagPayPal/storefront/component/ecs-spb-checkout/ecs-button.html.twig' %}
+                    </div>
+                </div>
+            {% endif %}
+        {% endif %}
+
+        {% set installmentBanner = page.extensions[constant('Swag\\PayPal\\Installment\\Banner\\InstallmentBannerSubscriber::PAYPAL_INSTALLMENT_BANNER_DATA_EXTENSION_ID')] %}
+
+        {% if installmentBanner is not null %}
+            <div class="form-row mt-2">
+                <div class="{{ buyable ? 'col-12' }}"
+                     data-swag-paypal-installment-banner="true"
+                     data-swag-pay-pal-installment-banner-options="{{ installmentBanner|json_encode }}">
+                </div>
+            </div>
+        {% endif %}
+    {% endblock %}
+{% endblock %}

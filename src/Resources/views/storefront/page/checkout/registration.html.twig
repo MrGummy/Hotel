@@ -1,0 +1,28 @@
+
+  <h1 class="checkout-custom-header mb-4">
+    {{ "mm-theme.checkout.checkout"|trans|sw_sanitize }}
+  </h1>
+
+  <div class="checkout-tabs">
+    <input class="checkout-tabs__input" type="radio" name="tabs" id="checkout-login-tab-handler" checked="true">
+    <input class="checkout-tabs__input" type="radio" name="tabs" id="checkout-register-tab-handler">
+
+    <div class="checkout-custom">
+      {% block page_checkout_main_content %}{% endblock %}
+
+      <div class="checkout-block">
+
+        {% block page_checkout_aside %}
+          {% block page_checkout_aside_container %}
+            {% block page_checkout_aside_summary %}{% endblock %}
+
+            {% block page_checkout_aside_actions %}{% endblock %}
+          {% endblock %}
+        {% endblock %}
+
+        {% sw_include '@Storefront/storefront/page/checkout/summary.html.twig' %}
+      </div>
+    </div>
+
+  </div>
+

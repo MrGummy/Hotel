@@ -1,0 +1,23 @@
+{% sw_extends '@Storefront/storefront/utilities/offcanvas.html.twig' %}
+
+{% block utilities_offcanvas_close %}
+  <button class="btn btn-block offcanvas-close js-offcanvas-close sticky-top">
+    {% block utilities_offcanvas_close_icon %}
+      {% sw_icon 'x' style { 'size': 'sm' } %}
+    {% endblock %}
+  </button>
+{% endblock %}
+
+{% block utilities_offcanvas_content %}
+  {% block page_product_detail_custom_tab_container %}
+    <div class="product-detail-description tab-pane-container">
+      {% block page_product_detail_custom_tab_content %}
+        {% block page_product_detail_custom_tab_content_text %}
+          <div class="product-detail-description-text">
+            {{ content|raw }}
+          </div>
+        {% endblock %}
+      {% endblock %}
+    </div>
+  {% endblock %}
+{% endblock %}

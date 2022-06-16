@@ -1,0 +1,23 @@
+{% sw_extends '@Storefront/storefront/page/checkout/confirm/confirm-payment.html.twig' %}
+
+{% block page_checkout_confirm_payment_inner %}
+    <div class="payment__details">
+        <div class="payment__details-block">
+            {% set paymentMethodInvalid = true %}
+
+            {% for payment in page.paymentMethods %}
+                {% if payment.id is same as(context.paymentMethod.id) %}
+                    {% set paymentMethodInvalid = false %}
+                {% endif %}
+            {% endfor %}
+
+            {% block page_checkout_change_payment_form %}
+                {% sw_include '@Storefront/storefront/component/payment/payment-form-body.html.twig' with {
+                    'action': 'frontend.checkout.configure',
+                    'actionPath': path('frontend.checkout.configure'),
+                    'redirect': 'frontend.checkout.confirm.page'
+                } %}
+            {% endblock %}
+        </div>
+    </div>
+{% endblock %}

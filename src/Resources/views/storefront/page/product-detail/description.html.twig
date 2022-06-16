@@ -1,0 +1,17 @@
+{% sw_extends '@Storefront/storefront/page/product-detail/description.html.twig' %}
+
+{% block page_product_detail_description_title %}{% endblock %}
+
+{% block page_product_detail_description_content_text %}
+    <div class="product-detail-description-text">
+    {% if '<body' in page.product.translated.description|raw %}
+        <iframe class="responsive-iframe" seamless srcdoc='{{ page.product.translated.description|raw }}'></iframe>
+    {% else %}
+        {{ page.product.translated.description|raw }}
+    {% endif %}
+    </div>
+{% endblock %}
+
+{% block page_product_detail_description_content_properties %}
+    {% sw_include '@Storefront/storefront/page/product-detail/properties.html.twig' %}
+{% endblock %}

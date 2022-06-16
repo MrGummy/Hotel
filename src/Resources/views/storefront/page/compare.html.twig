@@ -1,0 +1,17 @@
+{% sw_extends '@Storefront/storefront/page/compare.html.twig' %}
+
+{% block frosh_product_compare_page_content_action %}
+    <div class="row no-gutters mt-3 pb-3 hide-on-print action-row">
+        <div class="col-12">
+            <button type="button" class="btn btn-primary mr-2 btn-printer" title="{{ "froshProductCompare.action.print"|trans|sw_sanitize }}">
+                {% sw_icon 'printer' style {'color': 'primary', 'size': 'sm'} %}
+                {{ "froshProductCompare.action.print"|trans|sw_sanitize }}
+            </button>
+
+            <button type="button" class="btn btn-outline-primary btn-clear" title="{{ "froshProductCompare.action.clearAll"|trans|sw_sanitize }}">
+                {% sw_icon 'trash' style {'color': 'primary', 'size': 'sm'} %}
+                {{ "froshProductCompare.action.clearAll"|trans|sw_sanitize }}
+            </button>
+        </div>
+    </div>
+{% endblock %}

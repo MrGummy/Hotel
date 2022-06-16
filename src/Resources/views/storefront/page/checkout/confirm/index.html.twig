@@ -1,0 +1,200 @@
+{% sw_extends '@Storefront/storefront/page/checkout/confirm/index.html.twig' %}
+
+{% block base_header %}
+    {% sw_include '@Storefront/storefront/layout/header/header.html.twig' %}
+{% endblock %}
+
+{% block page_checkout_header %}
+  <div class="checkout-header-row">
+    <div class="checkout-header">
+      <span class="checkout-custom-header h1 mb-0">
+        {% block page_checkout_header_text %}{{ "mm-theme.checkout.checkout"|trans|sw_sanitize }}{% endblock %}
+      </span>
+    </div>
+
+    {% sw_include '@Storefront/storefront/page/checkout/steps.html.twig' with { step: 3 } %}
+
+    <div class="checkout-back">
+      <a href="{{ path('frontend.home.page') }}"
+          class="btn btn-outline-primary header-minimal-back-to-shop-button"
+          title="{{ "checkout.finishButtonBackToShop"|trans|striptags }}">
+          {{ "checkout.finishButtonBackToShop"|trans|striptags }}
+      </a>
+    </div>
+  </div>
+{% endblock %}
+
+{% block page_checkout_confirm %}
+    {% block page_checkout_confirm_header %}{% endblock %}
+
+    {{ block("page_checkout_confirm_alerts") }}
+
+    {% block page_checkout_confirm_tos %}{% endblock %}
+
+    <div class="confirm-payment-box payment">
+      {% block page_checkout_confirm_payment_selector %}
+          <div class="confirm-payment-selector payment__methods">
+              {% sw_include '@Storefront/storefront/page/checkout/confirm/confirm-payment-selector.html.twig' %}
+          </div>
+      {% endblock %}
+
+      <div class="confirm-content">
+        {% block page_checkout_confirm_payment %}
+            <div class="confirm-payment-body">
+                {% sw_include '@Storefront/storefront/page/checkout/confirm/confirm-payment-body.html.twig' %}
+            </div>
+        {% endblock %}
+
+        {% block page_checkout_confirm_address %}
+            <div class="confirm-address">
+                {% sw_include '@Storefront/storefront/page/checkout/confirm/confirm-address.html.twig' %}
+            </div>
+        {% endblock %}
+
+        {% block page_checkout_additional %}
+            {% if config('core.cart.showCustomerComment') %}
+                {% block page_checkout_finish_customer_comment %}
+                    <div class="card checkout-card">
+                        <div class="card-body">
+                            {% block page_checkout_confirm_customer_comment_header %}
+                                <div class="card-title">
+                                    {{ "checkout.customerCommentHeader"|trans|sw_sanitize }}
+                                </div>
+                            {% endblock %}
+
+                            {% block page_checkout_confirm_customer_comment_control %}
+                                <div class="checkout-customer-comment-control">
+                                    {% block page_checkout_confirm_customer_comment_control_textfield_label %}
+                                        <label class="form-label" for="{{ constant('Shopware\\Core\\Checkout\\Order\\SalesChannel\\OrderService::CUSTOMER_COMMENT_KEY') }}">
+                                            {{ "checkout.customerCommentLabel"|trans|sw_sanitize }}
+                                        </label>
+                                    {% endblock %}
+
+                                    {% block page_checkout_confirm_customer_comment_control_textfield %}
+                                        <textarea class="form-control"
+                                                  placeholder="{{ "checkout.customerCommentPlaceholder"|trans|sw_sanitize }}"
+                                                  id="{{ constant('Shopware\\Core\\Checkout\\Order\\SalesChannel\\OrderService::CUSTOMER_COMMENT_KEY') }}"
+                                                  form="confirmOrderForm"
+                                                  name="{{ constant('Shopware\\Core\\Checkout\\Order\\SalesChannel\\OrderService::CUSTOMER_COMMENT_KEY') }}"></textarea>
+                                    {% endblock %}
+                                </div>
+                            {% endblock %}
+                        </div>
+                    </div>
+                {% endblock %}
+            {% endif %}
+        {% endblock %}
+      </div>
+    </div>
+{% endblock %}
+
+{% block page_checkout_summary_header %}{% endblock %}
+
+{% block page_checkout_aside_cart %}
+    {% block page_checkout_confirm_table_items %}
+        {% set lineItemsDisplayed = [] %}
+        {% set deliveries = [] %}
+
+        {% for key, delivery in page.cart.deliveries %}
+            {% if delivery.extensions.AcrisPartialDeliveryDiscount or delivery.customFields.AcrisPartialDeliveryDiscount %}{% else %}
+                {% set deliveries = deliveries|merge([delivery]) %}
+            {% endif %}
+        {% endfor %}
+
+        {% if config('AcrisPartialDeliveryCS.config').customerSeparateDelivery and (deliveries|length > 1 or page.cart.extensions.acrisPartialDelivery.singleDelivery) %}
+            {% sw_include '@Storefront/storefront/component/partial-delivery/separate-deliveries.html.twig' %}
+        {% endif %}
+
+        {% for key, delivery in deliveries %}
+            <div class="partial-delivery partial-delivery__box partial-delivery__box--light">
+                <div class="partial-delivery__title">
+                {% block page_checkout_confirm_table_item_delivery_heading %}
+                    {% if (config('AcrisPartialDeliveryCS.config').showHeadingIfOnlyOneDelivery and deliveries|length == 1) or deliveries|length > 1 %}
+                        <div class="partial-delivery__header">{{ "acrisPartialDelivery.deliveryHeading"|trans({'%orderKey%': key + 1, '%orderLength%': deliveries|length}) }}</div>
+                    {% endif %}
+                {% endblock %}
+
+                {% block page_checkout_confirm_table_item_delivery_information %}
+                    {% if delivery.extensions.acrisPartialDelivery and delivery.extensions.acrisPartialDelivery.translated.information %}
+                        <div class="partial-delivery__text">{{ delivery.extensions.acrisPartialDelivery.translated.information|raw }}</div>
+                    {% endif %}
+                {% endblock %}
+                </div>
+
+                {% for lineItem in delivery.positions.getLineItems() %}
+                    {% set lineItemsDisplayed = lineItemsDisplayed|merge([lineItem.id]) %}
+                    {% block page_checkout_confirm_table_delivery_item %}
+                        {% block page_checkout_delivery_item %}
+                            {% sw_include '@Storefront/storefront/page/checkout/confirm/confirm-item.html.twig' %}
+                        {% endblock %}
+                    {% endblock %}
+                {% endfor %}
+            </div>
+
+            {% block acris_partial_delivery_shipping_method_index %}
+                {% sw_include '@Storefront/storefront/component/partial-delivery/delivery-shipping-method.html.twig' with {
+                    'redirectPath': 'frontend.checkout.confirm.page'
+                } %}
+            {% endblock %}
+
+        {% endfor %}
+
+        {% if page.cart.lineItems.count() != lineItemsDisplayed|length %}
+            <div class="partial-delivery partial-delivery--confirm">
+                <div class="partial-delivery__title">
+                    <div class="partial-delivery__header">{{ "acrisPartialDelivery.otherLineItems"|trans }}</div>
+                <div>
+
+                {% sw_include '@Storefront/storefront/page/checkout/confirm/confirm-product-header.html.twig' %}
+
+                {% for lineItem in page.cart.lineItems %}
+                    {% if lineItem.id not in lineItemsDisplayed %}
+                        {% block page_checkout_confirm_table_item %}
+                            {{ parent() }}
+                        {% endblock %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endblock %}
+
+    {{ block("page_checkout_confirm_hidden_line_items_information") }}
+
+    {{ block("page_checkout_confirm_shipping") }}
+{% endblock %}
+
+{% block page_checkout_aside_actions %}
+    <div class="checkout-aside-action">
+        <form id="confirmOrderForm"
+              action="{{ path('frontend.checkout.finish.order') }}"
+              data-form-csrf-handler="true"
+              data-form-preserver="true"
+              data-form-submit-loader="true"
+              method="post">
+
+            {{ block("page_checkout_aside_actions_csrf") }}
+
+            {% block page_checkout_confirm_tos_custom %}
+                <div class="confirm-tos mb-4">
+                    {% block page_checkout_confirm_tos_header %}{% endblock %}
+
+                    {% block page_checkout_confirm_revocation_notice %}
+                        {% if config('confirm.revocationNotice') %}
+                            <div class="revocation-notice">
+                                {{ block("page_checkout_confirm_revocation_notice_link") }}
+                            </div>
+                        {% endif %}
+                    {% endblock %}
+
+                    {{ block("page_checkout_confirm_tos_control") }}
+                </div>
+            {% endblock %}
+
+            {{ block("page_checkout_confirm_form_submit") }}
+        </form>
+    </div>
+{% endblock %}
+
+{% block base_footer %}
+    {% sw_include '@Storefront/storefront/layout/footer/footer.html.twig' %}
+{% endblock %}

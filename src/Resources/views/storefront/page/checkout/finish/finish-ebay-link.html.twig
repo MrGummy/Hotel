@@ -1,0 +1,29 @@
+<div class="ebay">
+    <div class="ebay__spot-details">{{ "mm-theme.order.ebayLinkTitle"|trans({'%orderNumber%': page.order.orderNumber})|sw_sanitize }}</div>
+    <div class="ebay__description">{{ "mm-theme.order.ebayLinkDescription"|trans|sw_sanitize }}</div>
+
+
+    {% set countryISO = context.customer.activeBillingAddress.country.iso %}
+    {% set ebayLink = page.order.customFields.ebayLink|replace({'ebay.de': 'ebay.com'}) %}
+
+    {% set renameArray = {
+        AT: 'ebay.at',
+        DE: 'ebay.de',
+        FR: 'ebay.fr',
+        IT: 'ebay.it',
+        GB: 'ebay.co.uk',
+        ES: 'ebay.es',
+        BE: 'ebay.be',
+        CA: 'ebay.ca',
+        CH: 'ebay.ch',
+        IE: 'ebay.ie',
+     } %}
+
+    {% if countryISO in renameArray|keys %}
+        {% set ebayLink = ebayLink|replace({'ebay.com': renameArray[countryISO]}) %}
+    {% endif %}
+
+    <a href="{{ ebayLink }}" target="_blank" class="btn btn-primary ebay__btn pulseAnim px-4">
+        {{ "mm-theme.order.ebayLinkText"|trans|sw_sanitize }}
+    </a>
+</div>

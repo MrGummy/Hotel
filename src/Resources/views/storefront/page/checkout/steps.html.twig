@@ -1,0 +1,23 @@
+
+
+<div class="checkout-steps">
+  <div class="checkout-step {% if step == 1 %} checkout-step--current{% endif %}">
+    <div class="step-number">1</div>
+    <div class="step-text">{{ "mm-theme.checkout.step1"|trans|sw_sanitize }}</div>
+  </div>
+
+  <div class="checkout-step {% if step == 2 %} checkout-step--current{% endif %}">
+    <div class="step-number">2</div>
+    <div class="step-text">{{ "mm-theme.checkout.step2"|trans|sw_sanitize }}</div>
+  </div>
+
+  <div class="checkout-step {% if step == 3 %} checkout-step--current{% endif %}">
+    <div class="step-number">3</div>
+    <div class="step-text">{{ "mm-theme.checkout.step3"|trans|sw_sanitize }}</div>
+  </div>
+
+  <div class="checkout-step {% if step == 4 %} checkout-step--current{% endif %}">
+    <div class="step-number">4</div>
+    <div class="step-text">{{ "mm-theme.checkout.step4"|trans|sw_sanitize }}</div>
+  </div>
+</div>
